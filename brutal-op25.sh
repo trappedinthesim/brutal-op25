@@ -2,7 +2,7 @@
 # Linux/WSL host launcher. The separate installer prepares host prerequisites.
 set -euo pipefail
 task_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.7}
+task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.8}
 task_original_args=("$@")
 task_device=''
 task_no_usb=false
@@ -85,7 +85,7 @@ if ! "$task_no_usb"; then
         case "$task_selected_id" in
             1df7:3060)
                 if [[ "$task_image" == "$BRUTAL_LOCAL_IMAGE" ]]; then
-                    task_addon=brutal-op25-sdrplay:0.3.0-dev.7-local
+                    task_addon=brutal-op25-sdrplay:0.3.0-dev.8-local
                     if "$task_build" || ! brutal_sdrplay_addon_current "$task_addon" || \
                         ! docker run --rm --network none --read-only --cap-drop ALL \
                             --tmpfs /tmp --tmpfs /home/op25:uid=1000,gid=1000 \
@@ -127,7 +127,11 @@ done
 printf '%s\n' 'BRUTAL OP25 - Built on boatbod/op25' 'Using separate data volume: brutal-op25-data'
 task_secret_args=()
 task_mode_args=()
-if "$task_no_usb" && [[ ${BRUTAL_WSL_HANDOFF:-} != 1 ]]; then task_mode_args=(--env BRUTAL_SETUP_ONLY=1); fi
+if [[ ${TERM:-} =~ ^[a-zA-Z0-9._+-]{1,64}$ ]]; then task_mode_args+=(--env "TERM=$TERM"); fi
+if [[ ${KITTY_WINDOW_ID:-} =~ ^[0-9]{1,12}$ ]]; then task_mode_args+=(--env "KITTY_WINDOW_ID=$KITTY_WINDOW_ID"); fi
+if [[ ${NO_COLOR+x} ]]; then task_mode_args+=(--env NO_COLOR=1); fi
+if [[ ${BRUTAL_ASCII:-} == 1 ]]; then task_mode_args+=(--env BRUTAL_ASCII=1); fi
+if "$task_no_usb" && [[ ${BRUTAL_WSL_HANDOFF:-} != 1 ]]; then task_mode_args+=(--env BRUTAL_SETUP_ONLY=1); fi
 if [[ ${BRUTAL_WSL_HANDOFF:-} == 1 ]]; then
     [[ ${BRUTAL_HANDOFF_NONCE:-} =~ ^[a-f0-9]{32}$ ]] || { printf '%s\n' 'Invalid WSL handoff nonce.' >&2; exit 2; }
     task_mode_args+=(--env BRUTAL_WINDOWS_LAUNCHER=1 --env "BRUTAL_HANDOFF_NONCE=$BRUTAL_HANDOFF_NONCE")

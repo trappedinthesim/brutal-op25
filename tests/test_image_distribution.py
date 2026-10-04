@@ -8,8 +8,8 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE = 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.7'
-LOCAL = 'brutal-op25:0.3.0-dev.7'
+RELEASE = 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.8'
+LOCAL = 'brutal-op25:0.3.0-dev.8'
 
 
 class ImageReleaseTests(unittest.TestCase):
@@ -17,7 +17,7 @@ class ImageReleaseTests(unittest.TestCase):
         self.assertEqual((ROOT / 'build/image-release.txt').read_text().strip(), RELEASE)
         self.assertIn(f'BRUTAL_LOCAL_IMAGE={LOCAL}', (ROOT / 'install/image-bootstrap.sh').read_text())
         dockerfile = (ROOT / 'build/Dockerfile').read_text()
-        self.assertIn('org.opencontainers.image.version="0.3.0-dev.7"', dockerfile)
+        self.assertIn('org.opencontainers.image.version="0.3.0-dev.8"', dockerfile)
         self.assertIn('ARG SOURCE_REVISION=unknown', dockerfile)
         self.assertIn('ARG RR_EMBED_REVISION=local', dockerfile)
 
@@ -52,7 +52,7 @@ class LinuxPullTests(unittest.TestCase):
                             'printf "%s\\n" "$*" >> "$BRUTAL_TEST_LOG"\n'
                             'case "$1 $2" in\n'
                             '  "image inspect")\n'
-                            '    if [ "$3" = "brutal-op25:0.3.0-dev.7" ]; then\n'
+                            '    if [ "$3" = "brutal-op25:0.3.0-dev.8" ]; then\n'
                             '      [ "$BRUTAL_TEST_LOCAL" = 0 ] || exit 1\n'
                             '      [ "$4" = "--format" ] && printf "%s\\n" old-id\n'
                             '    else\n'
@@ -125,7 +125,7 @@ class LinuxPullTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             mock = Path(directory) / 'docker'
             mock.write_text('#!/bin/sh\n'
-                            'if [ "$3" = "brutal-op25:0.3.0-dev.7" ]; then echo base-id; '
+                            'if [ "$3" = "brutal-op25:0.3.0-dev.8" ]; then echo base-id; '
                             'else echo "$BRUTAL_TEST_ADDON_BASE"; fi\n')
             mock.chmod(0o755)
             script = '. ./install/image-bootstrap.sh; brutal_sdrplay_addon_current addon'

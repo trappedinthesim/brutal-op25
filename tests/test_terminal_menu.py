@@ -2,7 +2,6 @@ import os
 import sys
 import unittest
 from terminal_menu import MenuState, clean, read_key, menu_layout
-from terminal_art import DISH
 from unittest.mock import patch
 from brutal_cli import choose
 
@@ -38,18 +37,18 @@ class MenuTests(unittest.TestCase):
         self.assertNotIn('\033', clean('Name\033[2J'))
         self.assertNotIn('\n', clean('Name\nNext'))
 
-    def test_dish_stays_above_scrolling_choices(self):
+    def test_compact_brand_stays_above_scrolling_choices(self):
         state = MenuState(list(range(50)), str)
         with patch.dict(os.environ, {'TERM': 'xterm', 'BRUTAL_ASCII': '0'}), \
                 patch('terminal_art.sys.stdout') as output:
             output.encoding = 'utf-8'
             lines, rows = menu_layout(state, 'Country', 80, 24)
-            self.assertEqual(lines[:11], DISH.splitlines())
+            self.assertEqual(lines[0], 'BRUTAL OP25 // TERMINAL SETUP')
             self.assertIn('Built on boatbod/op25', lines)
             self.assertIn('> 0', lines)
             state.move(rows)
             moved, _ = menu_layout(state, 'Country', 80, 24)
-            self.assertEqual(lines[:13], moved[:13])
+            self.assertEqual(lines[:6], moved[:6])
             self.assertIn('> ' + str(rows), moved)
             self.assertLessEqual(len(moved), 23)
 

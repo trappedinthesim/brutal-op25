@@ -11,23 +11,13 @@ Live dashboard showing the receiver, call history, and signal plots:
 
 ![Brutal OP25 live dashboard with receiver telemetry, call history, and signal plots](docs/screenshots/dashboard-live.png)
 
-The compact satellite-dish banner in terminal setup:
+The compact tactical radio banner used by terminal setup:
 
-```text
-            .      *
-        .:-=+*###*.
-     .-+#@@@@@@@@@#.
-   .-+%@@@@@@@@@@@#'
-  /#@@@@@@@@@@#-'       o ))
- /#@@@@@@#-'-----------'
-/#@@@#-'
-`----'-----\
-           \\
-            ||
-           [__]
-BRUTAL OP25 // TERMINAL SETUP
-Built on boatbod/op25
-```
+![Brutal OP25 P25 handheld radio terminal banner in electric blue](src/terminal-banner.png)
+
+Terminals with Sixel or Kitty image support show the full-color banner. Other
+terminals use a compact radio illustration in the dashboard's `#4C90F0` blue.
+Set `BRUTAL_ASCII=1` to force the text version.
 
 ## What it adds on top of OP25
 - **Guided launch** (Windows and Linux/WSL): picks your radio, forwards USB into a locked-down container, and opens the dashboard.
@@ -106,11 +96,11 @@ An `image-v<version>` Git tag triggers `.github/workflows/image.yml`: it checks 
 
 Manual base-image build from this checkout (the guided launchers do this automatically when needed):
 
-    docker build -f build/Dockerfile -t brutal-op25:0.3.0-dev.7 .
+    docker build -f build/Dockerfile -t brutal-op25:0.3.0-dev.8 .
 
 Quick refresh of an already-built image after editing app files (keeps installed drivers):
 
-    docker build -f build/Dockerfile.refresh --build-arg INSTALLED_IMAGE=brutal-op25:0.3.0-dev.7 -t brutal-op25:0.3.0-dev.7 .
+    docker build -f build/Dockerfile.refresh --build-arg INSTALLED_IMAGE=brutal-op25:0.3.0-dev.8 -t brutal-op25:0.3.0-dev.8 .
 
 Tests run inside the image (the dashboard patches target the upstream UI shipped there). The test runner mounts only the named source/test folders and files, never `.setup-cache` or the whole checkout:
 

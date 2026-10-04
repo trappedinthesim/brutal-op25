@@ -67,14 +67,14 @@ def read_key(stream):
 def menu_layout(state, title, width, height, context=()):
     """Reserve a fixed branded header; only the choices page scrolls."""
     width, height = max(1, width - 1), max(2, height - 1)
-    header = banner(width=width, color=False).splitlines()
+    header = banner(width=width, color=False, compact=True).splitlines()
     controls = [clean(title), 'Arrows: scroll | Enter: select | Esc: back',
                 'Type to search | Backspace: edit | PgUp/PgDn: page',
                 'Search: ' + clean(state.query)]
     details = [line for message in context for line in textwrap.wrap(clean(message), width=width)]
     controls[1:1] = details
     if len(header) + len(controls) + 2 > height:
-        # Tiny windows cannot fit the full dish banner plus a usable selection.
+        # Tiny windows keep a usable selection ahead of decorative branding.
         header = ['BRUTAL OP25'] if height >= 7 else []
     if len(header) + len(controls) + 2 > height:
         controls = ([clean(title)] + details)[:max(0,height-len(header)-2)]
