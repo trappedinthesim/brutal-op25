@@ -19,6 +19,12 @@ try {
     $taskInstall = Join-Path $taskTest 'installed'
     New-TestArchive $taskFirst 0
     New-TestArchive $taskBad 7
+    $taskFailed = $false
+    try { & $taskBootstrap -ArchivePath $taskBad -InstallPath $taskInstall -NoLaunch }
+    catch { $taskFailed = $true }
+    if (-not $taskFailed -or (Test-Path -LiteralPath $taskInstall)) {
+        throw 'Failed first install blocked a clean retry.'
+    }
     & $taskBootstrap -ArchivePath $taskFirst -InstallPath $taskInstall -NoLaunch
     if (-not (Test-Path -LiteralPath (Join-Path $taskInstall 'Launch-Brutal-OP25.cmd'))) { throw 'Initial bootstrap failed.' }
     $taskFailed = $false

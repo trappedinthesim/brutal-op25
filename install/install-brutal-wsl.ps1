@@ -6,9 +6,18 @@ $taskDistribution = 'Ubuntu-24.04'
 $taskDashboardWatcher = $null
 . (Join-Path $PSScriptRoot 'user-launcher.ps1')
 
+function Invoke-BrutalWslProbe([string[]]$Arguments) {
+    # Windows PowerShell 5.1 can promote native stderr to a terminating error
+    # under the script's Stop policy. A missing/outdated WSL is a normal probe
+    # result; installation below must get a chance to repair it.
+    $ErrorActionPreference = 'Continue'
+    $taskOutput = (& wsl.exe @Arguments 2>$null | Out-String).Trim()
+    return [pscustomobject]@{ ExitCode=$LASTEXITCODE; Output=$taskOutput }
+}
+
 function Test-BrutalWslDistribution {
-    & wsl.exe -d $taskDistribution -u root -- /bin/true 2>$null | Out-Null
-    return ($LASTEXITCODE -eq 0)
+    $taskProbe = Invoke-BrutalWslProbe @('-d',$taskDistribution,'-u','root','--','/bin/true')
+    return ($taskProbe.ExitCode -eq 0)
 }
 
 function Install-BrutalWslDistribution {
@@ -24,8 +33,9 @@ function Install-BrutalWslDistribution {
 }
 
 function Assert-BrutalWslUsbSupport {
-    $taskKernel = (& wsl.exe -d $taskDistribution -u root -- uname -r 2>$null | Out-String).Trim()
-    if ($LASTEXITCODE -ne 0 -or $taskKernel -notmatch 'WSL2') {
+    $taskProbe = Invoke-BrutalWslProbe @('-d',$taskDistribution,'-u','root','--','uname','-r')
+    $taskKernel = $taskProbe.Output
+    if ($taskProbe.ExitCode -ne 0 -or $taskKernel -notmatch 'WSL2') {
         throw 'Ubuntu must run as WSL 2 for USB forwarding. Run wsl --set-version Ubuntu-24.04 2 in Windows, then relaunch.'
     }
     if ($taskKernel -notmatch '^(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?') {
@@ -74,8 +84,8 @@ try {
     }
     $taskDockerInstalled = $false
     if ($taskReady) {
-        & wsl.exe -d $taskDistribution -u root -- test -x /usr/bin/docker 2>$null | Out-Null
-        $taskDockerInstalled = ($LASTEXITCODE -eq 0)
+        $taskProbe = Invoke-BrutalWslProbe @('-d',$taskDistribution,'-u','root','--','test','-x','/usr/bin/docker')
+        $taskDockerInstalled = ($taskProbe.ExitCode -eq 0)
     }
     $taskInstallConsent = ''
     if (-not $taskReady -or -not $taskDockerInstalled) {
@@ -88,8 +98,9 @@ try {
     Assert-BrutalWslUsbSupport
     # Windows PowerShell 5.1 strips backslashes in nested native argv.
     $taskForwardRoot = $taskRoot.Replace('\','/')
-    $taskLinuxRoot = (& wsl.exe -d $taskDistribution -u root -- wslpath -u $taskForwardRoot 2>$null | Out-String).Trim()
-    if ($LASTEXITCODE -ne 0 -or -not $taskLinuxRoot.StartsWith('/')) {
+    $taskProbe = Invoke-BrutalWslProbe @('-d',$taskDistribution,'-u','root','--','wslpath','-u',$taskForwardRoot)
+    $taskLinuxRoot = $taskProbe.Output
+    if ($taskProbe.ExitCode -ne 0 -or -not $taskLinuxRoot.StartsWith('/')) {
         throw 'Ubuntu WSL could not access the Brutal OP25 folder. Keep it on a Windows drive visible to WSL, then relaunch.'
     }
     $taskLinuxLauncher = $taskLinuxRoot + '/install/brutal-wsl.sh'
@@ -113,8 +124,9 @@ try {
             if (-not (Test-Path -LiteralPath $taskHostBackup -PathType Leaf)) { throw 'Backup ZIP not found.' }
             $taskTransferAction = 'restore'
         }
-        $taskLinuxBackup = (& wsl.exe -d $taskDistribution -u root -- wslpath -u $taskHostBackup.Replace('\','/') 2>$null | Out-String).Trim()
-        if ($LASTEXITCODE -ne 0 -or -not $taskLinuxBackup.StartsWith('/')) {
+        $taskProbe = Invoke-BrutalWslProbe @('-d',$taskDistribution,'-u','root','--','wslpath','-u',$taskHostBackup.Replace('\','/'))
+        $taskLinuxBackup = $taskProbe.Output
+        if ($taskProbe.ExitCode -ne 0 -or -not $taskLinuxBackup.StartsWith('/')) {
             throw 'Ubuntu WSL cannot access that backup path.'
         }
         & wsl.exe @taskLinuxArgs --prepare-only

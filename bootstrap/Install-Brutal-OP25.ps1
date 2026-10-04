@@ -46,7 +46,7 @@ try {
     Move-Item -LiteralPath $taskPayload -Destination $InstallPath
     $taskMoved = $true
     & (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') --prepare-only
-    if ($LASTEXITCODE -ne 0) { throw 'New version could not prepare its Linux engine or image.' }
+    if ($LASTEXITCODE -ne 0) { throw 'Linux engine or image preparation stopped. See the specific setup message above.' }
     if ($Update) {
         & (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') --update-image
         if ($LASTEXITCODE -ne 0) { throw 'New release image could not be fetched; previous program files will be restored.' }
@@ -62,6 +62,10 @@ try {
         Write-Warning "Previous program files restored. Failed update retained at $taskFailed"
     } elseif ($taskBackup -and -not (Test-Path -LiteralPath $InstallPath) -and (Test-Path -LiteralPath $taskBackup)) {
         Move-Item -LiteralPath $taskBackup -Destination $InstallPath
+    } elseif (-not $Update -and $taskMoved -and (Test-Path -LiteralPath $InstallPath -PathType Container)) {
+        $taskFailed = Join-Path $taskParent ($taskName + '.incomplete.' + [guid]::NewGuid().ToString('N'))
+        Move-Item -LiteralPath $InstallPath -Destination $taskFailed
+        Write-Warning "Incomplete program files kept at $taskFailed. Rerun the same install command after addressing the setup message."
     }
     throw
 } finally {
