@@ -9,6 +9,18 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class TerminalTests(unittest.TestCase):
+    def test_confirmation_keeps_answer_prompt_short_and_separate(self):
+        with tempfile.TemporaryDirectory() as root:
+            messages, prompts = [], []
+            def answer(message):
+                prompts.append(message)
+                return 'y'
+            terminal = Terminal(root, answer, messages.append)
+            question = 'Start ' + ('A very long system and site name / ' * 5) + '?'
+            self.assertTrue(terminal.confirm(question))
+            self.assertEqual(messages, [question])
+            self.assertEqual(prompts, ['Confirm [y/N]: '])
+
     def test_saved_profile_label_distinguishes_equivalent_radio_copies(self):
         profile = {'id': 'f19b4fe362bb4ad6a5fb1c8bc29b1a19',
                    'system': {'name': 'AARRS', 'sites': [{'id': 1, 'name': 'Northeast Simulcast'}]},
@@ -30,8 +42,11 @@ class TerminalTests(unittest.TestCase):
 
     def test_listening_shows_receiver_web_link_and_audio_guidance(self):
         with tempfile.TemporaryDirectory() as root:
-            output = []
-            terminal = Terminal(root, lambda _: 'y', output.append)
+            output, prompts = [], []
+            def answer(message):
+                prompts.append(message)
+                return 'y'
+            terminal = Terminal(root, answer, output.append)
             profile = {'id': 'a'*32, 'name': 'Receiver',
                        'settings': {'hardware': {'profile': 'rtlv4'}}}
             terminal.readiness = Mock(return_value={'prerequisites_ready': True})
@@ -46,6 +61,9 @@ class TerminalTests(unittest.TestCase):
             self.assertIn('starts automatically when allowed', text)
             self.assertIn('ENABLE AUDIO', text)
             self.assertIn('not a webpage', text)
+            self.assertIn('Selected system: Receiver', text)
+            self.assertIn('Start listening now?', text)
+            self.assertEqual(prompts, ['Confirm [y/N]: '])
 
     def test_paged_search_and_cancel(self):
         answers = iter(['/Site 19', '19'])

@@ -141,7 +141,8 @@ class Terminal:
         return choose(title, items, label, self.prompt, self.output, default_index)
 
     def confirm(self, message):
-        return self.prompt(message + ' [y/N]: ').strip().lower() == 'y'
+        self.output(message)
+        return self.prompt('Confirm [y/N]: ').strip().lower() == 'y'
 
     def login(self):
         if self.rr is None:
@@ -319,7 +320,9 @@ class Terminal:
             if len(accessible) != 1:
                 raise ValueError('Pass only the selected RTL device into this container before launch; '
                                  'multiple accessible radios need explicit serial binding')
-        if not self.confirm('Start ' + profile_label(profile) + '? Ctrl+C stops the receiver'):
+        self.output('Selected system: ' + profile_label(profile))
+        self.output('Press Ctrl+C to stop the receiver.')
+        if not self.confirm('Start listening now?'):
             return
         prepare(self.root, profile['id'])
         self.output('Starting OP25. Actual control-channel lock and audio still need verification.')
