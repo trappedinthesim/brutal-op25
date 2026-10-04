@@ -128,13 +128,15 @@ hardware reception/audio remains unverified and requires the private,
 license-accepted SDRplay addon; do not publish proprietary vendor software
 without distribution permission. On first RSPdx-R2 selection, the native
 Linux launcher downloads the official vendor package, verifies the pinned
-checksum, presents the full license, and builds the private addon only if
-the user types ACCEPT. The WSL launcher has the same terminal-gated flow. Vendor
+checksum, presents the full license with pager controls, and builds the private
+addon only if the user explicitly chooses Yes after leaving the license viewer.
+The user can review again or cancel without losing the saved profile. The WSL
+launcher has the same terminal-gated flow. Vendor
 updates that change the checksum must be verified before updating this pin.
 To build from an official SDRplay Linux 3.15.2 package obtained separately:
   bash install/build-sdrplay.sh /path/to/official-installer
 This verifies the pinned checksum, displays the complete license, requires
-typing ACCEPT, and builds brutal-op25-sdrplay:0.3.0-dev.6-local from an isolated
+an explicit Yes, and builds brutal-op25-sdrplay:0.3.0-dev.6-local from an isolated
 vendor context containing only that installer, not its parent directory.
 No license is accepted by automated tests. The user approved the SDRplay license
 and the private addon was built locally; its software factory check passed, but

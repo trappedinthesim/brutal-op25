@@ -16,7 +16,8 @@ class LinuxInstallerTests(unittest.TestCase):
     def test_scripts_parse(self):
         scripts = ('install-brutal-op25.sh', 'install/user-launcher.sh', 'brutal-op25.sh',
                    'install/brutal-wsl.sh',
-                   'install/prepare-sdrplay.sh', 'install/build-sdrplay.sh')
+                   'install/prepare-sdrplay.sh', 'install/build-sdrplay.sh',
+                   'install/sdrplay-license.sh')
         result = subprocess.run(['bash', '-n', *scripts], cwd=ROOT,
                                 capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -71,6 +72,74 @@ class LinuxInstallerTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn('checksum mismatch', result.stderr)
         self.assertNotIn('Review the SDRplay license', result.stdout)
+
+    def test_sdrplay_license_choice_is_explicit_and_retryable(self):
+        # A synthetic fixture tests the UI; no real vendor license is accepted here.
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = Path(directory) / 'fixture-license.txt'
+            fixture.write_text('TEST LICENSE TEXT ONLY\n')
+            command = ['bash', '-c',
+                       '. ./install/sdrplay-license.sh; brutal_request_sdrplay_license "$1"',
+                       'bash', str(fixture)]
+            accepted = subprocess.run(command, cwd=ROOT, input='mistake\n\nr\ny\n',
+                                      capture_output=True, text=True, timeout=10)
+            self.assertEqual(accepted.returncode, 0, accepted.stderr)
+            self.assertEqual(accepted.stdout.count('TEST LICENSE TEXT ONLY'), 2)
+            self.assertIn('Choose y to accept', accepted.stdout)
+            self.assertIn('License accepted.', accepted.stdout)
+            cancelled = subprocess.run(command, cwd=ROOT, input='n\n',
+                                       capture_output=True, text=True, timeout=10)
+            self.assertNotEqual(cancelled.returncode, 0)
+            self.assertIn('Your saved profile is unchanged', cancelled.stdout)
+            no_input = subprocess.run(command, cwd=ROOT, input='',
+                                      capture_output=True, text=True, timeout=10)
+            self.assertNotEqual(no_input.returncode, 0)
+            self.assertIn('No license decision was received', no_input.stderr)
+
+    @unittest.skipUnless(shutil.which('less'), 'Interactive license test needs less')
+    def test_sdrplay_pager_explains_how_to_return_to_setup(self):
+        import fcntl
+        import pty
+        import select
+        import struct
+        import termios
+        import time
+
+        with tempfile.TemporaryDirectory() as directory:
+            fixture = Path(directory) / 'fixture-license.txt'
+            fixture.write_text('TEST LICENSE TEXT ONLY\n' * 100)
+            master, slave = pty.openpty()
+            fcntl.ioctl(slave, termios.TIOCSWINSZ, struct.pack('HHHH', 30, 120, 0, 0))
+            command = ['bash', '-c',
+                       '. ./install/sdrplay-license.sh; brutal_request_sdrplay_license "$1"',
+                       'bash', str(fixture)]
+            process = subprocess.Popen(command, cwd=ROOT, stdin=slave, stdout=slave,
+                                       stderr=slave, env={**os.environ, 'TERM': 'xterm'})
+            os.close(slave)
+            seen = bytearray()
+
+            def wait_for(marker):
+                deadline = time.monotonic() + 8
+                while marker not in seen and time.monotonic() < deadline:
+                    if not select.select([master], [], [], 0.2)[0]:
+                        continue
+                    try:
+                        seen.extend(os.read(master, 4096))
+                    except OSError:
+                        break
+                self.assertIn(marker, seen, bytes(seen[-1000:]))
+
+            try:
+                wait_for(b'press q to return')
+                os.write(master, b'q')
+                wait_for(b'Accept SDRplay')
+                os.write(master, b'y\n')
+                self.assertEqual(process.wait(timeout=8), 0, bytes(seen[-1000:]))
+            finally:
+                if process.poll() is None:
+                    process.kill()
+                    process.wait(timeout=5)
+                os.close(master)
 
 
 class WindowsInstallerSourceTests(unittest.TestCase):

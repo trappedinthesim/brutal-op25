@@ -15,24 +15,8 @@ task_hash=$(sha256sum -- "$task_package")
 }
 docker image inspect "$task_base" >/dev/null
 task_base_id=$(docker image inspect "$task_base" --format '{{.Id}}')
-printf '%s\n' 'SDRplay requires its own license for the hardware API. Review it before building the private local addon.'
-if [[ -t 0 && -t 1 ]] && command -v less >/dev/null; then
-    less -- "$task_root/docs/SDRplay-EULA.txt"
-elif [[ -t 0 && -t 1 ]] && command -v more >/dev/null; then
-    more -- "$task_root/docs/SDRplay-EULA.txt"
-else
-    cat -- "$task_root/docs/SDRplay-EULA.txt"
-fi
-printf '\n%s\n' 'This addon is for SDRplay hardware and must not be published without distribution permission.'
-while true; do
-    read -r -p 'Type ACCEPT to install, or CANCEL to keep your saved profile: ' task_consent
-    if [[ $task_consent == ACCEPT ]]; then break; fi
-    if [[ $task_consent == CANCEL || $task_consent == cancel || $task_consent == q ]]; then
-        printf '%s\n' 'Cancelled. No image build or installation occurred.'
-        exit 1
-    fi
-    printf '%s\n' 'No decision was made. Please type ACCEPT or CANCEL; Enter alone will not restart setup.'
-done
+. "$task_root/install/sdrplay-license.sh"
+brutal_request_sdrplay_license "$task_root/docs/SDRplay-EULA.txt" || exit 1
 # Isolated vendor context: never send the installer parent directory to Docker.
 task_context=$(mktemp -d /tmp/brutal-op25.XXXXXXXX)
 trap 'rm -f -- "$task_context/SDRplay-API-Linux-official.download"; rmdir -- "$task_context"' EXIT
