@@ -1,8 +1,8 @@
 # Development-only app refresh. Keeps already-installed, user-approved drivers;
 # never downloads vendor software or accepts a license.
 # Keep this list identical to the application COPY in Dockerfile (a test enforces it).
-ARG INSTALLED_IMAGE=brutal-op25-sdrplay:0.3.0-dev.4-local
-ARG PATCHED_BASE_IMAGE=brutal-op25:0.3.0-dev.4
+ARG INSTALLED_IMAGE=brutal-op25-sdrplay:0.3.0-dev.5-local
+ARG PATCHED_BASE_IMAGE=brutal-op25:0.3.0-dev.5
 FROM ${PATCHED_BASE_IMAGE} AS patched-op25
 FROM ${INSTALLED_IMAGE}
 WORKDIR /opt/manager

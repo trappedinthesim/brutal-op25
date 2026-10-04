@@ -9,7 +9,7 @@ function New-TestArchive([string]$Target, [int]$ExitCode) {
     New-Item -ItemType Directory -Path (Join-Path $taskPayload 'build') -Force | Out-Null
     Set-Content -LiteralPath (Join-Path $taskPayload 'Launch-Brutal-OP25.cmd') -Value ("@echo off`r`nexit /b $ExitCode")
     Set-Content -LiteralPath (Join-Path $taskPayload 'install/install-brutal-wsl.ps1') -Value '# fixture'
-    Set-Content -LiteralPath (Join-Path $taskPayload 'build/image-release.txt') -Value 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.4'
+    Set-Content -LiteralPath (Join-Path $taskPayload 'build/image-release.txt') -Value 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.5'
     Compress-Archive -LiteralPath $taskPayload -DestinationPath $Target
 }
 try {

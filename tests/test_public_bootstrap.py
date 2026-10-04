@@ -9,7 +9,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE = b'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.4\n'
+RELEASE = b'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.5\n'
 
 
 def archive(path, prepare_status=0):
