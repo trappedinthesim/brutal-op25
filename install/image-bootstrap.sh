@@ -5,7 +5,7 @@ BRUTAL_LOCAL_IMAGE=brutal-op25:0.3.0-dev.4
 brutal_release_reference() {
     local task_release_image
     task_release_image=$(tr -d '\r\n' < "$1/build/image-release.txt")
-    [[ "$task_release_image" =~ ^ghcr\.io/trappedinthesim/brutal-op25:[a-zA-Z0-9._-]+$ ]] || {
+    [[ "$task_release_image" =~ ^ghcr\.io/trappedinthesim/brutal-op25-receiver:[a-zA-Z0-9._-]+$ ]] || {
         printf '%s\n' 'Invalid release-image reference. No image was pulled or built.' >&2
         return 1
     }
