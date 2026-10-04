@@ -54,7 +54,7 @@ On later runs, search the Windows Start menu for **Brutal OP25**, or on native L
 Windows PowerShell:
 
 ```powershell
-& (Join-Path $env:LOCALAPPDATA 'BrutalOP25\Launch-Brutal-OP25.cmd')
+& (Join-Path $env:USERPROFILE 'BrutalOP25\Launch-Brutal-OP25.cmd')
 ```
 
 Native Linux terminal:

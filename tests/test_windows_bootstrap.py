@@ -18,6 +18,9 @@ class WindowsBootstrapTests(unittest.TestCase):
         source = (ROOT / 'install/install-brutal-wsl.ps1').read_text()
         self.assertIn('Assert-BrutalHostPortsFree', source)
         self.assertIn('Windows port $taskPort is already in use', source)
+        self.assertIn("'test','-f',$taskLinuxLauncher", source)
+        bootstrap = (ROOT / 'bootstrap/Install-Brutal-OP25.ps1').read_text()
+        self.assertIn("Join-Path $env:USERPROFILE 'BrutalOP25'", bootstrap)
 
     @unittest.skipUnless(os.name == 'nt', 'Windows CMD integration')
     def test_check_is_read_only(self):

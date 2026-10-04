@@ -1,6 +1,6 @@
 param([switch]$Update, [switch]$NoLaunch, [string]$ArchivePath = '', [string]$InstallPath = '')
 $ErrorActionPreference = 'Stop'
-if (-not $InstallPath) { $InstallPath = Join-Path $env:LOCALAPPDATA 'BrutalOP25' }
+if (-not $InstallPath) { $InstallPath = Join-Path $env:USERPROFILE 'BrutalOP25' }
 $InstallPath = [IO.Path]::GetFullPath($InstallPath)
 $taskParent = Split-Path -Parent $InstallPath
 $taskName = Split-Path -Leaf $InstallPath

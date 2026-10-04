@@ -104,6 +104,10 @@ try {
         throw 'Ubuntu WSL could not access the Brutal OP25 folder. Keep it on a Windows drive visible to WSL, then relaunch.'
     }
     $taskLinuxLauncher = $taskLinuxRoot + '/install/brutal-wsl.sh'
+    $taskProbe = Invoke-BrutalWslProbe @('-d',$taskDistribution,'-u','root','--','test','-f',$taskLinuxLauncher)
+    if ($taskProbe.ExitCode -ne 0) {
+        throw 'Ubuntu WSL cannot see the Brutal OP25 program files. Install to a normal folder under your Windows user profile, then relaunch.'
+    }
     $taskLinuxArgs = @('-d',$taskDistribution,'-u','root','--','env')
     if ($taskInstallConsent) { $taskLinuxArgs += 'BRUTAL_DOCKER_INSTALL_ACCEPTED=1' }
     $taskLinuxArgs += @('bash',$taskLinuxLauncher)
