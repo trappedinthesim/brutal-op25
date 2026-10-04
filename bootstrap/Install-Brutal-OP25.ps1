@@ -1,4 +1,5 @@
-param([switch]$Update, [switch]$NoLaunch, [string]$ArchivePath = '', [string]$InstallPath = '')
+param([switch]$Update, [switch]$NoLaunch, [string]$ArchivePath = '', [string]$InstallPath = '',
+      [string]$DesktopDirectory = '', [string]$ProgramsDirectory = '')
 $ErrorActionPreference = 'Stop'
 if (-not $InstallPath) { $InstallPath = Join-Path $env:USERPROFILE 'BrutalOP25' }
 $InstallPath = [IO.Path]::GetFullPath($InstallPath)
@@ -29,7 +30,9 @@ try {
     $taskEntries = @(Get-ChildItem -LiteralPath $taskExpanded -Directory)
     if ($taskEntries.Count -ne 1) { throw 'The downloaded source archive has an unexpected layout.' }
     $taskPayload = $taskEntries[0].FullName
-    foreach ($taskFile in @('Launch-Brutal-OP25.cmd','install/install-brutal-wsl.ps1','build/image-release.txt')) {
+    foreach ($taskFile in @('Launch-Brutal-OP25.cmd','install/install-brutal-wsl.ps1',
+                           'install/user-launcher.ps1','install/desktop-actions.ps1',
+                           'src/brutal-logo.png','build/image-release.txt')) {
         if (-not (Test-Path -LiteralPath (Join-Path $taskPayload $taskFile) -PathType Leaf)) {
             throw "The downloaded source archive is missing $taskFile."
         }
@@ -50,6 +53,22 @@ try {
     if ($Update) {
         & (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') --update-image
         if ($LASTEXITCODE -ne 0) { throw 'New release image could not be fetched; previous program files will be restored.' }
+    }
+    [IO.File]::WriteAllText((Join-Path $InstallPath '.brutal-op25-install'), $InstallPath)
+    . (Join-Path $InstallPath 'install/user-launcher.ps1')
+    try {
+        if (Install-BrutalStartMenuShortcut $InstallPath $ProgramsDirectory) {
+            Write-Host 'Start menu: Brutal OP25'
+        }
+    } catch {
+        Write-Warning ('Could not create the Start-menu shortcut: ' + $_.Exception.Message)
+    }
+    try {
+        if (Install-BrutalDesktopFolder $InstallPath $DesktopDirectory) {
+            Write-Host 'Desktop: OP25 folder with Launch, Update, and Uninstall shortcuts.'
+        }
+    } catch {
+        Write-Warning ('Could not create the Desktop OP25 shortcuts: ' + $_.Exception.Message)
     }
     Write-Host "Brutal OP25 ready at $InstallPath"
     if ($taskBackup) { Write-Host "Previous program files kept at $taskBackup" }

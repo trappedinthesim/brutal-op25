@@ -11,6 +11,12 @@ PowerShell. Do not use a bare docker run.
 On the first guided run, setup creates a per-user Start menu shortcut named
 Brutal OP25. Search Start for that name on later runs; the shortcut reopens
 the same guided launcher. --check does not create a shortcut.
+The public Windows installer also creates an OP25 Desktop folder with branded
+Launch, Update, and Uninstall shortcuts. Update fetches current program files
+and image after the receiver is closed. Uninstall requires typing UNINSTALL;
+it removes the program and managed shortcuts, but keeps saved systems, image,
+WSL, the USB bridge, and any prior-version program folders. User-owned files
+in the OP25 Desktop folder are never removed by the uninstaller.
 The CMD bootstrap uses Windows' built-in PowerShell for WSL installation and
 the USB bridge only. A process-local execution-policy bypass does not change
 machine policy; enterprise Group Policy can still block it. PowerShell 7 and
