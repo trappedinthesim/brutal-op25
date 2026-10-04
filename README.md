@@ -40,7 +40,7 @@ The installer downloads this repository and the prebuilt receiver image. Git, Do
 Windows PowerShell:
 
 ```powershell
-$installer = Join-Path $env:TEMP 'Install-Brutal-OP25.ps1'; Invoke-WebRequest 'https://raw.githubusercontent.com/trappedinthesim/brutal-op25/main/bootstrap/Install-Brutal-OP25.ps1' -OutFile $installer; powershell.exe -NoProfile -ExecutionPolicy Bypass -File $installer
+$installer = Join-Path $env:TEMP 'Install-Brutal-OP25.ps1'; curl.exe -fsSL 'https://raw.githubusercontent.com/trappedinthesim/brutal-op25/main/bootstrap/Install-Brutal-OP25.ps1' -o $installer; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $installer }
 ```
 
 Native Linux terminal:
