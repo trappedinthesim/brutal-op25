@@ -23,7 +23,7 @@ jobs:
           set -euo pipefail
           version="${GITHUB_REF_NAME#image-v}"
           [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-[a-z0-9.]+$ ]]
-          expected="ghcr.io/${GITHUB_REPOSITORY,,}:$version"
+          expected="ghcr.io/${GITHUB_REPOSITORY,,}-receiver:$version"
           actual="$(tr -d '\r\n' < build/image-release.txt)"
           [[ "$actual" == "$expected" ]] || { echo "Image reference must be $expected" >&2; exit 1; }
           [[ ! -e .setup-cache && ! -e saved-profiles ]] || { echo 'Private local data is present in the checkout.' >&2; exit 1; }
