@@ -1,0 +1,20 @@
+# Development-only app refresh. Keeps already-installed, user-approved drivers;
+# never downloads vendor software or accepts a license.
+# Keep this list identical to the application COPY in Dockerfile (a test enforces it).
+ARG INSTALLED_IMAGE=brutal-op25-sdrplay:0.3.0-dev.4-local
+ARG PATCHED_BASE_IMAGE=brutal-op25:0.3.0-dev.4
+FROM ${PATCHED_BASE_IMAGE} AS patched-op25
+FROM ${INSTALLED_IMAGE}
+WORKDIR /opt/manager
+# Keep the SDRplay install local, but use the hardened upstream OP25 audio library
+# from the freshly rebuilt base image. Both images use the same pinned upstream ABI.
+USER root
+COPY --from=patched-op25 /usr/local/lib/x86_64-linux-gnu/libgnuradio-op25_repeater.so.1.0.0.0 /usr/local/lib/x86_64-linux-gnu/libgnuradio-op25_repeater.so.1.0.0.0
+RUN apt-get update \
+    && apt-get install -y --only-upgrade libssl3 \
+    && apt-get purge -y python3-setuptools \
+    && rm -rf /var/lib/apt/lists/* \
+    && python -m pip install --no-cache-dir setuptools==84.0.0 \
+    && ldconfig && rm -f server.py index.html browse.js manage.html install.html
+COPY src/importer.py src/rr_key.py src/library.py src/profile_transfer.py src/test_connection.py src/container_receiver.py src/brutal_ui.py src/brutal_runtime.py src/brutal_supervisor.py src/brutal-ui.css src/brutal-systems.js src/brutal-tuning.js src/brutal-logo.png src/hardware_check.py src/receiver_readiness.py src/brutal_cli.py src/terminal_art.py src/terminal_menu.py src/rsp_receiver.py ./
+USER op25

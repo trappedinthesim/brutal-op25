@@ -1,0 +1,21 @@
+# Runtime data and private development settings are not release sources.
+.setup-cache/
+saved-profiles/
+__pycache__/
+*.pyc
+
+# Never commit credentials or personal material.
+.env
+*.key
+key*.txt
+connection-report-*.json
+live-bexar-validation.json
+live-library-validation.json
+live-bexar-format-check.zip
+*.pem
+id_*
+# Generated image candidates (the chosen logo is brutal-logo.png).
+logo-options/
+# Editor / OS noise.
+Thumbs.db
+.DS_Store

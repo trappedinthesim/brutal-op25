@@ -1,0 +1,11 @@
+* text=auto
+# The Linux launcher must keep LF line endings even when checked out on Windows.
+*.sh text eol=lf
+*.py text eol=lf
+Dockerfile* text eol=lf
+*.patch text eol=lf
+image-release.txt text eol=lf
+*.png binary
+*.jpg binary
+*.zip binary
+*.ico binary

@@ -1,0 +1,8220 @@
+{
+  "id": 7017,
+  "name": "Alamo Area Regional Radio System (AARRS)",
+  "type": "Project 25",
+  "sites": [
+    {
+      "id": 42272,
+      "name": "Seguin",
+      "rfss": 9,
+      "site_number": 9,
+      "nac": "0x13",
+      "tdma_cc": false,
+      "controls_hz": [
+        854862500,
+        855012500,
+        855212500,
+        857587500
+      ],
+      "warnings": []
+    },
+    {
+      "id": 38564,
+      "name": "Northwest Simulcast",
+      "rfss": 20,
+      "site_number": 20,
+      "nac": "0x1e",
+      "tdma_cc": false,
+      "controls_hz": [
+        851075000,
+        852150000,
+        852737500,
+        852862500,
+        853262500,
+        853487500,
+        854212500,
+        855737500,
+        856762500,
+        857287500,
+        858362500,
+        859287500,
+        859362500
+      ],
+      "warnings": []
+    },
+    {
+      "id": 37892,
+      "name": "Northeast Simulcast",
+      "rfss": 50,
+      "site_number": 50,
+      "nac": "0x3c",
+      "tdma_cc": false,
+      "controls_hz": [
+        852912500,
+        853237500,
+        853762500,
+        854237500,
+        854512500,
+        854662500,
+        855487500,
+        855712500,
+        855987500,
+        856212500,
+        857212500,
+        857662500
+      ],
+      "warnings": []
+    },
+    {
+      "id": 38566,
+      "name": "West Simulcast",
+      "rfss": 70,
+      "site_number": 70,
+      "nac": "0x50",
+      "tdma_cc": false,
+      "controls_hz": [
+        851250000,
+        851875000,
+        852700000,
+        852937500,
+        853137500,
+        853412500,
+        855062500,
+        855462500,
+        855637500,
+        856287500,
+        857362500,
+        856987500,
+        857437500,
+        857987500
+      ],
+      "warnings": []
+    },
+    {
+      "id": 38565,
+      "name": "Central Simulcast",
+      "rfss": 140,
+      "site_number": 140,
+      "nac": "0x96",
+      "tdma_cc": false,
+      "controls_hz": [
+        851625000,
+        852650000,
+        853162500,
+        853387500,
+        854012500,
+        854112500,
+        854637500,
+        855512500,
+        856362500,
+        856712500,
+        856862500,
+        858437500,
+        858712500,
+        858987500,
+        859212500,
+        859437500,
+        859937500,
+        859987500
+      ],
+      "warnings": []
+    },
+    {
+      "id": 38801,
+      "name": "Southeast Simulcast",
+      "rfss": 170,
+      "site_number": 170,
+      "nac": "0xb4",
+      "tdma_cc": false,
+      "controls_hz": [
+        852275000,
+        852787500,
+        852837500,
+        853187500,
+        853512500,
+        853837500,
+        853887500,
+        854912500,
+        855612500,
+        855937500,
+        858287500,
+        858762500
+      ],
+      "warnings": []
+    }
+  ],
+  "talkgroups": [
+    {
+      "id": 1087,
+      "label": "SAPD -------",
+      "description": "End of Line (Blank Channel)",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33793
+    },
+    {
+      "id": 38017,
+      "label": "Harris Radio 1",
+      "description": "Harris Radio Techs 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 38018,
+      "label": "Harris Radio 2",
+      "description": "Harris Radio Techs 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 38019,
+      "label": "Harris Radio 3",
+      "description": "Harris Radio Techs 3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 38020,
+      "label": "Harris Radio 4",
+      "description": "Harris Radio Techs 4",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 38021,
+      "label": "Harris Radio 5",
+      "description": "Harris Radio Techs 5",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 38256,
+      "label": "SAPD ANNCMNT",
+      "description": "Announcement",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38273,
+      "label": "SAPD NORTH A PTL",
+      "description": "A-01 North Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38274,
+      "label": "SAPD NORTH B OPN",
+      "description": "B-01 North Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38275,
+      "label": "SAPD WEST A PTL",
+      "description": "A-02 West Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38276,
+      "label": "SAPD WEST B OPN",
+      "description": "B-02 West Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38277,
+      "label": "SAPD SOUTH A PTL",
+      "description": "A-03 South Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38278,
+      "label": "SAPD SOUTH B OP",
+      "description": "B-03 South Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38279,
+      "label": "SAPD CENT A PTL",
+      "description": "A-04 Central Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38280,
+      "label": "SAPD CENT B OPN",
+      "description": "B-04 Central Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38281,
+      "label": "SAPD EAST A PTL",
+      "description": "A-05 East Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38282,
+      "label": "SAPD EAST B OPN",
+      "description": "B-05 East Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38283,
+      "label": "SAPD PRUE A PTL",
+      "description": "A-06 Prue Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38284,
+      "label": "SAPD PRUE B OPN",
+      "description": "B-06 Prue Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38285,
+      "label": "SAPD INFO-A PTL",
+      "description": "A-07 Information",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38286,
+      "label": "SAPD SCU-A PTL",
+      "description": "A-08 Street Crimes Unit Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 20500
+    },
+    {
+      "id": 38287,
+      "label": "SAPD RAU",
+      "description": "RAU",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 20500
+    },
+    {
+      "id": 38289,
+      "label": "SAPD TRAFF A",
+      "description": "A-09 Traffic Division Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38290,
+      "label": "SAPD TRAFF B",
+      "description": "B-09 Traffic Division Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38291,
+      "label": "SAPD BIKE-A",
+      "description": "A-10 Bicycle Unit Patrol",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38292,
+      "label": "SAPD TRAFF OPN",
+      "description": "Traffic Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38293,
+      "label": "SAPD TAC 1",
+      "description": "Tactical 1",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38294,
+      "label": "SAPD TAC 2",
+      "description": "Tactical 2",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38295,
+      "label": "SAPD METRO",
+      "description": "Metro",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38296,
+      "label": "SAPD SPEC 1",
+      "description": "Special Events 1",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38297,
+      "label": "SAPD SPEC 2",
+      "description": "Special Events 2",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38298,
+      "label": "SAPD SPEC 3",
+      "description": "Special Events 3",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38299,
+      "label": "SAPD RAU",
+      "description": "RAU",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38300,
+      "label": "SAPD TRAIN",
+      "description": "Training",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38301,
+      "label": "SAPD HC PRK",
+      "description": "HC PRK",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27169
+    },
+    {
+      "id": 38302,
+      "label": "SAPD FLET",
+      "description": "FLET",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27169
+    },
+    {
+      "id": 38303,
+      "label": "SAPD MHU-A",
+      "description": "A-15 Mental Health Unit A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27169
+    },
+    {
+      "id": 38305,
+      "label": "SAPD FUSION-A",
+      "description": "Ch. C-01 Fusion A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38306,
+      "label": "SAPD VICE-A",
+      "description": "Ch. C-02 Vice A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38307,
+      "label": "SAPD NARC-A",
+      "description": "Ch. C-03 Narcotics A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38308,
+      "label": "SAPD ROP",
+      "description": "ROP",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38309,
+      "label": "SAPD ROP1-A",
+      "description": "Ch. C-04 ROP1 A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38310,
+      "label": "SAPD ROP2-A",
+      "description": "Ch. C-05 ROP2 A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38311,
+      "label": "SAPD SWAT-A",
+      "description": "Ch. C-06 SWAT A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38312,
+      "label": "SAPD HOMI-A",
+      "description": "Ch. A-12 Homicide A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38313,
+      "label": "SAPD AUTO-A",
+      "description": "Ch. A-14 Auto Theft A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38314,
+      "label": "SAPD EXPROT-A",
+      "description": "Ch. C-07 Executive Protection A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38315,
+      "label": "SAPD OPEN",
+      "description": "Open",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38316,
+      "label": "SAPD HIDTA-A",
+      "description": "Ch. C-08 HIDTA A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38317,
+      "label": "SAPD ASSET-A",
+      "description": "Ch. C-09 ASSET A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38318,
+      "label": "SAPD PDST",
+      "description": "Property Crimes",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38319,
+      "label": "SAPD IRU-A",
+      "description": "Ch. A-13 Robbery A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 27170
+    },
+    {
+      "id": 38321,
+      "label": "SAPD 4-A TRN",
+      "description": "SAPD 4-A TRN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38322,
+      "label": "SAPD 4-B TRN",
+      "description": "SAPD 4-B TRN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38333,
+      "label": "SAPD 1-O TRAFF",
+      "description": "SAPD 1-O TRAFF",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38334,
+      "label": "SAPD 2-P BLANK",
+      "description": "SAPD 2-P BLANK",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38335,
+      "label": "SAPD 3-P BLANK",
+      "description": "SAPD 3-P BLANK",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38337,
+      "label": "SAPD 5-A PTL1",
+      "description": "SAPD 5-A PTL1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38338,
+      "label": "SAPD 5-B PTL2",
+      "description": "SAPD 5-B PTL2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38339,
+      "label": "SAPD 5-C PTL3",
+      "description": "SAPD 5-C PTL3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38340,
+      "label": "SAPD 5-D PTL4",
+      "description": "SAPD 5-D PTL4",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38341,
+      "label": "SAPD 5-E PTL5",
+      "description": "SAPD 5-E PTL5",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38342,
+      "label": "SAPD 5-F PTL6",
+      "description": "SAPD 5-F PTL6",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38343,
+      "label": "SAPD 5-G PTL7",
+      "description": "SAPD 5-G PTL7",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38344,
+      "label": "SAPD 5-H PTL8",
+      "description": "SAPD 5-H PTL8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38353,
+      "label": "SAPD 6-A USED",
+      "description": "SAPD 6-A USED",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38369,
+      "label": "SAPD E1",
+      "description": "SAPD E1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38370,
+      "label": "SAPD E2",
+      "description": "SAPD E2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38371,
+      "label": "SAPD E3",
+      "description": "SAPD E3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38372,
+      "label": "SAPD E4",
+      "description": "SAPD E4",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38373,
+      "label": "SAPD E5 ROP",
+      "description": "SAPD E5 ROP",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38374,
+      "label": "SAPD E6",
+      "description": "SAPD E6",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38375,
+      "label": "SAPD E7",
+      "description": "SAPD E7",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38376,
+      "label": "SAPD E8",
+      "description": "SAPD E8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38377,
+      "label": "SAPD E9",
+      "description": "SAPD E9",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38378,
+      "label": "SAPD E10",
+      "description": "SAPD E10",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38379,
+      "label": "SAPD E11 SCU",
+      "description": "SAPD E11 SCU",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38380,
+      "label": "SAPD E12",
+      "description": "SAPD E12",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38381,
+      "label": "SAPD E13",
+      "description": "SAPD E13",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38382,
+      "label": "SAPD E14",
+      "description": "SAPD E14",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38383,
+      "label": "SAPD E15",
+      "description": "SAPD E15",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33793
+    },
+    {
+      "id": 38385,
+      "label": "PR-DISP",
+      "description": "PR-DISP",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33794
+    },
+    {
+      "id": 38386,
+      "label": "PR-RIVER",
+      "description": "PR-RIVER",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33794
+    },
+    {
+      "id": 38387,
+      "label": "PR-DIST",
+      "description": "PR-DIST",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33794
+    },
+    {
+      "id": 38388,
+      "label": "PR-EVENTS",
+      "description": "PR-EVENTS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33794
+    },
+    {
+      "id": 38402,
+      "label": "SAPD-EVNT4",
+      "description": "C-15 Events 4",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33692
+    },
+    {
+      "id": 38403,
+      "label": "SAPD-EVNT1",
+      "description": "C-12 Events 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33692
+    },
+    {
+      "id": 38404,
+      "label": "SAPD-EVNT2",
+      "description": "C-13 Events 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33692
+    },
+    {
+      "id": 38405,
+      "label": "SAPD-EVNT3",
+      "description": "C-14 Events 3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33692
+    },
+    {
+      "id": 38406,
+      "label": "SAIPD-B OPEN",
+      "description": "SAPD B-11 Airport PD Open",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38407,
+      "label": "TAG-A",
+      "description": "Texas Anti-Gang A",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33793
+    },
+    {
+      "id": 38408,
+      "label": "SAPD SPARE-1",
+      "description": "B-07 Spare 1",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33793
+    },
+    {
+      "id": 38409,
+      "label": "SAPD-EVNT5",
+      "description": "D-12 Events 5",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33692
+    },
+    {
+      "id": 38410,
+      "label": "SAPD-EVNT6",
+      "description": "D-13 Events 6",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33692
+    },
+    {
+      "id": 38411,
+      "label": "SAPD-EVNT7",
+      "description": "D-14 Events 7",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33692
+    },
+    {
+      "id": 38412,
+      "label": "SAPD-EVNT8",
+      "description": "D-15 Events 8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33692
+    },
+    {
+      "id": 38413,
+      "label": "SAPD ODEU-A",
+      "description": "Off-Duty Employment Unit A",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33692
+    },
+    {
+      "id": 38422,
+      "label": "SAPD SPARE-3",
+      "description": "Spare 3 (in limited radios)",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33793
+    },
+    {
+      "id": 38427,
+      "label": "SAPD ODEU-B",
+      "description": "Off-Duty Employment Unit B",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33692
+    },
+    {
+      "id": 38529,
+      "label": "SAFD Alert",
+      "description": "Alerting (Locution)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38530,
+      "label": "SAFD MED BR",
+      "description": "Events - Medical Branch Command",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38531,
+      "label": "SAFD TG-38531",
+      "description": "TG-38531",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38532,
+      "label": "SAFD Tac 16",
+      "description": "Tactical 16",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38533,
+      "label": "SAFD Tac 17",
+      "description": "Tactical 17",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38534,
+      "label": "SAFD Tac 18",
+      "description": "Tactical 18",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38535,
+      "label": "SAFD Tac 19",
+      "description": "Tactical 19",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38536,
+      "label": "SAFD Tac 20",
+      "description": "Tactical 20",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38537,
+      "label": "SAFD Tac 21",
+      "description": "Tactical 21",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38538,
+      "label": "SAFD Tac 22",
+      "description": "Tactical 22",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38539,
+      "label": "SAFD Tac 23",
+      "description": "Tactical 23",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38540,
+      "label": "SAFD Tac 24",
+      "description": "Tactical 24",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38541,
+      "label": "SAFD Tac 25",
+      "description": "Tactical 25",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38542,
+      "label": "SAFD U/U OPN",
+      "description": "U/U OPN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38543,
+      "label": "SAFD CPS",
+      "description": "CPS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38545,
+      "label": "SAFD SHOPS",
+      "description": "Fleet Shop",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38548,
+      "label": "SAFD STN",
+      "description": "STN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38549,
+      "label": "SAFD PREV",
+      "description": "Prevention",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38550,
+      "label": "SAFD SAFETY",
+      "description": "Safety",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38552,
+      "label": "SAFD SPL OPS",
+      "description": "Special Ops BC-8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38553,
+      "label": "SAFD ARSON",
+      "description": "Arson Investigators",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 27171
+    },
+    {
+      "id": 38554,
+      "label": "SAFD RESCUE",
+      "description": "Rescue",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38555,
+      "label": "SAFD HAZMAT",
+      "description": "Hazardous Materials Response",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38556,
+      "label": "SAFD MSOU",
+      "description": "MSOU",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38557,
+      "label": "SAFD EOC",
+      "description": "EOC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38558,
+      "label": "SAFD SAWS",
+      "description": "SAWS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38559,
+      "label": "SAFD TECHSERV",
+      "description": "Technical Services",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38563,
+      "label": "SAFD MED CTRL",
+      "description": "Medical Control",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38564,
+      "label": "SAFD AIR",
+      "description": "Air Support",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38565,
+      "label": "EMS Med Ctrl",
+      "description": "SA EMS 3-F Medic Control",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38566,
+      "label": "SAFD MED DIR",
+      "description": "Medical Director",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38575,
+      "label": "SAFD Radio Fleet",
+      "description": "Extra Radio Fleet",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38577,
+      "label": "HOSP-BAMC",
+      "description": "Brooke Army Medical Center",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38578,
+      "label": "HOSP-BAPT DTW",
+      "description": "Downtown Baptist E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38579,
+      "label": "HOSP-METH MST",
+      "description": "Methodist Specialty Transplant E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38580,
+      "label": "HOSP-METH CHLD",
+      "description": "Methodist Children's E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38581,
+      "label": "HOSP-UNIVRSTY",
+      "description": "University Hospital E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38582,
+      "label": "HOSP-METH",
+      "description": "Main Methodist E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38583,
+      "label": "HOSP-METRO",
+      "description": "Metropolitan Methodist E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38584,
+      "label": "HOSP-BAPT NE",
+      "description": "Northeast Baptist E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38585,
+      "label": "HOSP NIX",
+      "description": "Nix Hospital E.R. (Closed)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38586,
+      "label": "HOSP-BAPT MTRL",
+      "description": "Mission Trail Baptist E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38587,
+      "label": "HOSP-BAPT SL",
+      "description": "St. Luke's Baptist E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38588,
+      "label": "HOSP-CHOSA WOH",
+      "description": "Christus Santa Rosa Westover Hills Pediatric E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38589,
+      "label": "HOSP-CHOSA DTW",
+      "description": "Christus Santa Rosa Downtown E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38590,
+      "label": "HOSP-CSR MC",
+      "description": "Christus Santa Rosa Medical Center \"NW\" E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38591,
+      "label": "HOSP-SW GENRL",
+      "description": "Texas Vista Medical Center E.R. (Closed)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38593,
+      "label": "HOSP-VETERANS",
+      "description": "Veteran's Affairs E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38594,
+      "label": "HOSP-METH NE",
+      "description": "Northeast Methodist E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38595,
+      "label": "HOSP-LACKLAND",
+      "description": "Wilford Hall E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38596,
+      "label": "HOSP-BAPT NC",
+      "description": "North Central Baptist E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38597,
+      "label": "HOSP-BAPT CHLD",
+      "description": "North Central Baptist Children's E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38598,
+      "label": "HOSP-METH TXSN",
+      "description": "Methodist Texsan E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38599,
+      "label": "HOSP-CSR ALON",
+      "description": "Christus Emergency Center Alon",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38600,
+      "label": "HOSP-STRAC",
+      "description": "STRAC (RMOC Net 11:00 AM on 3rd Tuesday of month)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38601,
+      "label": "HOSP-METH SO",
+      "description": "Methodist Stone Oak E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38602,
+      "label": "HOSP-CSR WOH",
+      "description": "Christus Santa Rosa Westover Hills E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38603,
+      "label": "HOSP-Alamo Hts",
+      "description": "Methodist Alamo Heights",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38604,
+      "label": "HOSP-CHOSA NW1",
+      "description": "Christus Santa Rosa Medical Center \"NW1\"",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38605,
+      "label": "HOSP-CHOSA NW2",
+      "description": "Christus Santa Rosa Medical Center \"NW2\"",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38606,
+      "label": "HOSP-MEDCOM",
+      "description": "MedCom - Emergency/Non Emergency Patient Transports, Diversion Monitoring",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38607,
+      "label": "HOSP-RMOC",
+      "description": "Regional Medical Operations Center (Mass Casualty Incidents)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38609,
+      "label": "SAFD Tac 01",
+      "description": "Tactical 01 REG",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38610,
+      "label": "SAFD Tac 02",
+      "description": "Tactical 02 STR1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38611,
+      "label": "SAFD Tac 03",
+      "description": "Tactical 03 STR1 FG",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38612,
+      "label": "SAFD Tac 04",
+      "description": "Tactical 04 STR2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38613,
+      "label": "SAFD Tac 05",
+      "description": "Tactical 05 STR2 FG",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38614,
+      "label": "SAFD Tac 06",
+      "description": "Tactical 06 Med",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38615,
+      "label": "SAFD Tac 07",
+      "description": "Tactical 07 Med",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38616,
+      "label": "SAFD Tac 08",
+      "description": "Tactical 08 HS-MVC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38617,
+      "label": "SAFD Tac 09",
+      "description": "Tactical 09 RO-MVC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38618,
+      "label": "SAFD Tac 10",
+      "description": "Tactical 10",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38619,
+      "label": "SAFD Tac 11",
+      "description": "Tactical 11",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38620,
+      "label": "SAFD Tac 12",
+      "description": "Tactical 12",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38621,
+      "label": "SAFD Tac 13",
+      "description": "Tactical 13",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38622,
+      "label": "SAFD Tac 14",
+      "description": "Tactical 14",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38623,
+      "label": "SAFD Tac 15",
+      "description": "Tactical 15",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38625,
+      "label": "SAFD D 1 Access",
+      "description": "District 1 Access D1/2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38626,
+      "label": "SAFD D 2 Access",
+      "description": "District 2 Access D1/2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38627,
+      "label": "SAFD D 3 Access",
+      "description": "District 3 Access D3/4/8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38628,
+      "label": "SAFD D 4 Access",
+      "description": "District 4 Access D3/4/8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38629,
+      "label": "SAFD D 5 Access",
+      "description": "District 5 Access D5/6/7",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38630,
+      "label": "SAFD D 6 Access",
+      "description": "District 6 Access D5/6/7",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38631,
+      "label": "SAFD D 7 Access",
+      "description": "District 7 Access D5/6/7",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38632,
+      "label": "SAFD D 8 Access",
+      "description": "District 8 Access D3/4/8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 18887
+    },
+    {
+      "id": 38641,
+      "label": "HOSP-BEH OVLK",
+      "description": "Baptist Neighborhood - Overlook E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38642,
+      "label": "HOSP-BEH SHAV",
+      "description": "Baptist Neighborhood - Shavano Park E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38645,
+      "label": "HOSP-BEH THOKS",
+      "description": "Baptist Neighborhood - Thousand Oaks E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38646,
+      "label": "HOSP-BEH HAUS",
+      "description": "Baptist Neighborhood - Hausman E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38648,
+      "label": "HOSP-BEH WOH",
+      "description": "Baptist Neighborhood - Westover Hills E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38649,
+      "label": "HOSP-BEH ZARZ",
+      "description": "Baptist Neighborhood - Zarzamora E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38650,
+      "label": "HOSP-CSR BNDR",
+      "description": "Christus Santa Rosa BNDR",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38651,
+      "label": "HOSP-BEH KELLY",
+      "description": "Baptist Neighborhood - Kelly",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38652,
+      "label": "HOSP-BEH Convers",
+      "description": "Baptist Neighborhood - Converse",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38653,
+      "label": "HOSP-BEH Rigby",
+      "description": "Baptist Neighborhood - Rigby",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38654,
+      "label": "HOSP-BEH NEW4",
+      "description": "Baptist Neighborhood - Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38655,
+      "label": "HOSP-BEH NEW5",
+      "description": "Baptist Neighborhood - Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38657,
+      "label": "SAFD TRNG-1",
+      "description": "Training 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38658,
+      "label": "SAFD TRNG-2",
+      "description": "Training 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38659,
+      "label": "SAFD TRNG-3",
+      "description": "Training 3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38660,
+      "label": "SAFD TRNG-4",
+      "description": "Training 4",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38661,
+      "label": "SAFD TRNG-5",
+      "description": "Training 5",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38662,
+      "label": "SAFD TRNG-6",
+      "description": "Training 6",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38663,
+      "label": "SAFD TRNG-7",
+      "description": "Training 7",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38664,
+      "label": "SAFD TRNG-8",
+      "description": "Training 8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38665,
+      "label": "SAFD TRNG-9",
+      "description": "Training 9",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38666,
+      "label": "SAFD TRNG-10",
+      "description": "Training 10",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38667,
+      "label": "SAFD TRNG-11",
+      "description": "Training 11",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38668,
+      "label": "SAFD TRNG-12",
+      "description": "Training 12",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38669,
+      "label": "SAFD TRNG-13",
+      "description": "Training 13",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38670,
+      "label": "SAFD TRNG-14",
+      "description": "Training 14",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38671,
+      "label": "SAFD TRNG-15",
+      "description": "Training 15",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33795
+    },
+    {
+      "id": 38673,
+      "label": "HOSP-CHOSA NW3",
+      "description": "Children's Hospital of SA - NW 3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38674,
+      "label": "HOSP-CHOSA NW4",
+      "description": "Children's Hospital of SA - NW4",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38675,
+      "label": "HOSP-CSR NEW1",
+      "description": "Christus Santa Rosa - Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38676,
+      "label": "HOSP-CSR NEW2",
+      "description": "Christus Santa Rosa - Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38677,
+      "label": "HOSP-CSR NEW3",
+      "description": "Christus Santa Rosa - Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38678,
+      "label": "HOSP-CSR NEW4",
+      "description": "Christus Santa Rosa - Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38680,
+      "label": "HOSP-METH 151",
+      "description": "HOSP-METH 151",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38681,
+      "label": "HOSP-De Zavala",
+      "description": "Methodist - De Zavala",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38682,
+      "label": "HOSP-METH LGTR",
+      "description": "Methodist Legacy Trails - E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38683,
+      "label": "HOSP-METH NACO",
+      "description": "Methodist Nacogdoches - E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38684,
+      "label": "HOSP-CSR WOH",
+      "description": "Christus Santa Rosa - Westover Hills E.R.",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38685,
+      "label": "HOSP-Westover BP",
+      "description": "Westover Hills Baptist ER",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38686,
+      "label": "HOSP-Westover",
+      "description": "Westover Hills Methodist ER",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38687,
+      "label": "HOSP-NEW 3",
+      "description": "New Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38689,
+      "label": "HOSP-NEW 4",
+      "description": "New Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38690,
+      "label": "HOSP-NEW 5",
+      "description": "New Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38691,
+      "label": "HOSP-NEW 6",
+      "description": "New Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38692,
+      "label": "HOSP-NEW 7",
+      "description": "New Expansion",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25810
+    },
+    {
+      "id": 38757,
+      "label": "SAFD-JBSA ACC",
+      "description": "Joint Base San Antonio - Gate Access",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27171
+    },
+    {
+      "id": 38784,
+      "label": "PW FLT 1",
+      "description": "Fleet 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38785,
+      "label": "BLDG MAINT",
+      "description": "Building Maintenance",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38786,
+      "label": "CAP PROJ",
+      "description": "Capital Projects",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38787,
+      "label": "PARKING",
+      "description": "Parking",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38788,
+      "label": "STREETS",
+      "description": "Streets",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38789,
+      "label": "ROW",
+      "description": "Right of Way",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38790,
+      "label": "ST WATER",
+      "description": "Water",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38791,
+      "label": "TRAFFIC",
+      "description": "Traffic",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38792,
+      "label": "SIGNALS",
+      "description": "Signals",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38793,
+      "label": "PW COORD",
+      "description": "Coordination",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38794,
+      "label": "PW SPEC1",
+      "description": "Special Ops 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38795,
+      "label": "PW SPEC2",
+      "description": "Special Ops 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38796,
+      "label": "PW SPEC3",
+      "description": "Special Ops 3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38797,
+      "label": "PW SPEC4",
+      "description": "Special Ops 4",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38798,
+      "label": "PW SPEC5",
+      "description": "Special Ops 5",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38799,
+      "label": "PARK ENF",
+      "description": "Parking Enforcement",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38816,
+      "label": "AP FLT",
+      "description": "Airport Fleetwide",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38817,
+      "label": "AP 1-A Fire",
+      "description": "Ch. 1-A Fire/Rescue Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38818,
+      "label": "AP 1-B Security",
+      "description": "Ch. 1-B Security Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38819,
+      "label": "AP 1-C Emerg",
+      "description": "Ch. 1-C Emergency",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38820,
+      "label": "AP 1-D Ops",
+      "description": "Ch. 1-D Operations",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38821,
+      "label": "AP 1-E Maint",
+      "description": "Ch. 1-E Maintenance",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38822,
+      "label": "AP 1-F Admin",
+      "description": "Ch. 1-F Administration",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38823,
+      "label": "AP 1-G Grnd Tran",
+      "description": "Ch. 1-G Ground Transportation and Parking",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38824,
+      "label": "AP I-H Inquiry",
+      "description": "Ch. 1-I Inquiry",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 25438
+    },
+    {
+      "id": 38825,
+      "label": "AP 1-I Alerting",
+      "description": "Ch. 1-I Alerting",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38826,
+      "label": "AP 1-J Parking",
+      "description": "Ch. 1-J SAT Parking",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38827,
+      "label": "AP 1-K Ops",
+      "description": "Ch. 1-K Operations",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38828,
+      "label": "AP 1-L Ops",
+      "description": "Ch. 1-L Operations",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38829,
+      "label": "SAIPD-A DISP",
+      "description": "SAPD A-11 Airport PD Dispatch",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 25438
+    },
+    {
+      "id": 38830,
+      "label": "AP 1-N",
+      "description": "Ch. 1-N",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38831,
+      "label": "AP 1-O",
+      "description": "Ch. 1-O",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38833,
+      "label": "AD A Events",
+      "description": "Ch. A Events",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31963
+    },
+    {
+      "id": 38834,
+      "label": "AD B Operations",
+      "description": "Ch. B Operations",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31963
+    },
+    {
+      "id": 38835,
+      "label": "AD C Maintenance",
+      "description": "Ch. C Maintenance",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31963
+    },
+    {
+      "id": 38836,
+      "label": "AD D Security",
+      "description": "Ch. D Security",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31963
+    },
+    {
+      "id": 38837,
+      "label": "AD E Club",
+      "description": "Ch. E Club",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31963
+    },
+    {
+      "id": 38838,
+      "label": "AD F Tran",
+      "description": "Ch. F Tran",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31963
+    },
+    {
+      "id": 38839,
+      "label": "AD G",
+      "description": "Ch. G",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31963
+    },
+    {
+      "id": 38848,
+      "label": "HBGCC FLT",
+      "description": "FLT",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 28741
+    },
+    {
+      "id": 38849,
+      "label": "HBGCC All",
+      "description": "All",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 28741
+    },
+    {
+      "id": 38850,
+      "label": "HBGCC Operations",
+      "description": "Operations",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 28741
+    },
+    {
+      "id": 38851,
+      "label": "HBGCC Maint",
+      "description": "Maintenance",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 28741
+    },
+    {
+      "id": 38852,
+      "label": "HBGCC Security",
+      "description": "Security",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 28741
+    },
+    {
+      "id": 38853,
+      "label": "HBGCC A/V",
+      "description": "Audio/Video",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 28741
+    },
+    {
+      "id": 38854,
+      "label": "HBGCC MUNP",
+      "description": "MUNP",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 28741
+    },
+    {
+      "id": 38855,
+      "label": "HBGCC 38852",
+      "description": "Used",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 28741
+    },
+    {
+      "id": 38865,
+      "label": "CI TRANS",
+      "description": "CI TRANS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38866,
+      "label": "LIBARY",
+      "description": "LIBARY *",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38867,
+      "label": "LIB SEC",
+      "description": "LIB SEC",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38869,
+      "label": "PARKING SEC",
+      "description": "PARKING SEC",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38899,
+      "label": "PK WK GRP",
+      "description": "PK WK GRP",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38900,
+      "label": "DWNTOWN (PW)",
+      "description": "DWNTOWN (PW)",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38902,
+      "label": "SAMHD EVENT",
+      "description": "Event Coordination",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 38048
+    },
+    {
+      "id": 38929,
+      "label": "3A HEAVY EQP",
+      "description": "3A HEAVY EQP",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38930,
+      "label": "SOL WAST",
+      "description": "SOL WAST",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30742
+    },
+    {
+      "id": 38944,
+      "label": "ACS-FLEET",
+      "description": "Fleet",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31792
+    },
+    {
+      "id": 38945,
+      "label": "ACS Ch 1",
+      "description": "Channel 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31792
+    },
+    {
+      "id": 38946,
+      "label": "ACS Ch 2",
+      "description": "Channel 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31792
+    },
+    {
+      "id": 38947,
+      "label": "ACS Ch 3",
+      "description": "Channel 3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31792
+    },
+    {
+      "id": 38948,
+      "label": "ACS Ch 4",
+      "description": "Channel 4",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31792
+    },
+    {
+      "id": 38952,
+      "label": "SA MUNCRT",
+      "description": "Municipal Court Security",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 38045
+    },
+    {
+      "id": 38961,
+      "label": "AP Crash",
+      "description": "Airport Crash Phone Patch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 38981,
+      "label": "SAPD AP Property",
+      "description": "Airport Police Property Room / ACES",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 25438
+    },
+    {
+      "id": 39022,
+      "label": "AD Training",
+      "description": "Training Channel - Drills",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 31963
+    },
+    {
+      "id": 39024,
+      "label": "CO AGENCY EMER",
+      "description": "Emergency",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39026,
+      "label": "BCSO JAIL",
+      "description": "Main (High Risk)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39027,
+      "label": "BCSO ANNEX",
+      "description": "Annex (Low Risk)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39028,
+      "label": "BCSO SERT",
+      "description": "Response Team",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39029,
+      "label": "BCSO DET TAC 1",
+      "description": "Tactical 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39030,
+      "label": "BCSO DET TAC 2",
+      "description": "Tactical 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39031,
+      "label": "BCSO DET ADMIN",
+      "description": "Administration",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39032,
+      "label": "BCSO DET OPEN",
+      "description": "Open Talk",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39034,
+      "label": "BCSO TRAINING 1",
+      "description": "Training 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39035,
+      "label": "BCSO TRAINING 2",
+      "description": "Training 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39036,
+      "label": "BCSO TRAINING 3",
+      "description": "Training 3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33684
+    },
+    {
+      "id": 39040,
+      "label": "BCSO Fltwide",
+      "description": "Fleetwide Code-3 (E-Tones)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39041,
+      "label": "BCSO E-Disp",
+      "description": "East Dispatch (A&B)",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39042,
+      "label": "BCSO E-Open",
+      "description": "East Open (A&B)",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39043,
+      "label": "BCSO W-Disp",
+      "description": "West Dispatch (C&D)",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39044,
+      "label": "BCSO W-Open",
+      "description": "West Open (C&D)",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39045,
+      "label": "BCSO Central",
+      "description": "Central Dispatch",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39046,
+      "label": "BCCO JUD SERV",
+      "description": "JUD SERV",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39047,
+      "label": "BCSO Info",
+      "description": "Info/Records",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39048,
+      "label": "BCSO Spec Ops",
+      "description": "Special Ops",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39049,
+      "label": "BCSO Tac 1",
+      "description": "Tactical 1 (A&B)",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39050,
+      "label": "BCSO Tac 2",
+      "description": "Tactical 2 (A&B)",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39051,
+      "label": "BCSO Tac 3",
+      "description": "Tactical 3 (C&D)",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39052,
+      "label": "BCSO Tac 4",
+      "description": "Tactical 4 (C&D)",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39053,
+      "label": "BCSO L Admin",
+      "description": "Administration",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39054,
+      "label": "BCSO Traffic",
+      "description": "Traffic Ops",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39055,
+      "label": "BCSO HOST",
+      "description": "HOST",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39056,
+      "label": "BCSO INVEST",
+      "description": "Investigators",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39057,
+      "label": "BCSO CID",
+      "description": "CID",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39058,
+      "label": "BCSO CID 1",
+      "description": "CID 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39059,
+      "label": "BCSO JSVC OPN",
+      "description": "JSVC OPN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39060,
+      "label": "BCSO CENTRAL OPE",
+      "description": "CENTRAL OPEN",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39061,
+      "label": "BCSO/COURT SEC 2",
+      "description": "COURT SEC 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39062,
+      "label": "BCSO DA INVEST",
+      "description": "DA INVEST",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39063,
+      "label": "DPS Alamo",
+      "description": "Alamo Primary Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 20083
+    },
+    {
+      "id": 39064,
+      "label": "Texas DPS Air",
+      "description": "Air",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 20083
+    },
+    {
+      "id": 39065,
+      "label": "DPS SA Bexar",
+      "description": "\"SA Bexar\" Secondary dispatch to VHF",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 20083
+    },
+    {
+      "id": 39066,
+      "label": "DPS Tactical",
+      "description": "Tactical",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 20083
+    },
+    {
+      "id": 39067,
+      "label": "DPS CID",
+      "description": "Investigators",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 20083
+    },
+    {
+      "id": 39068,
+      "label": "BCSO AIR K9",
+      "description": "AIR K9",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39069,
+      "label": "BCSO SO TAC 6",
+      "description": "SO TAC 6",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39070,
+      "label": "BCSO SO TAC 7",
+      "description": "SO TAC 7",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39071,
+      "label": "BCSO SO TAC 8",
+      "description": "SO TAC 8",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 19728
+    },
+    {
+      "id": 39073,
+      "label": "BCSO TNG",
+      "description": "TNG",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39074,
+      "label": "BCSO SPECIAL1",
+      "description": "SPECIAL1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39075,
+      "label": "BCSO SPECIAL2",
+      "description": "SPECIAL2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39076,
+      "label": "BCSO RADIO SERVI",
+      "description": "RADIO SERVICES",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39077,
+      "label": "BCSO D ADMIN",
+      "description": "D ADMIN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39078,
+      "label": "NATPARK",
+      "description": "NATPARK",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39079,
+      "label": "BCIS OPS",
+      "description": "BCIS OPS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39083,
+      "label": "EMS ADMIN",
+      "description": "EMS ADMIN",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39084,
+      "label": "REOC-1/BC 911",
+      "description": "REOC-1/BC 911",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39085,
+      "label": "REOC-2/BC 911",
+      "description": "REOC-2/BC 911",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39086,
+      "label": "SO ALERT",
+      "description": "SO ALERT",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19728
+    },
+    {
+      "id": 39087,
+      "label": "BC ROC EOL",
+      "description": "End of Line (Blank Channel) Group",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39089,
+      "label": "BCSO COURT SECUR",
+      "description": "BCSO COURT SECURITY",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39090,
+      "label": "BCSO TAC 5",
+      "description": "BCSO TAC 5",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39091,
+      "label": "BCSO ADC",
+      "description": "BCSO ADC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39092,
+      "label": "BCCO PCT-1",
+      "description": "BCCO PCT-1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39093,
+      "label": "BCCO PCT-2",
+      "description": "BCCO PCT-2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39094,
+      "label": "BCCO PCT-3",
+      "description": "BCCO PCT-3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39095,
+      "label": "BCCO PCT-4",
+      "description": "BCCO PCT-4",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39096,
+      "label": "CONST OPN",
+      "description": "CONST OPN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39097,
+      "label": "CONT SPCL",
+      "description": "CONT SPCL",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39098,
+      "label": "CONST ADMN",
+      "description": "CONST ADMN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39099,
+      "label": "BCJ DETENTION",
+      "description": "BCJ DETENTION",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39100,
+      "label": "PROBATION",
+      "description": "PROBATION",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39101,
+      "label": "BCJ TAC",
+      "description": "BCJ TAC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39102,
+      "label": "MISSION DET",
+      "description": "MISSION DET",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39103,
+      "label": "MISSION TAC",
+      "description": "MISSION TAC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33796
+    },
+    {
+      "id": 39104,
+      "label": "BCFM-FLEET",
+      "description": "Fire Marshal Fleet",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33797
+    },
+    {
+      "id": 39105,
+      "label": "BCFM Dispatch",
+      "description": "Fire Marshal Dispatch",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33797
+    },
+    {
+      "id": 39106,
+      "label": "BCFM Invest",
+      "description": "Fire Marshal Investigations",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33797
+    },
+    {
+      "id": 39107,
+      "label": "BCFM Inspect",
+      "description": "Fire Marshal Inspectors",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33797
+    },
+    {
+      "id": 39121,
+      "label": "BCSO SWAT",
+      "description": "SWAT",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 19728
+    },
+    {
+      "id": 39122,
+      "label": "BCSO SWAT 2",
+      "description": "SWAT 2",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 19728
+    },
+    {
+      "id": 39123,
+      "label": "BCSO HOSTAGE",
+      "description": "HOSTAGE NEGOTIATION",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 19728
+    },
+    {
+      "id": 39124,
+      "label": "BCSE INTEL",
+      "description": "INTELLIGENCE",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 19728
+    },
+    {
+      "id": 39125,
+      "label": "BCSO NARC",
+      "description": "NARCOTICS",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 19728
+    },
+    {
+      "id": 39126,
+      "label": "BCSO E6",
+      "description": "BCSO E6",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 19728
+    },
+    {
+      "id": 39127,
+      "label": "BCSO EXEC PROT",
+      "description": "Executive Protection",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 19728
+    },
+    {
+      "id": 39136,
+      "label": "BCHD FLEET",
+      "description": "BCHD FLEET",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39137,
+      "label": "BCHD DSP",
+      "description": "Ch. 01 Police Dispatch",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33798
+    },
+    {
+      "id": 39138,
+      "label": "BCHD PD",
+      "description": "Ch. 02 BCHD PD",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39139,
+      "label": "BCHD OPEN",
+      "description": "Ch. 03 BCHD OPEN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39140,
+      "label": "BCHD ADMIN",
+      "description": "Ch. 04 BCHD ADMIN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39141,
+      "label": "BCHD OPS",
+      "description": "Ch. 05 BCHD OPS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39142,
+      "label": "BCHD USED",
+      "description": "Ch. 06 BCHD USED",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39143,
+      "label": "BCHD OEM1",
+      "description": "Ch. 07 BCHD OEM1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39144,
+      "label": "BCHD OEM2",
+      "description": "Ch. 08 BCHD OEM2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39145,
+      "label": "BCHD DET",
+      "description": "Ch. 09 BCHD DET",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39146,
+      "label": "BCHD TAC1",
+      "description": "Ch. 10 BCHD TAC1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39147,
+      "label": "BCHD TAC2",
+      "description": "Ch. 11 BCHD TAC2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39148,
+      "label": "BCHD 12",
+      "description": "Ch. 12",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39149,
+      "label": "BCHD 13",
+      "description": "Ch. 13",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39150,
+      "label": "BCHD 14",
+      "description": "Ch. 14",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39151,
+      "label": "BCHD 15",
+      "description": "Ch. 15",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33798
+    },
+    {
+      "id": 39152,
+      "label": "BCTF Fleetwide",
+      "description": "Fleetwide",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39153,
+      "label": "BCTF Auto Theft",
+      "description": "Auto Theft",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39154,
+      "label": "BCTF Narcotics",
+      "description": "Narcotics",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39155,
+      "label": "BCTF Warrants",
+      "description": "Warrants",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39156,
+      "label": "BCTF Hostage",
+      "description": "Hostage",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39157,
+      "label": "BCTF SWAT",
+      "description": "SWAT Team",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39158,
+      "label": "BCTF Ops 1",
+      "description": "Operations 1",
+      "mode": "D",
+      "encryption": 2,
+      "category_id": 27176
+    },
+    {
+      "id": 39159,
+      "label": "BCTF Ops 2",
+      "description": "Operations 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39160,
+      "label": "BCTF Ops 3",
+      "description": "Operations 3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39161,
+      "label": "BCTF Ops 4",
+      "description": "Operations 4",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39162,
+      "label": "BCTF Ops 5",
+      "description": "Operations 5",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39163,
+      "label": "BCTF Ops 6",
+      "description": "Operations 6",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39164,
+      "label": "BCTF Ops 7",
+      "description": "Operations 7",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39165,
+      "label": "BCTF Ops 8",
+      "description": "Operations 8",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39166,
+      "label": "BCTF Ops 9",
+      "description": "Operations 9",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27176
+    },
+    {
+      "id": 39167,
+      "label": "BCTF Ops 10",
+      "description": "Operations 10",
+      "mode": "D",
+      "encryption": 1,
+      "category_id": 27176
+    },
+    {
+      "id": 39297,
+      "label": "BC PW ADM",
+      "description": "BC PW ADM",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39298,
+      "label": "BC PW OPS",
+      "description": "BC PW OPS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39299,
+      "label": "BC PW PARK OP",
+      "description": "BC PW PARK OP",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39300,
+      "label": "BC PW MAINT OPS",
+      "description": "BC PW MAINT OPS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39301,
+      "label": "BC PW SVC 1",
+      "description": "BC PW SVC 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39302,
+      "label": "BC PW TRAF",
+      "description": "BC PW TRAF",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39303,
+      "label": "BC PW RANGE",
+      "description": "BC PW RANGE",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39304,
+      "label": "BC PW EVS",
+      "description": "BC PW EVS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39313,
+      "label": "BCP CC",
+      "description": "BCP CC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39314,
+      "label": "BCP COM",
+      "description": "BCP COM",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39315,
+      "label": "BCP MAC",
+      "description": "BCP MAC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39316,
+      "label": "BCP MIS",
+      "description": "BCP MIS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39317,
+      "label": "BCP ORS",
+      "description": "BCP ORS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39318,
+      "label": "BCP PLET",
+      "description": "BCP PLET",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39319,
+      "label": "BCP RODR",
+      "description": "BCP RODR",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39320,
+      "label": "BCP RUSS",
+      "description": "BCP RUSS",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39321,
+      "label": "BCP UTIL",
+      "description": "BCP UTIL",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39322,
+      "label": "BCP GRND",
+      "description": "BCP GRND",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39329,
+      "label": "BCM ADC",
+      "description": "BCM ADC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39330,
+      "label": "BCM BLDG",
+      "description": "BCM BLDG",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39331,
+      "label": "BCM JUV MIS RD",
+      "description": "BCM JUV MIS RD",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39332,
+      "label": "BCM JUV SOU RD",
+      "description": "BCM JUV SOU RD",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39333,
+      "label": "BCM ELEC",
+      "description": "BCM ELEC",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39334,
+      "label": "BCM LIFE",
+      "description": "BCM LIFE",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39335,
+      "label": "BCM UHS MAN1",
+      "description": "BCM UHS MAN1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39336,
+      "label": "BCM UHS MAN2",
+      "description": "BCM UHS MAN2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39337,
+      "label": "BCM BRADY 1",
+      "description": "BCM BRADY 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39338,
+      "label": "BCM BRADY 2",
+      "description": "BCM BRADY 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39339,
+      "label": "BCM FREEMAN",
+      "description": "BCM FREEMAN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33776
+    },
+    {
+      "id": 39344,
+      "label": "BCFA Fleetwide",
+      "description": "Fleetwide",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39345,
+      "label": "BCFA Dispatch",
+      "description": "Dispatch (patched with 154.25 MHz)",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39346,
+      "label": "BCFA Access East",
+      "description": "Access East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39347,
+      "label": "BCFA Ops East",
+      "description": "Operations East (patched with 153.77 MHz)",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39348,
+      "label": "BCFA FG 1 East",
+      "description": "Fireground 1 East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39349,
+      "label": "BCFA FG 2 East",
+      "description": "Fireground 2 East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39350,
+      "label": "BCFA FG 3 East",
+      "description": "Fireground 3 East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39351,
+      "label": "BCFA FG 4 East",
+      "description": "Fireground 4 East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39352,
+      "label": "BCFA FG 5 East",
+      "description": "Fireground 5 East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39353,
+      "label": "BCFA FG 6 West",
+      "description": "Fireground 6 West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39354,
+      "label": "BCFA FG 7 West",
+      "description": "Fireground 7 West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39355,
+      "label": "BCFA FG 8 West",
+      "description": "Fireground 8 West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39356,
+      "label": "BCFA Air Medical",
+      "description": "Air Medical",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39357,
+      "label": "BCFA EMS 1 East",
+      "description": "EMS 1 Response East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39358,
+      "label": "BC Medical Dir",
+      "description": "Medical Director",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39359,
+      "label": "BCFA Admin",
+      "description": "Administrative",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39360,
+      "label": "Acadian EMS",
+      "description": "Acadian Ambulance Service",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39368,
+      "label": "BCFA FG 9 West",
+      "description": "Fireground 9 West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39369,
+      "label": "BCFA FG 10 West",
+      "description": "Fireground 10 West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39370,
+      "label": "BCFA FG 11",
+      "description": "Fireground 11",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39371,
+      "label": "BCFA FG 12",
+      "description": "Fireground 12",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39372,
+      "label": "BCFA FG 13",
+      "description": "Fireground 13",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39373,
+      "label": "BCFA FG 14",
+      "description": "Fireground 14",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39374,
+      "label": "BCFA FG 15",
+      "description": "Fireground 15",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39375,
+      "label": "BCFA FG 16",
+      "description": "Fireground 16",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39376,
+      "label": "BCFA FG 17",
+      "description": "Fireground 17",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39377,
+      "label": "BCFA FG 18",
+      "description": "Fireground 18",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39378,
+      "label": "BCFA FG 19",
+      "description": "Fireground 19",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39379,
+      "label": "BCFA FG 20",
+      "description": "Fireground 20",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39380,
+      "label": "BCFA FG 21",
+      "description": "Fireground 21",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39381,
+      "label": "BCFA FG 22",
+      "description": "Fireground 22",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39382,
+      "label": "BCFA FG 23",
+      "description": "Fireground 23",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39383,
+      "label": "BCFA FG 24",
+      "description": "Fireground 24",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39384,
+      "label": "BCFA EMS 2 East",
+      "description": "EMS 2 East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39385,
+      "label": "BCFA EMS 3 East",
+      "description": "EMS 3 East",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39386,
+      "label": "BCFA EMS 4 West",
+      "description": "EMS 4 Response West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39387,
+      "label": "BCFA EMS 5 West",
+      "description": "EMS 5 West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39388,
+      "label": "BCFA EMS 6 West",
+      "description": "EMS 6 West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39389,
+      "label": "BCFA Ops West",
+      "description": "Operations West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39390,
+      "label": "BCFA Access West",
+      "description": "Access West",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39391,
+      "label": "BCFA Secure",
+      "description": "FD Secure",
+      "mode": "D",
+      "encryption": 2,
+      "category_id": 21249
+    },
+    {
+      "id": 39392,
+      "label": "BCFA Training 1",
+      "description": "Training 1 E/W",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39393,
+      "label": "BCFA Training 2",
+      "description": "Training 2 E/W",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39394,
+      "label": "BCFA Training 3",
+      "description": "Training 3 E/W",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39395,
+      "label": "BCFA Training 4",
+      "description": "Training 4 E/W",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39396,
+      "label": "BCFA Training 5",
+      "description": "Training 5 E/W",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 21249
+    },
+    {
+      "id": 39409,
+      "label": "TxDOT HERO Ch 1",
+      "description": "Highway Emergency Response Operator Ch. 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30985
+    },
+    {
+      "id": 39410,
+      "label": "TxDOT HERO Ch 2",
+      "description": "Highway Emergency Response Operator Ch. 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30985
+    },
+    {
+      "id": 39411,
+      "label": "TxDOT HERO Ch 3",
+      "description": "Highway Emergency Response Operator Ch. 3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30985
+    },
+    {
+      "id": 39412,
+      "label": "TxDOT HERO Ch 4",
+      "description": "Highway Emergency Response Operator Ch. 4",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30985
+    },
+    {
+      "id": 39413,
+      "label": "TxDOT HERO Ch 5",
+      "description": "Highway Emergency Response Operator Ch. 5",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30985
+    },
+    {
+      "id": 39414,
+      "label": "TxDOT HERO Ch 6",
+      "description": "Highway Emergency Response Operator Ch. 6",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30985
+    },
+    {
+      "id": 39535,
+      "label": "RADIO MIA",
+      "description": "RADIO MIA",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 39553,
+      "label": "ACCD PD Disp",
+      "description": "Police Dispatch",
+      "mode": "D",
+      "encryption": 2,
+      "category_id": 33749
+    },
+    {
+      "id": 39554,
+      "label": "ACCD PD Open",
+      "description": "Police Open",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33749
+    },
+    {
+      "id": 39557,
+      "label": "Windcrest PD 1",
+      "description": "Police Ch. 1",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 27177
+    },
+    {
+      "id": 39558,
+      "label": "Windcrest PW",
+      "description": "Public Works",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27177
+    },
+    {
+      "id": 39561,
+      "label": "USMS LSFTF",
+      "description": "Lone Star Fugitive Task Force",
+      "mode": "D",
+      "encryption": 2,
+      "category_id": 33800
+    },
+    {
+      "id": 39564,
+      "label": "TAMUSA PD Disp",
+      "description": "Police Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33751
+    },
+    {
+      "id": 39565,
+      "label": "TAMUSA PD Sup",
+      "description": "Police Supervisor",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33751
+    },
+    {
+      "id": 39567,
+      "label": "SOUTHSD ISD PD",
+      "description": "Police Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33760
+    },
+    {
+      "id": 39571,
+      "label": "UTSA PD 3",
+      "description": "Police Ch. 3",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33712
+    },
+    {
+      "id": 39572,
+      "label": "UTSA PD 4",
+      "description": "Police Ch. 4",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33712
+    },
+    {
+      "id": 39573,
+      "label": "UTSA PD 1 Disp",
+      "description": "Police Ch. 1 Dispatch",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33712
+    },
+    {
+      "id": 39574,
+      "label": "UTSA PD 2",
+      "description": "Police Ch. 2",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33712
+    },
+    {
+      "id": 39576,
+      "label": "AlamoHts PD Disp",
+      "description": "Police Dispatch",
+      "mode": "D",
+      "encryption": 1,
+      "category_id": 27041
+    },
+    {
+      "id": 39577,
+      "label": "AlamoHts PD Tac",
+      "description": "Police Tactical",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27041
+    },
+    {
+      "id": 39578,
+      "label": "AlamoHts FD Disp",
+      "description": "Fire Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27041
+    },
+    {
+      "id": 39579,
+      "label": "AlamoHts FD FG",
+      "description": "Fire Ground",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27041
+    },
+    {
+      "id": 39580,
+      "label": "AlamoHts Ops",
+      "description": "Operations",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27041
+    },
+    {
+      "id": 39582,
+      "label": "Trinity PD Disp",
+      "description": "Police Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33752
+    },
+    {
+      "id": 39583,
+      "label": "Trinity PD Tac",
+      "description": "Police Tactical",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33752
+    },
+    {
+      "id": 39585,
+      "label": "CastleHls PD Dis",
+      "description": "Police Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 21506
+    },
+    {
+      "id": 39586,
+      "label": "CastleHls PDTac1",
+      "description": "Police Tac 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 21506
+    },
+    {
+      "id": 39587,
+      "label": "CastleHls FD Dis",
+      "description": "Fire Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 21506
+    },
+    {
+      "id": 39588,
+      "label": "CastleHls FD Tac",
+      "description": "Fire Tactical",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 21506
+    },
+    {
+      "id": 39592,
+      "label": "NEISD PD A",
+      "description": "Police Ch. A",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33756
+    },
+    {
+      "id": 39593,
+      "label": "NEISD PD B",
+      "description": "Police Ch. B",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33756
+    },
+    {
+      "id": 39594,
+      "label": "NEISD PD Info",
+      "description": "Information",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33756
+    },
+    {
+      "id": 39597,
+      "label": "SAISD PD A",
+      "description": "Police Ch. A",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33758
+    },
+    {
+      "id": 39598,
+      "label": "SAISD PD B",
+      "description": "Police Ch. B",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33758
+    },
+    {
+      "id": 39599,
+      "label": "SAISD PD C",
+      "description": "Police Ch. C",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33758
+    },
+    {
+      "id": 39601,
+      "label": "NISD PD Patrol",
+      "description": "Police Patrol Dispatch",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33757
+    },
+    {
+      "id": 39602,
+      "label": "NISD PD Campus",
+      "description": "Police Campus Dispatch",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33757
+    },
+    {
+      "id": 39603,
+      "label": "NISD PD Tac 1",
+      "description": "Police Tactical 1",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33757
+    },
+    {
+      "id": 39604,
+      "label": "NISD PD Tac 2",
+      "description": "Police Tactical 2",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33757
+    },
+    {
+      "id": 39605,
+      "label": "NISD PD Tac 3",
+      "description": "Police Tactical 3",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33757
+    },
+    {
+      "id": 39606,
+      "label": "HDISD PD Disp",
+      "description": "Police Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 31269
+    },
+    {
+      "id": 39607,
+      "label": "HDISD PD Tac 1",
+      "description": "Police Tactical 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 31269
+    },
+    {
+      "id": 39608,
+      "label": "HDISD PD Tac 2",
+      "description": "Police Tactical 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 31269
+    },
+    {
+      "id": 39609,
+      "label": "HDISD Emerg",
+      "description": "Emergency Ops",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 31269
+    },
+    {
+      "id": 39617,
+      "label": "Helotes PD Disp",
+      "description": "Police Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27178
+    },
+    {
+      "id": 39618,
+      "label": "Helotes PD Tac 1",
+      "description": "Police Tactical 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27178
+    },
+    {
+      "id": 39619,
+      "label": "Helotes FD Disp",
+      "description": "Fire Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27178
+    },
+    {
+      "id": 39620,
+      "label": "Helotes FD Tac 1",
+      "description": "Fire Tactical 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27178
+    },
+    {
+      "id": 39621,
+      "label": "Helotes Ops",
+      "description": "Operations",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27178
+    },
+    {
+      "id": 39622,
+      "label": "Helotes Loc Govt",
+      "description": "Local Government",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27178
+    },
+    {
+      "id": 39623,
+      "label": "Kirby PD Disp",
+      "description": "Police Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27179
+    },
+    {
+      "id": 39624,
+      "label": "Kirby Fire Disp",
+      "description": "Fire Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27179
+    },
+    {
+      "id": 39625,
+      "label": "Kirby Local Govt",
+      "description": "Local Government",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27179
+    },
+    {
+      "id": 39626,
+      "label": "Kirby Events",
+      "description": "Events",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27179
+    },
+    {
+      "id": 39633,
+      "label": "UTHSC Disp",
+      "description": "Security Dispatch",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33754
+    },
+    {
+      "id": 39634,
+      "label": "UTHSC LE",
+      "description": "Police",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33754
+    },
+    {
+      "id": 39635,
+      "label": "UTHSC Open",
+      "description": "Police Tactical",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33754
+    },
+    {
+      "id": 39636,
+      "label": "UTHSC Sup",
+      "description": "Supervisor",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33754
+    },
+    {
+      "id": 39638,
+      "label": "VIA Police Disp",
+      "description": "Police Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27180
+    },
+    {
+      "id": 39639,
+      "label": "VIA Police Tac 1",
+      "description": "Police Tactical 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27180
+    },
+    {
+      "id": 39640,
+      "label": "VIA Ops",
+      "description": "Operations",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27180
+    },
+    {
+      "id": 39641,
+      "label": "VIA Transit",
+      "description": "Transit",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27180
+    },
+    {
+      "id": 39642,
+      "label": "VIA Security",
+      "description": "Security",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27180
+    },
+    {
+      "id": 39643,
+      "label": "VIA Special",
+      "description": "Special",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27180
+    },
+    {
+      "id": 39649,
+      "label": "Balc Hts PD Disp",
+      "description": "Police Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27181
+    },
+    {
+      "id": 39650,
+      "label": "Balc Hts PD Tac",
+      "description": "Police Tactical",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27181
+    },
+    {
+      "id": 39651,
+      "label": "Balc Hts FD Disp",
+      "description": "Fire Dispatch",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27181
+    },
+    {
+      "id": 39652,
+      "label": "Balc Hts FD FG",
+      "description": "Fire Ground",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 27181
+    },
+    {
+      "id": 39655,
+      "label": "St Mary's PD Dis",
+      "description": "Police Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33750
+    },
+    {
+      "id": 39656,
+      "label": "St Mary's PD Tac",
+      "description": "Police Tactical",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33750
+    },
+    {
+      "id": 39660,
+      "label": "UIW PD Disp 1",
+      "description": "Police Dispatch 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33753
+    },
+    {
+      "id": 39661,
+      "label": "UIW PD Disp 2",
+      "description": "Police Dispatch 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33753
+    },
+    {
+      "id": 39662,
+      "label": "UIW PD Tac 1",
+      "description": "Police Tactical 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33753
+    },
+    {
+      "id": 39663,
+      "label": "UIW Emergency",
+      "description": "Emergency Ops",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33753
+    },
+    {
+      "id": 39665,
+      "label": "LV PD DISP",
+      "description": "Police Dispatch (not used)",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33801
+    },
+    {
+      "id": 39666,
+      "label": "LV PD TAC 2",
+      "description": "Police Tactical 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33801
+    },
+    {
+      "id": 39667,
+      "label": "LV FD DISP",
+      "description": "Fire Dispatch (not used)",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33801
+    },
+    {
+      "id": 39670,
+      "label": "Edgewd ISD PD 1",
+      "description": "Police Dispatch",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33755
+    },
+    {
+      "id": 39671,
+      "label": "Edgewd ISD PD 2",
+      "description": "Police Ch. 2",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33755
+    },
+    {
+      "id": 39672,
+      "label": "Edgewd ISD Buses",
+      "description": "Transportation (Buses)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33755
+    },
+    {
+      "id": 39678,
+      "label": "SSAN ISD",
+      "description": "School Ops",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 36764
+    },
+    {
+      "id": 39680,
+      "label": "SWISD PD 1",
+      "description": "Police Dispatch",
+      "mode": "T",
+      "encryption": 1,
+      "category_id": 33759
+    },
+    {
+      "id": 39681,
+      "label": "SWISD PD 2",
+      "description": "Police Ch. 2",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33759
+    },
+    {
+      "id": 39691,
+      "label": "OLLU Police",
+      "description": "Police",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34922
+    },
+    {
+      "id": 39695,
+      "label": "Somerset ISD",
+      "description": "Somerset ISD",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 37930
+    },
+    {
+      "id": 39701,
+      "label": "JISD JCARE ACAD",
+      "description": "JCARE Academy",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39702,
+      "label": "JISD EARLY COLL",
+      "description": "Early College Academy",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39703,
+      "label": "JISD JUDSON HS",
+      "description": "Judson High School",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39704,
+      "label": "JISD VET MEM HS",
+      "description": "Veterans Memorial High School",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39705,
+      "label": "JISD WAGNER HS",
+      "description": "Wagner High School",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39706,
+      "label": "JISD JUDSON MS",
+      "description": "Judson Middle School",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39707,
+      "label": "JISD MASTERS ELM",
+      "description": "Masters Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39708,
+      "label": "JISD KIRBY MS",
+      "description": "Kirby Middle School",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39709,
+      "label": "JISD METZGER MS",
+      "description": "Metzger Middle School",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39710,
+      "label": "JISD WDLK HL MS",
+      "description": "Woodlake Hills Middle School",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39711,
+      "label": "JISD CONV ELM",
+      "description": "Converse Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39712,
+      "label": "JISD COPP ELM",
+      "description": "Copperfield Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39713,
+      "label": "JISD CRVW ELM",
+      "description": "Crestview Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39714,
+      "label": "JISD SELM ELM",
+      "description": "Selma Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39715,
+      "label": "JISD CAND ELM",
+      "description": "Candlewood Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39716,
+      "label": "JISD ELOF ELM",
+      "description": "Elolf STEAM Academy Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39717,
+      "label": "JISD ESCD ELM",
+      "description": "Escondido Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39718,
+      "label": "JISD FRANZ ELM",
+      "description": "Franz Leadership Academy Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39719,
+      "label": "JISD HOPK ELM",
+      "description": "Hopkins Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39720,
+      "label": "JISD MAST ELEM",
+      "description": "James Masters Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39721,
+      "label": "JISD MLHA ELEM",
+      "description": "Mary Hartman Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39722,
+      "label": "JISD MLPT ELEM",
+      "description": "Miller's Point Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39723,
+      "label": "JISD OLYM ELEM",
+      "description": "Fine Arts Academy at Olympia Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39724,
+      "label": "JISD PASC EL",
+      "description": "Paschall Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39725,
+      "label": "JISD PARK VL ELM",
+      "description": "Park Village Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39726,
+      "label": "JISD ROMD ELEM",
+      "description": "Rolling Meadows Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39727,
+      "label": "JISD SALN ELM",
+      "description": "Salinas Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39728,
+      "label": "JISD SPMD ELM",
+      "description": "Spring Meadows Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39729,
+      "label": "JISD WDLK ELM",
+      "description": "Woodlake Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39730,
+      "label": "JISD WOAK ELM",
+      "description": "Wortham Oaks Elementary",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39731,
+      "label": "JISD ADM",
+      "description": "Administration",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39732,
+      "label": "JISD ATHL",
+      "description": "Athletics",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39733,
+      "label": "JISD Event",
+      "description": "Events",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39734,
+      "label": "JISD PD 2",
+      "description": "Police 2",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 34443
+    },
+    {
+      "id": 39735,
+      "label": "JISD PD 1",
+      "description": "Police Dispatch (M-F Days)",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 34443
+    },
+    {
+      "id": 39736,
+      "label": "JISD PD JRT",
+      "description": "Police JRT",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39737,
+      "label": "JISD MAINT",
+      "description": "Maintenance",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39738,
+      "label": "JISD SPED",
+      "description": "Special Education",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39739,
+      "label": "JISD TRP1",
+      "description": "Transportation 1 (School Buses)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39740,
+      "label": "JISD Transport 2",
+      "description": "Transportation 2 (School Buses)",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 34443
+    },
+    {
+      "id": 39808,
+      "label": "FLEET-HAIL",
+      "description": "Fleetwide Hailing",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39809,
+      "label": "PD CALL",
+      "description": "PD Calling",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39810,
+      "label": "FD CALL",
+      "description": "FD Calling",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39811,
+      "label": "SO CALL",
+      "description": "SO Calling",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39812,
+      "label": "PW CALL",
+      "description": "PW Calling",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39813,
+      "label": "900 CALL",
+      "description": "900 Calling",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39814,
+      "label": "BCFA DSP Hail",
+      "description": "BCFA Dispatch Hailing",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39815,
+      "label": "BC EMS Hail",
+      "description": "BC EMS Hailing",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39816,
+      "label": "VCALL10",
+      "description": "VCall10 Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39817,
+      "label": "VCALL1D",
+      "description": "VCall1D Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39818,
+      "label": "HAIL AP CALL",
+      "description": "AP Hailing",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39819,
+      "label": "COMMON",
+      "description": "Common",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39820,
+      "label": "IH37 LNK",
+      "description": "Interstate 37 Link",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39821,
+      "label": "VIA CALL",
+      "description": "VIA Metro Calling",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39822,
+      "label": "CPS CALL",
+      "description": "City Public Service Calling",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39823,
+      "label": "OA CALL",
+      "description": "OA Calling",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 27182
+    },
+    {
+      "id": 39824,
+      "label": "MUT AID FLEET4",
+      "description": "MUT AID FLEET4",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39825,
+      "label": "Mutual Aid 46",
+      "description": "Mutual Aid 46",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39826,
+      "label": "Mutual Aid 47",
+      "description": "Mutual Aid 47 - SAFD Outdoor Events Bike Man-A",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39827,
+      "label": "Mutual Aid 48",
+      "description": "Mutual Aid 48 - SAFD Outdoor Events Bike Man-B",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39828,
+      "label": "Mutual Aid 49",
+      "description": "Mutual Aid 49",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39829,
+      "label": "Mutual Aid 50",
+      "description": "Mutual Aid 50",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39830,
+      "label": "Mutual Aid 51",
+      "description": "Mutual Aid 51",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39831,
+      "label": "Mutual Aid 52",
+      "description": "Mutual Aid 52",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39832,
+      "label": "Mutual Aid 53",
+      "description": "Mutual Aid 53",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39833,
+      "label": "Mutual Aid 54",
+      "description": "Mutual Aid 54",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39834,
+      "label": "Mutual Aid 55",
+      "description": "Mutual Aid 55",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39835,
+      "label": "Mutual Aid 56",
+      "description": "Mutual Aid 56",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39836,
+      "label": "Mutual Aid 57",
+      "description": "Mutual Aid 57",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39837,
+      "label": "Mutual Aid 58",
+      "description": "Mutual Aid 58",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39838,
+      "label": "Mutual Aid 59",
+      "description": "Mutual Aid 59",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39839,
+      "label": "Mutual Aid 60",
+      "description": "Mutual Aid 60",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39841,
+      "label": "LC_SAC",
+      "description": "LCRA SAC",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30775
+    },
+    {
+      "id": 39842,
+      "label": "LC_SA_1",
+      "description": "LCRA San Antonio 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30775
+    },
+    {
+      "id": 39843,
+      "label": "LC_SA_2",
+      "description": "LCRA San Antonio 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30775
+    },
+    {
+      "id": 39844,
+      "label": "BEX_LAW",
+      "description": "Bexar County Law",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30775
+    },
+    {
+      "id": 39845,
+      "label": "BEX_FIRE",
+      "description": "Bexar County Fire",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30775
+    },
+    {
+      "id": 39846,
+      "label": "BEX_COMM",
+      "description": "Bexar County Comm",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30775
+    },
+    {
+      "id": 39847,
+      "label": "LCRA SA 6",
+      "description": "LCRA to SAUA 6",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30775
+    },
+    {
+      "id": 39857,
+      "label": "EDUC MA1",
+      "description": "EDUC MA1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39858,
+      "label": "EDUC MA2",
+      "description": "EDUC MA2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39859,
+      "label": "EDUC MA3",
+      "description": "EDUC MA3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39860,
+      "label": "EDUC MA4",
+      "description": "EDUC MA4",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39872,
+      "label": "MUT AID FLEET1",
+      "description": "MUT AID FLEET1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39873,
+      "label": "Mutual Aid 01",
+      "description": "Mutual Aid 01 - BCFA Assignments",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39874,
+      "label": "Mutual Aid 02",
+      "description": "Mutual Aid 02 - BCFA Brush/Grass",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39875,
+      "label": "Mutual Aid 03",
+      "description": "Mutual Aid 03",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39876,
+      "label": "Mutual Aid 04",
+      "description": "Mutual Aid 04 - BCFA Assignments",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39877,
+      "label": "Mutual Aid 05",
+      "description": "Mutual Aid 05 - BCFA DSP PC",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39878,
+      "label": "Mutual Aid 06",
+      "description": "Mutual Aid 06 - SAFD Brush/Grass 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39879,
+      "label": "Mutual Aid 07",
+      "description": "Mutual Aid 07 - SAFD Brush/Grass 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39880,
+      "label": "Mutual Aid 08",
+      "description": "Mutual Aid 08 - SAFD Brush/Grass 3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39881,
+      "label": "Mutual Aid 09",
+      "description": "Mutual Aid 09 - SAFD Outside Assist",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39882,
+      "label": "Mutual Aid 10",
+      "description": "Mutual Aid 10",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39883,
+      "label": "Mutual Aid 11",
+      "description": "Mutual Aid 11",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39884,
+      "label": "Mutual Aid 12",
+      "description": "Mutual Aid 12",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39885,
+      "label": "Mutual Aid 13",
+      "description": "Mutual Aid 13",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39886,
+      "label": "Mutual Aid 14",
+      "description": "Mutual Aid 14",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39887,
+      "label": "Mutual Aid 15",
+      "description": "Mutual Aid 15",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39888,
+      "label": "MUT AID FLEET2",
+      "description": "MUT AID FLEET2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39889,
+      "label": "Mutual Aid 16",
+      "description": "Mutual Aid 16",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39890,
+      "label": "Mutual Aid 17",
+      "description": "Mutual Aid 17",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39891,
+      "label": "Mutual Aid 18",
+      "description": "Mutual Aid 18",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39892,
+      "label": "Mutual Aid 19",
+      "description": "Mutual Aid 19",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39893,
+      "label": "Mutual Aid 20",
+      "description": "Mutual Aid 20",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39894,
+      "label": "Mutual Aid 21",
+      "description": "Mutual Aid 21",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39895,
+      "label": "Mutual Aid 22",
+      "description": "Mutual Aid 22",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39896,
+      "label": "Mutual Aid 23",
+      "description": "Mutual Aid 23",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39897,
+      "label": "Mutual Aid 24",
+      "description": "Mutual Aid 24",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39898,
+      "label": "Mutual Aid 25",
+      "description": "Mutual Aid 25",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39899,
+      "label": "Mutual Aid 26",
+      "description": "Mutual Aid 26",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39900,
+      "label": "Mutual Aid 27",
+      "description": "Mutual Aid 27",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39901,
+      "label": "Mutual Aid 28",
+      "description": "Mutual Aid 28",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39902,
+      "label": "Mutual Aid 29",
+      "description": "Mutual Aid 29",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39903,
+      "label": "Mutual Aid 30",
+      "description": "Mutual Aid 30",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39904,
+      "label": "MUT AID FLEET3",
+      "description": "MUT AID FLEET3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39905,
+      "label": "Mutual Aid 31",
+      "description": "Mutual Aid 31",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39906,
+      "label": "Mutual Aid 32",
+      "description": "Mutual Aid 32",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39907,
+      "label": "Mutual Aid 33",
+      "description": "Mutual Aid 33",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39908,
+      "label": "Mutual Aid 34",
+      "description": "Mutual Aid 34",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39909,
+      "label": "Mutual Aid 35",
+      "description": "Mutual Aid 35",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39910,
+      "label": "Mutual Aid 36",
+      "description": "Mutual Aid 36",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39911,
+      "label": "Mutual Aid 37",
+      "description": "Mutual Aid 37",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39912,
+      "label": "Mutual Aid 38",
+      "description": "Mutual Aid 38",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39913,
+      "label": "Mutual Aid 39",
+      "description": "Mutual Aid 39",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39914,
+      "label": "Mutual Aid 40",
+      "description": "Mutual Aid 40",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39915,
+      "label": "Mutual Aid 41",
+      "description": "Mutual Aid 41",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39916,
+      "label": "Mutual Aid 42",
+      "description": "Mutual Aid 42",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39917,
+      "label": "Mutual Aid 43",
+      "description": "Mutual Aid 43",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39918,
+      "label": "Mutual Aid 44",
+      "description": "Mutual Aid 44",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39919,
+      "label": "Mutual Aid 45",
+      "description": "Mutual Aid 45",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39924,
+      "label": "LE ALERT",
+      "description": "LE ALERT",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39936,
+      "label": "VHF-FLEET",
+      "description": "VHF-FLEET",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39937,
+      "label": "Mutual Aid 61",
+      "description": "Mutual Aid 61",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39938,
+      "label": "Mutual Aid 62",
+      "description": "Mutual Aid 62",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39939,
+      "label": "Mutual Aid 63",
+      "description": "Mutual Aid 63",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39940,
+      "label": "Mutual Aid 64",
+      "description": "Mutual Aid 64",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39941,
+      "label": "Mutual Aid 65",
+      "description": "Mutual Aid 65",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39942,
+      "label": "Mutual Aid 66",
+      "description": "Mutual Aid 66",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39943,
+      "label": "Mutual Aid 67",
+      "description": "Mutual Aid 67",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39944,
+      "label": "Mutual Aid 68",
+      "description": "Mutual Aid 68",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39945,
+      "label": "Mutual Aid 69",
+      "description": "Mutual Aid 69",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39946,
+      "label": "Mutual Aid 70",
+      "description": "Mutual Aid 70",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39947,
+      "label": "Mutual Aid 71",
+      "description": "Mutual Aid 71",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39948,
+      "label": "Mutual Aid 72",
+      "description": "Mutual Aid 72",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39949,
+      "label": "Mutual Aid 73",
+      "description": "Mutual Aid 73",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39950,
+      "label": "Mutual Aid 74",
+      "description": "Mutual Aid 74",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39951,
+      "label": "Mutual Aid 75",
+      "description": "Mutual Aid 75",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 19869
+    },
+    {
+      "id": 39983,
+      "label": "BX SOW ANN",
+      "description": "Bexar SOW Announcement",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39984,
+      "label": "BXSOW 01",
+      "description": "Bexar SOW Channel 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39985,
+      "label": "BXSOW 02",
+      "description": "Bexar SOW Channel 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39986,
+      "label": "BXSOW 03",
+      "description": "Bexar SOW Channel 3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39987,
+      "label": "BXSOW 04",
+      "description": "Bexar SOW Channel 4",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39988,
+      "label": "BXSOW 05",
+      "description": "Bexar SOW Channel 5",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39989,
+      "label": "BXSOW 06",
+      "description": "Bexar SOW Channel 6",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39990,
+      "label": "BXSOW 07",
+      "description": "Bexar SOW Channel 7",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39991,
+      "label": "BXSOW 08",
+      "description": "Bexar SOW Channel 8",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39992,
+      "label": "BXSOW 09",
+      "description": "Bexar SOW Channel 9",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39993,
+      "label": "BXSOW 10",
+      "description": "Bexar SOW Channel 10",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39994,
+      "label": "BXSOW 11",
+      "description": "Bexar SOW Channel 11",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39995,
+      "label": "BXSOW 13",
+      "description": "Bexar SOW Channel 13",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39997,
+      "label": "BXSOW 14",
+      "description": "Bexar SOW Channel 14",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 39998,
+      "label": "BXSOW 15",
+      "description": "Bexar SOW Channel 15",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40014,
+      "label": "SA SOW ANN",
+      "description": "SA SOW Announcement",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40015,
+      "label": "SASOW 01",
+      "description": "SA SOW Channel 1",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40016,
+      "label": "SASOW 02",
+      "description": "SA SOW Channel 2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40017,
+      "label": "SASOW 03",
+      "description": "SA SOW Channel 3",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40018,
+      "label": "SASOW 04",
+      "description": "SA SOW Channel 4",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40019,
+      "label": "SASOW 05",
+      "description": "SA SOW Channel 5",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40020,
+      "label": "SASOW 06",
+      "description": "SA SOW Channel 6",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40021,
+      "label": "SASOW 07",
+      "description": "SA SOW Channel 7",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40022,
+      "label": "SASOW 08",
+      "description": "SA SOW Channel 8",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40023,
+      "label": "SASOW 09",
+      "description": "SA SOW Channel 9",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40024,
+      "label": "SASOW 10",
+      "description": "SA SOW Channel 10",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40025,
+      "label": "SASOW 11",
+      "description": "SA SOW Channel 11",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40026,
+      "label": "SASOW 12",
+      "description": "SA SOW Channel 12",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40027,
+      "label": "SASOW 13",
+      "description": "SA SOW Channel 13",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40028,
+      "label": "SASOW 14",
+      "description": "SA SOW Channel 14",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40029,
+      "label": "SASOW 15",
+      "description": "SA SOW Channel 15",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40030,
+      "label": "SASOW 16",
+      "description": "SA SOW Channel 16",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40031,
+      "label": "SASOW 17",
+      "description": "SA SOW Channel 17",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40032,
+      "label": "SASOW 18",
+      "description": "SA SOW Channel 18",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40033,
+      "label": "SASOW 19",
+      "description": "SA SOW Channel 19",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40034,
+      "label": "SASOW 20",
+      "description": "SA SOW Channel 20",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40035,
+      "label": "SASOW 21",
+      "description": "SA SOW Channel 21",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40036,
+      "label": "SASOW 22",
+      "description": "SA SOW Channel 22",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40037,
+      "label": "SASOW 23",
+      "description": "SA SOW Channel 23",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40038,
+      "label": "SASOW 24",
+      "description": "SA SOW Channel 24",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40039,
+      "label": "SASOW 25",
+      "description": "SA SOW Channel 25",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40040,
+      "label": "SASOW 26",
+      "description": "SA SOW Channel 26",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40041,
+      "label": "SASOW 27",
+      "description": "SA SOW Channel 27",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40042,
+      "label": "SASOW 28",
+      "description": "SA SOW Channel 28",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33635
+    },
+    {
+      "id": 40059,
+      "label": "VENUE/ATT_IN",
+      "description": "ATT_IN",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40060,
+      "label": "VENUE/ATT TRAFFI",
+      "description": "AT&T Center Traffic",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40061,
+      "label": "VENUE/FREEMAN IN",
+      "description": "Freeman Coliseum Inside",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40062,
+      "label": "VENUE/FREEMAN TR",
+      "description": "Freeman Coliseum Traffic",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40063,
+      "label": "VENUE/TOYOTA FEI",
+      "description": "Toyota Field Inside",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40064,
+      "label": "VENUE/TOYOTA TRA",
+      "description": "Toyota Field Traffic",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40065,
+      "label": "VENUE/EVENT1",
+      "description": "Events 1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40066,
+      "label": "VENUE/EVENT2",
+      "description": "Events 2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40067,
+      "label": "VENUE/EVENT3",
+      "description": "Events 3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40068,
+      "label": "VENUE/EVENT4",
+      "description": "Events 4",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 40069,
+      "label": "VENUE/EVENT5",
+      "description": "Events 5",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 33748
+    },
+    {
+      "id": 41004,
+      "label": "CPS 41004",
+      "description": "CPS 41004",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41007,
+      "label": "CPS SA FD",
+      "description": "CPS Ops with SAFD",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41008,
+      "label": "CPS BC FA",
+      "description": "CPS Ops with Bexar Co Fire Alarm",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41010,
+      "label": "CPS 41010",
+      "description": "CPS 41010",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41012,
+      "label": "CPS 41012",
+      "description": "CPS 41012",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41017,
+      "label": "CPS 41017",
+      "description": "CPS 41017",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41021,
+      "label": "CPS 41021",
+      "description": "CPS 41021",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41025,
+      "label": "CPS 41025",
+      "description": "CPS 41025",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41028,
+      "label": "CPS 41028",
+      "description": "CPS 41028",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41031,
+      "label": "CPS 41031",
+      "description": "CPS 41031",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41034,
+      "label": "CPS Security",
+      "description": "CPS Security Team",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41036,
+      "label": "CPS 41036",
+      "description": "CPS 41036",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41037,
+      "label": "CPS 41037",
+      "description": "CPS 41037",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41038,
+      "label": "CPS 41038",
+      "description": "CPS 41038",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41040,
+      "label": "CPS 41040",
+      "description": "CPS 41040",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41044,
+      "label": "CPS 41044",
+      "description": "CPS 41044",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41048,
+      "label": "CPS 41048",
+      "description": "CPS 41048",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41049,
+      "label": "CPS 41049",
+      "description": "CPS 41049",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41064,
+      "label": "CPS 41064",
+      "description": "CPS 41064",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41065,
+      "label": "CPS 41065",
+      "description": "CPS 41065",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41104,
+      "label": "CPS 41104",
+      "description": "CPS 41104",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41106,
+      "label": "CPS 41106",
+      "description": "CPS 41106",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41111,
+      "label": "CPS 41111",
+      "description": "CPS 41111",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41113,
+      "label": "CPS 41113",
+      "description": "CPS 41113",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41117,
+      "label": "CPS 41117",
+      "description": "CPS 41117",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41120,
+      "label": "CPS 41120",
+      "description": "CPS 41120",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41127,
+      "label": "CPS 41127",
+      "description": "CPS 41127",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41128,
+      "label": "CPS 41128",
+      "description": "CPS 41128",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41130,
+      "label": "CPS 41130",
+      "description": "CPS 41130",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41131,
+      "label": "CPS 41131",
+      "description": "CPS 41131",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41132,
+      "label": "CPS 41132",
+      "description": "CPS 41132",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41143,
+      "label": "CPS 41143",
+      "description": "CPS 41143",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41146,
+      "label": "CPS 41146",
+      "description": "CPS 41146",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41150,
+      "label": "CPS 41150",
+      "description": "CPS 41150",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41153,
+      "label": "CPS 41153",
+      "description": "CPS 41153",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41155,
+      "label": "CPS 41155",
+      "description": "CPS 41155",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41157,
+      "label": "CPS 41157",
+      "description": "CPS 41157",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41158,
+      "label": "CPS 41158",
+      "description": "CPS 41158",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41159,
+      "label": "CPS 41159",
+      "description": "CPS 41159",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41160,
+      "label": "CPS 41160",
+      "description": "CPS 41160",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41161,
+      "label": "CPS 41161",
+      "description": "CPS 41161",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41162,
+      "label": "CPS 41162",
+      "description": "CPS 41162",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41163,
+      "label": "CPS 41163",
+      "description": "CPS 41163",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41165,
+      "label": "CPS 41165",
+      "description": "CPS 41165",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41174,
+      "label": "CPS 41174",
+      "description": "CPS 41174",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41180,
+      "label": "CPS 41180",
+      "description": "CPS 41180",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41201,
+      "label": "CPS 41201",
+      "description": "CPS 41201",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41206,
+      "label": "CPS 41206",
+      "description": "CPS 41206",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41207,
+      "label": "CPS 41207",
+      "description": "CPS 41207",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41214,
+      "label": "CPS 41214",
+      "description": "CPS 41214",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41218,
+      "label": "CPS 41218",
+      "description": "CPS 41218",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41248,
+      "label": "CPS Trouble Crew",
+      "description": "CPS Trouble Crew",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41249,
+      "label": "CPS 41249",
+      "description": "CPS 41249",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41250,
+      "label": "CPS 41250",
+      "description": "CPS 41250",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41251,
+      "label": "CPS 41251",
+      "description": "CPS 41251",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41252,
+      "label": "CPS Circuit Jump",
+      "description": "CPS Circuit Jumper Crew",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41253,
+      "label": "CPS 41253",
+      "description": "CPS 41253",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41271,
+      "label": "CPS 41271",
+      "description": "CPS 41271",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41272,
+      "label": "CPS 41272",
+      "description": "CPS 41272",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41279,
+      "label": "CPS 41279",
+      "description": "CPS 41279",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41281,
+      "label": "CPS 41281",
+      "description": "CPS 41281",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41282,
+      "label": "CPS 41282",
+      "description": "CPS 41282",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41289,
+      "label": "CPS 41289",
+      "description": "CPS 41289",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41291,
+      "label": "CPS 41291",
+      "description": "CPS 41291",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41292,
+      "label": "CPS 41292",
+      "description": "CPS 41292",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41296,
+      "label": "CPS 41296",
+      "description": "CPS 41296",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 41299,
+      "label": "CPS 41299",
+      "description": "CPS 41299",
+      "mode": "T",
+      "encryption": 2,
+      "category_id": 33799
+    },
+    {
+      "id": 42001,
+      "label": "SAWS 42001",
+      "description": "SAWS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42003,
+      "label": "SAWS 42003",
+      "description": "SAWS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42004,
+      "label": "SAWS 42004",
+      "description": "SAWS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42006,
+      "label": "SAWS MW Crew",
+      "description": "Water Main Crew",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42012,
+      "label": "SAWS 42012",
+      "description": "SAWS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42015,
+      "label": "SAWS 42015",
+      "description": "SAWS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42016,
+      "label": "SAWS Meter Crew",
+      "description": "Meter Crews",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42018,
+      "label": "SAWS SEC PTL",
+      "description": "SEC PTL",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42020,
+      "label": "SAWS 42020",
+      "description": "SAWS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42022,
+      "label": "SAWS Trouble",
+      "description": "Trouble Shooter",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42023,
+      "label": "SAWS 42023",
+      "description": "SAWS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 42024,
+      "label": "SAWS 42024",
+      "description": "SAWS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 33311
+    },
+    {
+      "id": 64051,
+      "label": "Harris Team-A1",
+      "description": "Team-A1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64052,
+      "label": "Harris Team-A2",
+      "description": "Team-A2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64053,
+      "label": "Harris Team-A3",
+      "description": "Team-A3",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64481,
+      "label": "Harris Team-C1",
+      "description": "Team-C1",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64482,
+      "label": "Harris Team-C2",
+      "description": "Team-C2",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64491,
+      "label": "P2 HR TEAM-1",
+      "description": "Team-1 B",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64492,
+      "label": "P2 HR TEAM-2",
+      "description": "Team-2 B",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64493,
+      "label": "P2 HR TEAM-3",
+      "description": "Team-3 B",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64494,
+      "label": "P2 HR TEAM-4",
+      "description": "Team-4 B",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64495,
+      "label": "P2 HR TEAM-5",
+      "description": "Team-5 B",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64496,
+      "label": "P2 HR TEAM-6",
+      "description": "Team-6 B",
+      "mode": "T",
+      "encryption": 0,
+      "category_id": 23042
+    },
+    {
+      "id": 64502,
+      "label": "PTCH #64502",
+      "description": "PTCH #64502 SAFD D5-6-7",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64503,
+      "label": "PTCH #64503",
+      "description": "PTCH #64503 Multi*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64504,
+      "label": "PTCH #64504",
+      "description": "PTCH #64504 SAFD CPS 2 CPS*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64505,
+      "label": "PTCH #64505",
+      "description": "PTCH #64505 Multi*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64511,
+      "label": "PTCH #64511",
+      "description": "PTCH #64511 Multi*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64512,
+      "label": "PTCH #64512",
+      "description": "PTCH #64512 Multi*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64513,
+      "label": "PTCH #64513",
+      "description": "PTCH #64513 Multi*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64519,
+      "label": "PTCH #64519",
+      "description": "PTCH #64519",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64520,
+      "label": "PTCH #64520",
+      "description": "PTCH #64520",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64524,
+      "label": "PTCH #64524",
+      "description": "PTCH #64524 SAFD D1-2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64528,
+      "label": "PTCH #64528",
+      "description": "PTCH #64528 NSISD PD 1 & CAMPUS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64539,
+      "label": "PTCH #64539",
+      "description": "PTCH #64539 NS ISD PD 1 & PD CAMPUS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64543,
+      "label": "PTCH #64543",
+      "description": "PTCH #64543 SAFD D1-2 *",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64544,
+      "label": "PTCH #64544",
+      "description": "PTCH #64544",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64545,
+      "label": "PTCH #64545",
+      "description": "PTCH #64545 SAFD D5-6-7 *",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64546,
+      "label": "PTCH #64546",
+      "description": "PTCH #64546 Multi*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64548,
+      "label": "PTCH #64548",
+      "description": "PTCH #64548 SAFD D3-4-8*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64552,
+      "label": "PTCH #64552",
+      "description": "PTCH #64552 VCALL10 & BEX-COM",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64553,
+      "label": "PTCH #64553",
+      "description": "PTCH #64553 SAFD D1-2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64555,
+      "label": "PTCH #64555",
+      "description": "PTCH #64555 Multi*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64556,
+      "label": "PTCH #64556",
+      "description": "PTCH #64556 SAFD D3-4-8 *",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64559,
+      "label": "PTCH #64559",
+      "description": "PTCH #64559 SAFD DISP D1-2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64560,
+      "label": "PTCH #64560",
+      "description": "PTCH #64560 SAFD DISP D5-6-7",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64567,
+      "label": "PTCH #64567",
+      "description": "PTCH #64567 SAFD DISP D3-4-8",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64575,
+      "label": "PTCH #64575",
+      "description": "PTCH #64575 SAFD D5-6-7",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64577,
+      "label": "PTCH #64577",
+      "description": "PTCH #64577 SAFD D3-4-8",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64579,
+      "label": "PTCH #64579",
+      "description": "PTCH #64579 SAFD D1-2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64580,
+      "label": "PTCH #64580",
+      "description": "PTCH #64580 SAFD DISP D1-2",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64581,
+      "label": "PTCH #64581",
+      "description": "PTCH #64581 SAFD D5-6-7 *",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64593,
+      "label": "PTCH #64593",
+      "description": "PTCH #64593 Multi*",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 64594,
+      "label": "PTCH #64594",
+      "description": "PTCH #64594 NS ISD PD 1 & CAMPUS",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65001,
+      "label": "PTCH #65001",
+      "description": "PTCH #65001 Unknown",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65003,
+      "label": "PTCH #65003",
+      "description": "PTCH #65003",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65004,
+      "label": "PTCH #65004",
+      "description": "PTCH #65004",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65005,
+      "label": "PTCH #65005",
+      "description": "PTCH #65005",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65006,
+      "label": "PTCH #65006",
+      "description": "PTCH #65006",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65009,
+      "label": "PTCH #65009",
+      "description": "PTCH #65009",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65011,
+      "label": "PTCH #65011",
+      "description": "PTCH #65011",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65013,
+      "label": "PTCH #65013",
+      "description": "PTCH #65013",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65016,
+      "label": "PTCH #65016",
+      "description": "PTCH #65016",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65018,
+      "label": "PTCH #65018",
+      "description": "PTCH #65018",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65019,
+      "label": "PTCH #65019",
+      "description": "PTCH #65019",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65020,
+      "label": "PTCH #65020",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65021,
+      "label": "PTCH #65021",
+      "description": "PTCH #65021",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65022,
+      "label": "PTCH #65022",
+      "description": "PTCH #65022",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65023,
+      "label": "Patch 65023",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65024,
+      "label": "Patch 65024",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65025,
+      "label": "PTCH #65025",
+      "description": "PTCH #65025",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65026,
+      "label": "Patch 65026",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65027,
+      "label": "PTCH #65027",
+      "description": "PTCH #65027",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65028,
+      "label": "PTCH #65028",
+      "description": "PTCH #65028",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65029,
+      "label": "Patch 65029",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65030,
+      "label": "Patch 65030",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65031,
+      "label": "PTCH #65031",
+      "description": "PTCH #65031",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65032,
+      "label": "Patch 65032",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65033,
+      "label": "Patch 65033",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65034,
+      "label": "PTCH #65034",
+      "description": "PTCH #65034",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65035,
+      "label": "PTCH #65035",
+      "description": "PTCH #65035",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65036,
+      "label": "Patch 65036",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65037,
+      "label": "Patch 65037",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65038,
+      "label": "Patch 65038",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65039,
+      "label": "Patch 65039",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65041,
+      "label": "PTCH #65041",
+      "description": "PTCH #65041",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65042,
+      "label": "PTCH #65042",
+      "description": "PTCH #65042",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65043,
+      "label": "Patch 65043",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65044,
+      "label": "PTCH #65044",
+      "description": "PTCH #65044",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65045,
+      "label": "Patch 65045",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65046,
+      "label": "Patch 65046",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65047,
+      "label": "PTCH #65047",
+      "description": "PTCH #65047",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65048,
+      "label": "Patch 65048",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65049,
+      "label": "PTCH #65049",
+      "description": "PTCH #65049",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65050,
+      "label": "PTCH #65050",
+      "description": "PTCH #65050",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65051,
+      "label": "PTCH #65051",
+      "description": "PTCH #65051",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65052,
+      "label": "Patch 65052",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65054,
+      "label": "PTCH #65054",
+      "description": "PTCH #65054",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65055,
+      "label": "PTCH #65055",
+      "description": "PTCH #65055",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65056,
+      "label": "Patch 65056",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65057,
+      "label": "Patch 65057",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65058,
+      "label": "Patch 65058",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65059,
+      "label": "Patch 65059",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65060,
+      "label": "Patch 65060",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65061,
+      "label": "Patch 65061",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65062,
+      "label": "PTCH #65062",
+      "description": "PTCH #65062",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65063,
+      "label": "PTCH #65063",
+      "description": "PTCH #65063",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65064,
+      "label": "Patch 65064",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65065,
+      "label": "PTCH #65065",
+      "description": "PTCH #65065/ BCFA Dispatch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65066,
+      "label": "Patch 65066",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65067,
+      "label": "Patch 65067",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65068,
+      "label": "Patch 65068",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65069,
+      "label": "Patch 65069",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65070,
+      "label": "PTCH #65070",
+      "description": "PTCH #65070",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65073,
+      "label": "PTCH #65073",
+      "description": "PTCH #65073",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65074,
+      "label": "Patch 65074",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65075,
+      "label": "PTCH #65075",
+      "description": "PTCH #65075",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65076,
+      "label": "Patch 65076",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65077,
+      "label": "PTCH #65077",
+      "description": "PTCH #65077",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65078,
+      "label": "Patch 65078",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65079,
+      "label": "PTCH #65079",
+      "description": "PTCH #65079",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65080,
+      "label": "Patch 65080",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65081,
+      "label": "Patch 65081",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65082,
+      "label": "Patch 65082",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65083,
+      "label": "PTCH #65083",
+      "description": "PTCH #65083",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65084,
+      "label": "Patch 65084",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65085,
+      "label": "ACOG VCall-2",
+      "description": "Alamo Council of Governments (patch to VHF Call-2)",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65086,
+      "label": "Patch 65086",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65087,
+      "label": "Patch 65087",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65088,
+      "label": "PTCH #65088",
+      "description": "PTCH #65088",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65089,
+      "label": "PTCH #65089",
+      "description": "PTCH #65089",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65090,
+      "label": "Patch 65090",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65091,
+      "label": "Patch 65091",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65092,
+      "label": "Patch 65092",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65093,
+      "label": "Patch 65093",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65094,
+      "label": "PTCH #65094",
+      "description": "PTCH #65094",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65095,
+      "label": "PTCH #65095",
+      "description": "PTCH #65095",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65096,
+      "label": "PTCH #65096",
+      "description": "PTCH #65096",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65097,
+      "label": "PTCH #65097",
+      "description": "PTCH #65097",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65098,
+      "label": "Patch 65098",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65099,
+      "label": "Patch 65099",
+      "description": "Bexar County Fire Dispatch/Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65100,
+      "label": "Patch 65100",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65101,
+      "label": "PTCH #65101",
+      "description": "PTCH #65101",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65102,
+      "label": "PTCH #65102",
+      "description": "PTCH #65102",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65103,
+      "label": "PTCH #65103",
+      "description": "PTCH #65103",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65104,
+      "label": "PTCH #65104",
+      "description": "PTCH #65104",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65105,
+      "label": "Patch 65105",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65106,
+      "label": "PTCH #65106",
+      "description": "PTCH #65106",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65107,
+      "label": "Patch 65107",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65108,
+      "label": "PTCH #65108",
+      "description": "PTCH #65108",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65109,
+      "label": "Patch 65109",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65110,
+      "label": "Patch 65110",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65111,
+      "label": "Patch 65111",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65112,
+      "label": "Patch 65112",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65113,
+      "label": "PTCH #65113",
+      "description": "PTCH #65113",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65114,
+      "label": "Patch 65114",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65115,
+      "label": "PTCH #65115",
+      "description": "PTCH #65115",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65116,
+      "label": "Patch 65116",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65117,
+      "label": "Patch 65117",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65119,
+      "label": "Patch 65119",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65140,
+      "label": "PTCH #65140",
+      "description": "PTCH #65140",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65141,
+      "label": "Patch 65141",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65142,
+      "label": "Patch 65142",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65143,
+      "label": "Patch 65143",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65144,
+      "label": "Patch 65144",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65145,
+      "label": "PTCH #65145",
+      "description": "PTCH #65145",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65146,
+      "label": "Patch 65146",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65147,
+      "label": "Patch 65147",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65148,
+      "label": "PTCH #65148",
+      "description": "PTCH #65148",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    },
+    {
+      "id": 65149,
+      "label": "Patch 65149",
+      "description": "Patch",
+      "mode": "D",
+      "encryption": 0,
+      "category_id": 30798
+    }
+  ]
+}

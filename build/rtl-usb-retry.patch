@@ -1,0 +1,15 @@
+diff --git a/src/librtlsdr.c b/src/librtlsdr.c
+--- a/src/librtlsdr.c
++++ b/src/librtlsdr.c
+@@ -547,4 +547,11 @@
+ 	r = libusb_control_transfer(dev->devh, CTRL_OUT, 0, addr, index, data, len, CTRL_TIMEOUT);
++	/* A stalled demod write requires the normal demod read before retry.
++	 * Adapted from steve-m/librtlsdr PR #58. Retry PIPE once only; do not
++	 * hide disconnects, permission failures, partial writes or final errors. */
++	if (r == LIBUSB_ERROR_PIPE) {
++		rtlsdr_demod_read_reg(dev, 0x0a, 0x01, 1);
++		r = libusb_control_transfer(dev->devh, CTRL_OUT, 0, addr, index, data, len, CTRL_TIMEOUT);
++	}
+ 
+ 	if (r < 0)
+ 		fprintf(stderr, "%s failed with %d\n", __FUNCTION__, r);

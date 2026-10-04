@@ -1,0 +1,22 @@
+RTL-SDR Blog V4 USB recovery
+
+Upstream source remains pinned to rtlsdrblog/rtl-sdr-blog commit
+aed0ea19f3a273370a13c9009b96313c75d54c7b.
+
+build/rtl-usb-retry.patch adapts the demod-write recovery described in:
+https://github.com/steve-m/librtlsdr/pull/58
+https://www.mail-archive.com/osmocom-sdr@lists.osmocom.org/msg01344.html
+
+Only LIBUSB_ERROR_PIPE is retried, once, after the normal demod read.
+Successful writes are not skipped or cached. Other errors and a failed
+retry retain the original failure reporting and return-value checks.
+Docker verifies the patch against the pinned source before compilation.
+
+Local hardware validation: RTL-SDR Blog V4 through usbipd/WSL/Docker,
+AARRS Northeast Simulcast. Bounded tests check control-channel acquisition
+and control/voice retuning; they do not establish audible voice quality,
+all host-controller compatibility, or SDRplay hardware operation.
+
+The image build context remains an explicit source-file allowlist.
+Credentials, captured listings, saved profiles, and diagnostic scripts
+are not included in the image.

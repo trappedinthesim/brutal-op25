@@ -1,0 +1,219 @@
+BRUTAL OP25
+Built on boatbod/op25, with credit to the original OP25 contributors.
+Independent development project; no upstream endorsement is implied.
+Upstream receiver sources and license notices remain in /opt/op25 in the image.
+Do not strip notices when publishing the eventual repository/release.
+
+Development installation - Linux first, terminal onboarding
+
+Windows entrypoint: double-click Launch-Brutal-OP25.cmd, or run it from
+PowerShell. Do not use a bare docker run.
+On the first guided run, setup creates a per-user Start menu shortcut named
+Brutal OP25. Search Start for that name on later runs; the shortcut reopens
+the same guided launcher. --check does not create a shortcut.
+The CMD bootstrap uses Windows' built-in PowerShell for WSL installation and
+the USB bridge only. A process-local execution-policy bypass does not change
+machine policy; enterprise Group Policy can still block it. PowerShell 7 and
+Docker Desktop are not prerequisites. The first run offers official Ubuntu
+24.04 in WSL and Docker Engine from Docker's official Ubuntu apt repository.
+A Windows reboot is reported if WSL requires one. Subsequent runs start Ubuntu
+directly, without a Docker Desktop window, account, or background app.
+Launch-Brutal-OP25.cmd --check is read-only.
+--backup writes a saved-system ZIP under Documents/Brutal OP25 Backups while
+the receiver is stopped; --restore requires that ZIP's full path and refuses
+conflicting saved-system IDs. --update-image explicitly fetches the referenced
+release, leaving the current image unchanged on download failure. A successful
+update retains the previous image for --rollback-image. Neither command
+deletes the separate saved-system volume.
+Inside the Linux wizard, Connect my radio now sends a fixed connect_usb request
+with a per-launch random nonce and exit code 88. The WSL launcher validates it,
+asks Windows to share only the selected USB radio, and resumes the same wizard
+with that exact Linux USB node. The container has no Windows command socket or
+Docker socket. Ctrl+C detaches a radio attached by this launcher.
+When the dashboard starts, the Windows launcher opens it in the
+default browser after port 8080 serves the Brutal OP25 page. The local link
+http://127.0.0.1:8080/ is also shown in the console. If browser opening is
+blocked, open that link manually. A bare Docker run has no USB handoff and is
+not the supported Windows launch path. Existing Docker Desktop profiles are not
+automatically migrated; the dedicated Ubuntu Engine has its own data volume.
+The Windows bridge installer is pinned by SHA-256 and publisher signature.
+USB nodes are checked by serial and vendor/product ID before one node is passed
+to the container. Windows/WSL admin prompts remain visible when required.
+The RTL-SDR Blog V4 was identified and sampled with zero reported loss in a
+short WSL-native container test. A fresh manual AARRS test profile then decoded
+a live P25 control channel (WACN 0x91F78, system 0x0D2, site 50.50, NAC 0x3C).
+Browser speech remains unverified on this path. The test profile was archived
+so the next run opens fresh onboarding. RSPdx-R2 reception remains unverified.
+
+From this source directory on native Linux or WSL:
+  bash install-brutal-op25.sh
+
+Native Linux setup creates ~/.local/bin/brutal-op25 for later runs without
+editing shell startup files. Run that path immediately, or type brutal-op25
+after the next login if ~/.local/bin is on PATH. WSL uses the Windows shortcut.
+For a portable backup on native Linux, run
+  bash install-brutal-op25.sh --backup
+and restore with --restore /full/path/systems.zip while no receiver runs.
+The future public bootstrap/ scripts use GitHub source archives, not Git/SSH;
+they preserve the previous program folder when updating. Public anonymous
+downloads cannot be tested until repository and image publication.
+
+On supported Ubuntu and Debian versions, this checks for Docker Engine and
+offers installation from Docker's official apt repository. It never silently
+removes conflicting packages or adds the user to the root-equivalent docker
+group. It may request sudo for Docker service and image access. A missing base
+image is fetched automatically when the prebuilt release is accessible;
+otherwise it is built locally. --build forces a source build on native Linux.
+Other native Linux distributions can install a local Docker Engine themselves,
+then use the same launcher. WSL uses the Ubuntu-local Engine and the Windows
+USB bridge. bash install-brutal-op25.sh --check is read-only.
+
+For import/manage without USB:
+  bash brutal-op25.sh --no-usb
+
+The launcher detects a sole supported radio automatically, or offers a choice
+when there are several. It passes only the chosen node into the container and
+adds its group. On native Linux it can grant group access to only that USB
+node (until the node is recreated), with sudo when required; it never uses a
+privileged container or mounts home/Downloads. For persistent shared-device
+policy, an administrator may prefer a targeted udev rule. Windows/WSL
+users first forward their radio into Linux; native Linux needs no Windows helper.
+Disconnect/reconnect may change a USB node; rerun the launcher to select it.
+
+The terminal stores new profiles in the separate brutal-op25-data volume.
+Older prototype data is not migrated or automatically selected.
+It requires a TTY. Credentials/application keys are prompted only for RR
+imports/updates, kept in memory, and never bundled or saved as profile data.
+RadioReference imports require each user's own Premium account. A prebuilt
+release contains a recoverable client application key, so users never enter one. Their
+credentials go directly from the local receiver to RadioReference, not to a
+Brutal OP25 server. The app key is extractable from the image by a determined
+recipient; compilation only deters casual copying. For local source builds
+without the release helper, provide BRUTAL_RR_APP_KEY at runtime or mount a
+key file at /run/secrets/radioreference_app_key. The launchers mount only that
+file read-only, never its containing directory; .setup-cache remains excluded
+from Git and the build context. Without any key, import reports an app setup
+issue before asking for user credentials. Confirm key distribution terms
+before making the image public.
+Supported SDR presets use their starting defaults automatically; custom setup
+alone asks for sample rate, named gains, and PPM. Normal import defaults to
+CQPSK demodulation without a technical settings question.
+
+Menus: listen to saved system, import P25, manage/update, radio check, manual P25.
+An empty profile store launches first-run onboarding automatically: choose a
+radio, then import a system or skip to the dashboard Systems panel to add
+multiple systems. Skipping never starts listening by itself. The returning-user menu
+appears only after a profile is saved. Cancelling before saving leaves no
+completed installation, so the next launch offers first-run setup again.
+Radio prerequisites may be checked again or finished later; saving a profile
+does not mark reception as tested. Failed account/application configuration
+returns to source selection without asking for an application key.
+Interactive Linux menus use arrow keys, Enter, Page Up/Down and type-to-search;
+Escape cancels. Country defaults to United States when listed by RadioReference.
+Plain terminals retain numbered menus and accept Enter for a default selection.
+BRUTAL_NUMBERED_MENUS=1 forces numbered menus. Multiple systems
+may be saved, but one system/site is active at a time. Ctrl+C stops reception.
+Site changes and updates preserve history. Encrypted voice cannot be decoded.
+
+The base image includes a pinned RTL-SDR Blog V4-capable driver. A local Blog V4
+received the AARRS Northeast Simulcast site with clear browser speech. This is
+one-device, one-host validation, not a compatibility guarantee. RSPdx-R2
+hardware reception/audio remains unverified and requires the private,
+license-accepted SDRplay addon; do not publish proprietary vendor software
+without distribution permission. On first RSPdx-R2 selection, the native
+Linux launcher downloads the official vendor package, verifies the pinned
+checksum, presents the full license, and builds the private addon only if
+the user types ACCEPT. The WSL launcher has the same terminal-gated flow. Vendor
+updates that change the checksum must be verified before updating this pin.
+To build from an official SDRplay Linux 3.15.2 package obtained separately:
+  bash install/build-sdrplay.sh /path/to/official-installer
+This verifies the pinned checksum, displays the complete license, requires
+typing ACCEPT, and builds brutal-op25-sdrplay:0.3.0-dev.4-local from an isolated
+vendor context containing only that installer, not its parent directory.
+No license is accepted by automated tests. The user approved the SDRplay license
+and the private addon was built locally; its software factory check passed, but
+the RSPdx-R2 device and reception have not yet been tested.
+
+No public image/repository has been published yet. BRUTAL_OP25_IMAGE can choose
+a tested local image now, or a future versioned registry image once released.
+Users of a published image will not need to compile OP25. Signing, registry
+publication, architecture coverage and broader hardware validation remain.
+No browser is required for terminal onboarding; the optional skip path opens
+the existing Systems panel before any receiver runs. During reception, the live dashboard/audio
+endpoints are available on localhost:8080/9000; a runtime copy of boatbod's UI
+has the Brutal theme, upstream credit, and no Legacy UI entry. Upstream sources
+and license notices remain in /opt/op25. The build applies a narrow patch to
+the pinned upstream audio WebSocket so unrelated browser origins are rejected.
+The receiver skin uses a page-wide operations bar, numbered monitor/traffic/
+signal-analysis panels, a tactical grid/radar motif, and restrained #0FFF50
+accents. It does not invent signal status or imply agency affiliation.
+The RTL and private local SDRplay images
+both carry the same UI files; no external image/API service is required.
+Saved RadioReference labels are HTML-escaped in a versioned prepared receiver copy,
+never rewritten in the
+saved system library. Existing profiles regenerate this copy on next launch.
+The Home, Plot, Settings, View Config, and About panels were checked in a
+headless browser against the running receiver's real read-only dashboard data.
+Display preferences, reload persistence, narrow-screen layout, and receiver
+button command wiring were exercised; command-changing requests were intercepted
+and NOT sent to the live radio during this UI audit. Plot generation, capture,
+and other receiver-changing actions still need separate hands-on verification.
+The dashboard now opens with its Plot panel visible. A new prepared receiver
+revision starts all six native OP25 plots (spectrum, constellation, symbol,
+datascope, mixer and tuner) without browser-side toggle commands. Individual
+plot buttons can still disable a plot to reduce CPU load. When the UI watchdog
+closes plots after the browser disconnects, the runtime remembers which plots
+were active and restores that selection on the next dashboard update. This
+behavior is exercised in source/browser tests; live reception with the new
+startup default still needs a guided relaunch. Existing saved profiles remain
+unchanged and are regenerated in a versioned receiver copy on that relaunch.
+Early plot creation exposed boatbod's terminal initialization order: the
+terminal type is still unset when channel plots are constructed, so gnuplot
+otherwise attempts X11 and prints "unknown or ambiguous terminal type" in a
+headless image. Our runtime-only patch reads the pending HTTP terminal settings
+for those early sinks, selecting PNG output in /data/runtime/www/images. The
+original upstream file remains unchanged. An isolated image check generated a
+PNG, and a regression test exercised the patched early-destination method;
+the user's receiver still needs a guided relaunch for live verification.
+
+SYSTEMS PANEL (add, switch and remove systems from the dashboard)
+The dashboard has a Systems button. Saved lists every saved system with Listen and
+Remove; "Add from RadioReference" signs in (the login is held in memory only, never
+saved or logged) and browses country > state > county > system > site; "Add manually"
+takes control-channel frequencies. Everything saved is stored in the same library the
+terminal menu uses, so systems added in the browser appear in the terminal next time.
+Switching restarts OP25 for a few seconds of silence; the page reloads itself when the
+new system is up. Systems saved for a different radio family than the one connected
+(RTL-SDR vs RSPdx-R2) are listed but cannot be started from the browser; relaunch with
+that radio. New systems inherit the radio settings that are listening now. Removing a
+system archives its file under saved-profiles/history/removed and the listening system
+cannot be removed. The status strip shows the live system, uptime and receiver state;
+if OP25 stops, a banner offers Restart, and opening the page while it is down shows a
+recovery page. How it works: a small supervisor (brutal_supervisor.py) owns port 8080,
+answers /brutal/api/* itself and proxies everything else to OP25 on a private loopback
+port. It accepts only loopback host names, requires a per-run token on every change,
+exposes no Docker or USB control, and logs no credentials. Verified on a throwaway
+receiver fed synthetic noise (switching, manual add, validation, removal, crash
+recovery, clean shutdown) with a fake RadioReference client; a real RadioReference
+sign-in and a real RSPdx-R2 switch still need hands-on verification.
+
+LISTENING CONTROLS (Talkgroups, Radio IDs, Advanced tabs and the volume slider)
+These tabs act on the system that is listening. Talkgroups: every talkgroup can be Priority, Normal or
+Blocked. OP25 prefers the lower priority number (Priority is written as 1, the default is 3), so a Priority
+call interrupts a lower one already playing; a manual hold is never interrupted. Blocked talkgroups are
+never followed. "Only my Priority talkgroups" turns the Priority set into a listen-only list. Categories
+(Fire, Police, ...) come from RadioReference's talkgroup category list, saved with new imports; an older
+system can fetch them from the Talkgroups tab after signing in. Radio IDs: RadioReference's API has no
+operation for individual radios, so names are typed by you; a named radio shows its name in the Source box
+and call history. Names are HTML-escaped in the receiver's copy and kept as typed in the saved system.
+Advanced: encrypted talkgroups are skipped by default (OP25 crypt_behavior 2); the alternative is OP25's own
+default (1), which does not skip them, and without keys their audio cannot be decoded. Hold time is how long
+OP25 stays on a talkgroup after a call ends (0 to 30 seconds; OP25's default is 2). Every change is saved as
+a new revision of the system (older revisions stay in saved-profiles/history) and the receiver restarts for a
+few seconds, because OP25 reads these files at startup. Volume: a slider in the status strip (0 to 150 percent,
+remembered per browser) scales all browser audio through one gain node; it does not change the receiver.
+Verified on a throwaway receiver fed synthetic noise with a fake RadioReference: category loading, search,
+bulk and per-row marking, apply and restart, listen-only mode and its safeguard, radio names including
+click-to-name and HTML escaping, encrypted behavior and hold time reaching OP25's config and log, and the
+volume slider through the dashboard's own audio code. Priority interruption and radio names showing on a
+live call were not observed: they need real traffic.

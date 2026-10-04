@@ -1,0 +1,53 @@
+SDR support and validation boundaries
+
+The receiver runs on Linux, including a dedicated Ubuntu WSL Docker Engine on Windows.
+Windows USB forwarding is handled by Launch-Brutal-OP25.cmd; native Linux uses
+install-brutal-op25.sh, which enters brutal-op25.sh. Neither launcher exposes
+the whole USB bus or a Docker socket to the receiver container.
+
+Selectable presets are RTL-SDR, RTL-SDR Blog V4, SDRplay RSPdx-R2, and custom.
+Other gr-osmosdr backends are not presented as tested hardware presets.
+
+RTL-SDR Blog V4: the base image builds the pinned rtl-sdr-blog driver at
+aed0ea19f3a273370a13c9009b96313c75d54c7b. One local V4 received clear
+speech from AARRS Northeast Simulcast through Windows/WSL/Docker. This does
+not prove compatibility with every host, antenna, USB controller, or system.
+An isolated no-profile hardware smoke test also forwarded this V4 to the
+container, opened it with rtl_test, identified the V4 tuner, and detached it.
+The new Ubuntu WSL Engine path repeated that test at 1 MSPS with zero reported
+sample loss over a short run. A fresh manual AARRS test profile then decoded
+the live Northeast Simulcast control channel (WACN 0x91F78, system 0x0D2,
+site 50.50, NAC 0x3C, hundreds of TSBKs). Browser speech on this new path
+was not independently heard. The temporary profile was archived afterward.
+The same isolated test captured a three-second 1 MSPS stream through GNU Radio.
+The vendor says this updated driver is backward-compatible with Blog V3 and
+older generic RTL-SDRs, but those models still need a real hardware test here.
+No separate Windows SDR driver or host Linux RTL package is installed by our
+launcher: the Linux driver is inside the base image, while Windows only needs
+the guided USB bridge to forward the selected device to WSL.
+
+SDRplay RSPdx-R2: the private addon uses the official Linux SDRplay API and
+SoapySDRPlay3. An isolated no-profile hardware smoke test forwarded the local
+RSPdx-R2, started its API service in the addon, and confirmed SoapySDR identified
+the selected device and serial. Control-channel lock and clear audio on RSPdx-R2
+have not been verified. A separate three-second 2 MSPS GNU Radio stream also
+passed; the test releases the radio before stopping SDRplay's API service.
+On the new Ubuntu WSL Engine path, the Windows USB bridge also forwarded the
+RSPdx-R2 and Ubuntu saw the expected device serial and vendor/product 1df7:3060.
+The proprietary addon and reception have not yet been retested on that path.
+The vendor driver is not in the public base
+image and must not be redistributed without permission. See SDRplay-EULA.txt
+and INSTALLATION-PRIVACY.txt before building that addon. The guided launcher
+downloads the official installer, verifies its pinned checksum and requests
+explicit license acceptance when an RSPdx-R2 is selected.
+The private addon is built on the user's machine at first use. A driver-load
+smoke check runs before reception; a vendor download or checksum change must
+be reviewed and updated by the project rather than bypassed by the installer.
+
+Presets are starting settings, not hardware verification. Check USB visibility,
+driver operation, control-channel lock, and audio on the actual receiver host.
+The terminal's radio check reports software and USB readiness; it does not
+prove reception. Encrypted voice cannot be decoded.
+
+Pinned driver and patch details are in DRIVER-NOTES.txt. Active setup and
+dashboard instructions are in ../README.md and BRUTAL-OP25.txt.

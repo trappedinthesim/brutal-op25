@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+# Local/private addon only. Never push this image without vendor distribution approval.
+ARG BASE_IMAGE=brutal-op25:0.3.0-dev.4
+FROM ${BASE_IMAGE} AS addon
+ARG BRUTAL_BASE_IMAGE_ID=unknown
+LABEL io.brutal-op25.base-image-id="${BRUTAL_BASE_IMAGE_ID}"
+USER root
+ARG SDRPLAY_LICENSE_ACCEPTED=no
+ARG SOAPY_SDRPLAY_COMMIT=48bd8b41072534018de1d74deb3dea5874d9e0e0
+RUN test "${SDRPLAY_LICENSE_ACCEPTED}" = yes
+COPY --from=sdrplay-api /SDRplay-API-Linux-official.download /tmp/sdrplay-installer
+COPY build/install_sdrplay_payload.py /tmp/install_sdrplay_payload.py
+RUN python /tmp/install_sdrplay_payload.py /tmp/sdrplay-installer --consent "${SDRPLAY_LICENSE_ACCEPTED}" \
+    && ldconfig && rm /tmp/sdrplay-installer /tmp/install_sdrplay_payload.py
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates git cmake build-essential libsoapysdr-dev libusb-1.0-0 libudev1 \
+    && git clone https://github.com/pothosware/SoapySDRPlay3.git /opt/SoapySDRPlay3 \
+    && git -C /opt/SoapySDRPlay3 checkout --detach "${SOAPY_SDRPLAY_COMMIT}" \
+    && test "$(git -C /opt/SoapySDRPlay3 rev-parse HEAD)" = "${SOAPY_SDRPLAY_COMMIT}" \
+    && cmake -S /opt/SoapySDRPlay3 -B /opt/SoapySDRPlay3/build -DCMAKE_BUILD_TYPE=Release \
+    && cmake --build /opt/SoapySDRPlay3/build --parallel 4 \
+    && cmake --install /opt/SoapySDRPlay3/build \
+    && rm -rf /opt/SoapySDRPlay3/build /opt/SoapySDRPlay3/.git /var/lib/apt/lists/*
+COPY src/rsp_receiver.py /opt/manager/rsp_receiver.py
+USER op25
+CMD ["python", "brutal_cli.py"]

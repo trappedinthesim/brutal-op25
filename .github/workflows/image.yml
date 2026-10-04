@@ -1,0 +1,79 @@
+name: Build and publish RTL image
+
+on:
+  push:
+    tags:
+      - 'image-v*'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  image:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 120
+    steps:
+      - name: Check out tagged source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Verify the image version and release inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#image-v}"
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-[a-z0-9.]+$ ]]
+          expected="ghcr.io/${GITHUB_REPOSITORY,,}:$version"
+          actual="$(tr -d '\r\n' < build/image-release.txt)"
+          [[ "$actual" == "$expected" ]] || { echo "Image reference must be $expected" >&2; exit 1; }
+          [[ ! -e .setup-cache && ! -e saved-profiles ]] || { echo 'Private local data is present in the checkout.' >&2; exit 1; }
+          echo "IMAGE_REF=$expected" >> "$GITHUB_ENV"
+
+      - name: Test the helper with a synthetic key
+        shell: bash
+        run: python3 -m unittest tests.test_rr_key -q
+
+      - name: Build the client image with the private application key
+        shell: bash
+        env:
+          BRUTAL_RR_APP_KEY: ${{ secrets.BRUTAL_RR_APP_KEY }}
+        run: |
+          set -euo pipefail
+          [[ -n "$BRUTAL_RR_APP_KEY" ]] || { echo 'Repository secret BRUTAL_RR_APP_KEY is not configured.' >&2; exit 1; }
+          docker build --file build/Dockerfile --secret id=rr_key,env=BRUTAL_RR_APP_KEY \
+            --build-arg REQUIRE_RR_EMBED=1 --build-arg "RR_EMBED_REVISION=$GITHUB_REF_NAME" \
+            --build-arg "SOURCE_REVISION=$GITHUB_SHA" --tag "$IMAGE_REF" .
+
+      - name: Run repository tests against the built image
+        shell: bash
+        run: docker run --rm --network none --volume "$PWD:/work:ro" --workdir /work --entrypoint python "$IMAGE_REF" -m unittest discover -s tests -t . -p 'test_*.py' -q
+
+      - name: Verify bundled RTL receiver driver loads
+        shell: bash
+        run: |
+          docker run --rm --network none --read-only --cap-drop ALL \
+            --tmpfs /tmp --tmpfs /home/op25:uid=1000,gid=1000 \
+            --entrypoint python "$IMAGE_REF" -c \
+            'from hardware_check import check_profile; r=check_profile("rtlv4"); assert r["software_dependencies_present"], r["missing"]'
+
+      - name: Verify compiled helper and absence of plaintext key files
+        shell: bash
+        run: |
+          docker run --rm --network none --entrypoint sh "$IMAGE_REF" -c 'test ! -e /run/secrets/radioreference_app_key && test ! -e /opt/manager/SDRplay-EULA.txt && test ! -e /opt/manager/.setup-cache && test ! -e /opt/manager/SDRplay-API-Linux-official.download'
+          docker run --rm --network none --entrypoint python "$IMAGE_REF" -c 'from pathlib import Path; from rr_key import embedded_key; key=embedded_key(); assert key; assert key.encode() not in Path("/opt/manager/librrkey.so").read_bytes()'
+          test "$(docker image inspect "$IMAGE_REF" --format '{{index .Config.Labels "org.opencontainers.image.revision"}}')" = "$GITHUB_SHA"
+
+      - name: Verify license, notices, and corresponding upstream source
+        shell: bash
+        run: |
+          docker run --rm --network none --entrypoint sh "$IMAGE_REF" -c 'test -s /opt/manager/LICENSE && test -s /opt/manager/THIRD-PARTY-NOTICES.md && test -s /opt/op25/op25/gr-op25_repeater/apps/multi_rx.py && test -s /opt/rtl-sdr-blog/COPYING && test -s /opt/rtl-sdr-blog/src/librtlsdr.c'
+
+      - name: Log in to GitHub Container Registry
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: printf '%s' "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+
+      - name: Publish the tested image
+        shell: bash
+        run: docker push "$IMAGE_REF"
