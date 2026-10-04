@@ -81,9 +81,16 @@ class ReceiverUiTests(unittest.TestCase):
             tuning_js = (static / 'brutal-tuning.js').read_text(encoding='utf-8')
             for name in ('registerTab', 'brutalAudioOut', "id: 'talkgroups'", "id: 'rids'", "id: 'advanced'"):
                 self.assertIn(name, tuning_js)
+            self.assertIn("id: 'brutal-audio-enable'", tuning_js)
+            self.assertIn('audioCtx.resume().catch', tuning_js)
+            self.assertIn('.ops-audio-enable[hidden]', css)
             self.assertNotIn('innerHTML', tuning_js)  # names are inserted as text, never parsed
             self.assertIn('typeof brutalAudioOut === "function" ? brutalAudioOut(audioCtx) : audioCtx.destination', script)
             self.assertNotIn('source.connect(audioCtx.destination);', script)
+            self.assertIn('startReceiverAudio();', script)
+            self.assertIn("audioCtx.resume().catch(function()", script)
+            self.assertNotIn("document.addEventListener('click', function initAudioCtx()", script)
+            self.assertIn("if (audioCtx.state !== 'running') { state.queue = []; return; }", script)
             self.assertIn('callHistorySeen.forEach(function (seenAt, seenKey)', script)
             self.assertNotIn('// callHistorySeen.clear();', script)  # the dead commented-out prune is replaced
             self.assertIn('rows = rows.slice(0, 500);', script)

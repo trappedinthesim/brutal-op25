@@ -325,7 +325,7 @@ class Terminal:
         self.output('Starting OP25. Actual control-channel lock and audio still need verification.')
         self.output('Receiver web UI: http://127.0.0.1:8080/')
         self.output('Open this link in your computer\'s browser after startup; Ctrl+click in supported terminals.')
-        self.output('For audio, click the headphone button in the web UI. Port 9000 is audio transport, not a webpage.')
+        self.output('Browser audio starts automatically when allowed. If the dashboard shows ENABLE AUDIO, click it once; the headphone button mutes or unmutes. Port 9000 is audio transport, not a webpage.')
         self.output('Use the Systems button in the web UI to add, switch or remove systems while listening.')
         if profile['settings']['hardware']['profile'] == 'rspdxr2':
             serial = report['selected_device'].get('serial', '')

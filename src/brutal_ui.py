@@ -164,6 +164,29 @@ def apply_branding(www_root, asset_root=None):
     script = _replace_once(script, 'document.getElementById("showBandPlan").checked = showBandPlan === "true";',
                            'document.getElementById("showBandPlan").checked = showBandPlan === null ? true : showBandPlan === "true";',
                            'band-plan default')
+    # Upstream waits for a click before it even creates the AudioContext. A user who
+    # only watches the dashboard sees traffic but hears nothing until touching a
+    # control such as our volume slider. Try immediately; if the browser suspends
+    # autoplay, retry resume on the first keyboard/pointer gesture.
+    script = _replace_once(script,
+                           "\tdocument.addEventListener('click', function initAudioCtx() {\n"
+                           "\t\tif (!muteAudioAtStartup && !audioCtx) {\n"
+                           "\t\t\taudioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: WS_AUDIO_SAMPLE_RATE });\n"
+                           "\t\t\tObject.keys(audioChannels).forEach(function(ch) { audio_play(ch); });\n"
+                           "\t\t}\n"
+                           "\t}, { once: true });",
+                           "\tfunction startReceiverAudio() {\n"
+                           "\t\tif (muteAudioAtStartup) return;\n"
+                           "\t\tif (!audioCtx)\n"
+                           "\t\t\taudioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: WS_AUDIO_SAMPLE_RATE });\n"
+                           "\t\tif (audioCtx.state === 'suspended')\n"
+                           "\t\t\taudioCtx.resume().catch(function() { /* browser may require a gesture */ });\n"
+                           "\t\tObject.keys(audioChannels).forEach(function(ch) { audio_play(ch); });\n"
+                           "\t}\n"
+                           "\tstartReceiverAudio();\n"
+                           "\tdocument.addEventListener('pointerdown', startReceiverAudio);\n"
+                           "\tdocument.addEventListener('keydown', startReceiverAudio);",
+                           'automatic audio startup')
     script = _replace_once(script, 'localStorage.setItem("callHistorySource", document.getElementById("callHistorySource").value);',
                            'localStorage.setItem("callHistorySource", document.getElementById("callHistorySource").value);\n'
                            '  localStorage.setItem("callHistoryToggle", document.getElementById("callHistoryToggle").checked);',
@@ -243,6 +266,12 @@ def apply_branding(www_root, asset_root=None):
     script = _replace_once(script, '        source.connect(audioCtx.destination);',
                            '        source.connect(typeof brutalAudioOut === "function" ? brutalAudioOut(audioCtx) : audioCtx.destination);',
                            'audio volume hook')
+    # Drop live audio while autoplay is suspended; otherwise Web Audio schedules
+    # an ever-growing backlog that would all play after the user's first gesture.
+    script = _replace_once(script, '    if (!audioCtx || state.muted || state.queue.length === 0) return;',
+                           "    if (!audioCtx || state.muted || state.queue.length === 0) return;\n"
+                           "    if (audioCtx.state !== 'running') { state.queue = []; return; }",
+                           'suspended audio backlog')
     script = _replace_once(script, 'function full_config(config) {',
                            '''function full_config(config) {
     const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({

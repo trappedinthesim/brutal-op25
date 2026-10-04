@@ -3,7 +3,7 @@
 Dark, ops-style dashboard and guided launcher for monitoring P25 trunked radio, built on
 [boatbod/op25](https://github.com/boatbod/op25). Receive-only.
 
-> Status: `0.3.0-dev`. Clear reception was verified with an RTL-SDR Blog V4 on the earlier Docker Desktop path. The new Ubuntu WSL Engine path has decoded a live P25 control channel; its browser audio still needs a listening check. RSPdx-R2 signal lock and audio are not yet verified.
+> Status: `0.3.0-dev`. Clear reception was verified with an RTL-SDR Blog V4 on the earlier Docker Desktop path. The new Ubuntu WSL Engine path has decoded a live P25 control channel and browser audio was heard after a dashboard interaction; automatic audio startup still needs a listening check with the next image. RSPdx-R2 signal lock and audio are not yet verified.
 
 ## Screenshots
 
@@ -22,7 +22,7 @@ Terminal setup with its local dashboard link:
 - **Systems panel** (in the dashboard): add systems from RadioReference or manually, switch between saved systems (the receiver restarts for a few seconds), remove them. Saved systems are shared with the terminal menu.
 - **Additional SDR profiles** (terminal menu option 6): copy a saved system, site, talkgroups, and listening preferences to another radio without a fresh install or another RadioReference login. Only one physical radio receives at a time; stop and relaunch to change SDRs.
 - **Listening controls** (in the same panel): mark talkgroups **Priority** (they interrupt lower-priority calls) or **Blocked**, filter by RadioReference category, listen only to your Priority talkgroups, name individual radios (click any ID on the dashboard), choose how encrypted talkgroups are handled, and set the hold time. Changes are saved as a new version of the system and the receiver restarts for a few seconds.
-- **Volume slider** for browser audio in the status strip.
+- **Volume slider** for browser audio in the status strip. Audio starts automatically when the browser permits it; if autoplay is blocked, the dashboard shows **Enable Audio** for the required click instead of making you move the volume slider.
 - **Supervisor** (`brutal_supervisor.py`): keeps OP25 behind a small control server, shows a recovery page if OP25 stops, and never exposes Docker or USB control.
 - **Browser-friendly**: plot frames are not cached and stop downloading when hidden; call-history and subscriber tables are capped.
 

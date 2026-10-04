@@ -43,7 +43,8 @@ class TerminalTests(unittest.TestCase):
             start.assert_called_once()
             text = '\n'.join(output)
             self.assertIn('Receiver web UI: http://127.0.0.1:8080/', text)
-            self.assertIn('headphone button', text)
+            self.assertIn('starts automatically when allowed', text)
+            self.assertIn('ENABLE AUDIO', text)
             self.assertIn('not a webpage', text)
 
     def test_paged_search_and_cancel(self):

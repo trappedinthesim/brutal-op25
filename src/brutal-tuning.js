@@ -289,4 +289,35 @@
     strip.insertBefore(box, strip.querySelector('.ops-context-end'));
   }
   mountVolume();
+
+  // An ordinary page load may not have permission to start Web Audio. Keep the
+  // default volume at 100%, but show the one-click recovery only while the
+  // browser has actually suspended playback. Moving the slider is not required.
+  function mountAudioPrompt() {
+    const strip = document.querySelector('.ops-context');
+    if (!strip || document.getElementById('brutal-audio-enable')) return;
+    const button = el('button', { id: 'brutal-audio-enable', type: 'button', class: 'ops-audio-enable',
+      title: 'Your browser paused audio until you interact with this page', onclick: () => {
+        if (typeof audioCtx !== 'undefined' && audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume().catch(() => {});
+        }
+      } }, 'ENABLE AUDIO');
+    strip.insertBefore(button, strip.querySelector('.ops-context-end'));
+    let watchedContext = null;
+    function update() {
+      const ctx = typeof audioCtx === 'undefined' ? null : audioCtx;
+      if (ctx && ctx !== watchedContext) {
+        ctx.addEventListener('statechange', update);
+        watchedContext = ctx;
+      }
+      button.hidden = (typeof muteAudioAtStartup !== 'undefined' && muteAudioAtStartup) ||
+                      (ctx && ctx.state === 'running');
+    }
+    document.addEventListener('DOMContentLoaded', update);
+    document.addEventListener('pointerdown', () => setTimeout(update, 0));
+    document.addEventListener('keydown', () => setTimeout(update, 0));
+    const mutePreference = document.getElementById('muteAudioAtStartup');
+    if (mutePreference) mutePreference.addEventListener('change', update);
+  }
+  mountAudioPrompt();
 })();

@@ -212,6 +212,9 @@ OP25 stays on a talkgroup after a call ends (0 to 30 seconds; OP25's default is 
 a new revision of the system (older revisions stay in saved-profiles/history) and the receiver restarts for a
 few seconds, because OP25 reads these files at startup. Volume: a slider in the status strip (0 to 150 percent,
 remembered per browser) scales all browser audio through one gain node; it does not change the receiver.
+The dashboard tries to start audio at normal volume immediately. Browsers may suspend Web Audio until
+the first user interaction; only then does an ENABLE AUDIO button appear. Muted-at-startup remains an
+explicit browser preference. Audio received while suspended is discarded, not replayed later.
 Verified on a throwaway receiver fed synthetic noise with a fake RadioReference: category loading, search,
 bulk and per-row marking, apply and restart, listen-only mode and its safeguard, radio names including
 click-to-name and HTML escaping, encrypted behavior and hold time reaching OP25's config and log, and the
