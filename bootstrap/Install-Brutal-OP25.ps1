@@ -35,7 +35,7 @@ try {
         }
     }
     $taskImage = (Get-Content -LiteralPath (Join-Path $taskPayload 'build/image-release.txt') -Raw).Trim()
-    if ($taskImage -notmatch '^ghcr\.io/trappedinthesim/brutal-op25:[a-zA-Z0-9._-]+$') {
+    if ($taskImage -notmatch '^ghcr\.io/trappedinthesim/brutal-op25-receiver:[a-zA-Z0-9._-]+$') {
         throw 'The downloaded source archive has an invalid release-image reference.'
     }
     if ($Update) {

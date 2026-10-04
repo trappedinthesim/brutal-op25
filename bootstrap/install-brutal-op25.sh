@@ -72,7 +72,7 @@ for task_file in Launch-Brutal-OP25.cmd install-brutal-op25.sh install/image-boo
     }
 done
 task_release=$(tr -d '\r\n' < "$task_work/payload/build/image-release.txt")
-[[ $task_release =~ ^ghcr\.io/trappedinthesim/brutal-op25:[a-zA-Z0-9._-]+$ ]] || {
+[[ $task_release =~ ^ghcr\.io/trappedinthesim/brutal-op25-receiver:[a-zA-Z0-9._-]+$ ]] || {
     printf '%s\n' 'Downloaded source archive has an invalid release-image reference.' >&2; exit 1;
 }
 if ((task_update)); then

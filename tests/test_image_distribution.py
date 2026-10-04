@@ -8,7 +8,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-RELEASE = 'ghcr.io/trappedinthesim/brutal-op25:0.3.0-dev.4'
+RELEASE = 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.4'
 LOCAL = 'brutal-op25:0.3.0-dev.4'
 
 
