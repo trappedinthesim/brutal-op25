@@ -1,17 +1,18 @@
 import unittest
 from unittest.mock import patch
-from terminal_art import SKULL, banner, paint
+from terminal_art import DISH, banner, paint
 
 
 class TerminalArtTests(unittest.TestCase):
     def test_compact_splash_leaves_room_for_menu(self):
         text = banner(80, False, True)
-        self.assertLessEqual(max(map(len, SKULL.splitlines())), 32)
+        self.assertLessEqual(max(map(len, DISH.splitlines())), 32)
         self.assertLessEqual(len(text.splitlines()), 14)
         self.assertIn('BRUTAL OP25', text)
         self.assertIn('Built on boatbod/op25', text)
-        self.assertIn(SKULL, text)
-        self.assertEqual(len(SKULL.splitlines()), 11)
+        self.assertIn(DISH, text)
+        self.assertEqual(len(DISH.splitlines()), 11)
+        self.assertTrue(DISH.isascii())
 
     def test_ascii_fallback_and_override(self):
         self.assertTrue(banner(80, False, False).isascii())
@@ -26,7 +27,7 @@ class TerminalArtTests(unittest.TestCase):
         for width in (1, 12, 24, 31, 32, 40, 80):
             with self.subTest(width=width):
                 self.assertTrue(all(len(line) <= width for line in banner(width, False).splitlines()))
-        self.assertNotIn('.------------.', banner(24, False))
+        self.assertNotIn('.:-=+*###*.', banner(24, False))
 
     def test_color_is_optional_and_always_reset(self):
         self.assertNotIn('\033', banner(80, False))

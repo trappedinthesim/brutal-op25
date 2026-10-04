@@ -74,7 +74,7 @@ def menu_layout(state, title, width, height, context=()):
     details = [line for message in context for line in textwrap.wrap(clean(message), width=width)]
     controls[1:1] = details
     if len(header) + len(controls) + 2 > height:
-        # Tiny windows cannot fit the full skull plus a usable selection.
+        # Tiny windows cannot fit the full dish banner plus a usable selection.
         header = ['BRUTAL OP25'] if height >= 7 else []
     if len(header) + len(controls) + 2 > height:
         controls = ([clean(title)] + details)[:max(0,height-len(header)-2)]
