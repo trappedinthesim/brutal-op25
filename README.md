@@ -11,9 +11,23 @@ Live dashboard showing the receiver, call history, and signal plots:
 
 ![Brutal OP25 live dashboard with receiver telemetry, call history, and signal plots](docs/screenshots/dashboard-live.png)
 
-Terminal setup with its local dashboard link:
+The compact satellite-dish banner in terminal setup:
 
-![Brutal OP25 terminal setup and dashboard link](docs/screenshots/terminal-setup.png)
+```text
+            .      *
+        .:-=+*###*.
+     .-+#@@@@@@@@@#.
+   .-+%@@@@@@@@@@@#'
+  /#@@@@@@@@@@#-'       o ))
+ /#@@@@@@#-'-----------'
+/#@@@#-'
+`----'-----\
+           \\
+            ||
+           [__]
+BRUTAL OP25 // TERMINAL SETUP
+Built on boatbod/op25
+```
 
 ## What it adds on top of OP25
 - **Guided launch** (Windows and Linux/WSL): picks your radio, forwards USB into a locked-down container, and opens the dashboard.
