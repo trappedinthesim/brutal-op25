@@ -17,28 +17,11 @@ Live dashboard showing the receiver, call history, and signal plots:
 
 ![Brutal OP25 live dashboard with receiver telemetry, call history, and signal plots](docs/screenshots/dashboard-live.png)
 
-The terminal banner combines the block-letter name with the radio tower (shown in
-the dashboard's blue on a color terminal). Narrow or non-UTF-8 terminals use the compact name:
+Terminal launcher and onboarding:
 
-```text
-░█▀▄░█▀▄░█░█░▀█▀░█▀█░█░░░░░█▀█░█▀█░▀▀▄░█▀▀
-░█▀▄░█▀▄░█░█░░█░░█▀█░█░░░░░█░█░█▀▀░▄▀░░▀▀▄
-░▀▀░░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░░░▀▀▀░▀░░░▀▀▀░▀▀░
+![Brutal OP25 terminal launcher with block-letter title, radio tower, project link, and setup menu](docs/screenshots/terminal-setup.png)
 
-             /  /          \  \
-            |  |            |  |
-             \  \    /\    /  /
-                    /||\
-                   / || \
-                  /--||--\
-                 /   ||   \
-                /----||----\
-               /     ||     \
-              /______||______\
-
-              TERMINAL SETUP
-         BUILT ON BOATBOD / OP25
-```
+Narrow or non-UTF-8 terminals use a compact text banner.
 
 ## What it adds on top of OP25
 - **Guided launch** (Windows and Linux/WSL): picks your radio, forwards USB into a locked-down container, and opens the dashboard.
