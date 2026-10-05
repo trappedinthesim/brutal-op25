@@ -5,6 +5,7 @@ from pathlib import Path
 import subprocess
 import tarfile
 import tempfile
+import time
 import unittest
 
 
@@ -48,6 +49,44 @@ class PublicBootstrapTests(unittest.TestCase):
             self.assertEqual((destination / 'install-brutal-op25.sh').read_text(),
                              '#!/bin/sh\nexit 0\n')
             self.assertEqual(len(list(root.glob('BrutalOP25.failed.*'))), 1)
+
+    def test_successful_updates_keep_one_verified_previous_program(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            destination = root / 'BrutalOP25'
+            fixture = root / 'source.tar.gz'
+            archive(fixture)
+            script = ROOT / 'bootstrap/install-brutal-op25.sh'
+            args = ['bash', str(script), '--no-launch', '--install-path', str(destination),
+                    '--archive', str(fixture)]
+            for extra in ([], ['--update'], ['--update']):
+                result = subprocess.run(args + extra, capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                time.sleep(1.1)
+            backups = list(root.glob('BrutalOP25.previous.*'))
+            self.assertEqual(len(backups), 1)
+            self.assertEqual((backups[0] / '.brutal-op25-install').read_text().strip(),
+                             str(destination))
+
+    def test_modified_previous_program_is_not_deleted(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            destination = root / 'BrutalOP25'
+            fixture = root / 'source.tar.gz'
+            archive(fixture)
+            script = ROOT / 'bootstrap/install-brutal-op25.sh'
+            args = ['bash', str(script), '--no-launch', '--install-path', str(destination),
+                    '--archive', str(fixture)]
+            for extra in ([], ['--update']):
+                result = subprocess.run(args + extra, capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr)
+            older = next(root.glob('BrutalOP25.previous.*'))
+            (older / 'user-notes.txt').write_text('Keep this file')
+            time.sleep(1.1)
+            result = subprocess.run(args + ['--update'], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue((older / 'user-notes.txt').exists())
+            self.assertEqual(len(list(root.glob('BrutalOP25.previous.*'))), 2)
 
 
 if __name__ == '__main__':

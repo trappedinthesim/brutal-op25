@@ -44,7 +44,21 @@ try {
     if (-not $taskFailed) { throw 'The failed update unexpectedly succeeded.' }
     $taskContent = Get-Content -LiteralPath (Join-Path $taskInstall 'Launch-Brutal-OP25.cmd') -Raw
     if ($taskContent -notmatch 'exit /b 0') { throw 'Previous install was not restored.' }
-    Write-Output 'PASS: Git-free Windows bootstrap and failed-update rollback'
+    & $taskBootstrap -ArchivePath $taskFirst -InstallPath $taskInstall -DesktopDirectory $taskDesktop -ProgramsDirectory $taskPrograms -Update -NoLaunch
+    Start-Sleep -Seconds 1
+    & $taskBootstrap -ArchivePath $taskFirst -InstallPath $taskInstall -DesktopDirectory $taskDesktop -ProgramsDirectory $taskPrograms -Update -NoLaunch
+    $taskBackups = @(Get-ChildItem -LiteralPath $taskTest -Directory -Filter 'installed.previous.*')
+    if ($taskBackups.Count -ne 1) { throw 'Successful updates did not retain exactly one previous program folder.' }
+    Set-Content -LiteralPath (Join-Path $taskBackups[0].FullName 'user-notes.txt') -Value 'Keep this file'
+    Start-Sleep -Seconds 1
+    & $taskBootstrap -ArchivePath $taskFirst -InstallPath $taskInstall -DesktopDirectory $taskDesktop -ProgramsDirectory $taskPrograms -Update -NoLaunch
+    $taskBackups = @(Get-ChildItem -LiteralPath $taskTest -Directory -Filter 'installed.previous.*')
+    if ($taskBackups.Count -ne 2 -or
+        -not (Test-Path -LiteralPath (Join-Path $taskBackups[0].FullName 'user-notes.txt')) -and
+        -not (Test-Path -LiteralPath (Join-Path $taskBackups[1].FullName 'user-notes.txt'))) {
+        throw 'Cleanup removed a modified previous program folder.'
+    }
+    Write-Output 'PASS: Windows update rollback, old-version cleanup, and changed-folder preservation'
 } finally {
     $taskResolved = [IO.Path]::GetFullPath($taskTest)
     $taskTemp = [IO.Path]::GetFullPath([IO.Path]::GetTempPath())

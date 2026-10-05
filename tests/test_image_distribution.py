@@ -44,7 +44,8 @@ class ImageReleaseTests(unittest.TestCase):
 @unittest.skipUnless(os.name != 'nt' and shutil.which('bash'), 'Needs native Bash')
 class LinuxPullTests(unittest.TestCase):
     def run_bootstrap(self, *, local_present=False, pull_succeeds=True, crlf_release=False,
-                      operation='ensure', expected_success=True):
+                      operation='ensure', expected_success=True, owned_tags=(),
+                      local_id='old-id', include_lists=False):
         with tempfile.TemporaryDirectory() as directory:
             mock = Path(directory) / 'docker'
             log = Path(directory) / 'calls'
@@ -52,13 +53,21 @@ class LinuxPullTests(unittest.TestCase):
                             'printf "%s\\n" "$*" >> "$BRUTAL_TEST_LOG"\n'
                             'case "$1 $2" in\n'
                             '  "image inspect")\n'
+                            '    case "$5" in\n'
+                            '      *org.opencontainers.image.source*)\n'
+                            '        [ "$3" = "brutal-op25:0.3.0-dev.14" ] && exit 0\n'
+                            '        printf "%s\\n" https://github.com/trappedinthesim/brutal-op25; exit 0;;\n'
+                            '    esac\n'
                             '    if [ "$3" = "brutal-op25:0.3.0-dev.17" ]; then\n'
                             '      [ "$BRUTAL_TEST_LOCAL" = 0 ] || exit 1\n'
-                            '      [ "$4" = "--format" ] && printf "%s\\n" old-id\n'
+                            '      [ "$4" = "--format" ] && printf "%s\\n" "$BRUTAL_TEST_LOCAL_ID"\n'
+                            '    elif [ "$3" = "brutal-op25:0.3.0-dev.16" ]; then\n'
+                            '      [ "$4" = "--format" ] && printf "%s\\n" prior-id\n'
                             '    else\n'
                             '      [ "$4" = "--format" ] && printf "%s\\n" new-id\n'
                             '    fi\n'
                             '    exit 0;;\n'
+                            '  "image ls") printf "%s\\n" "$BRUTAL_TEST_TAGS"; exit 0;;\n'
                             '  "pull "*) exit "$BRUTAL_TEST_PULL";;\n'
                             'esac\n'
                             'exit 0\n')
@@ -66,7 +75,9 @@ class LinuxPullTests(unittest.TestCase):
             env = dict(os.environ, PATH=directory + os.pathsep + os.environ['PATH'],
                        BRUTAL_TEST_LOG=str(log),
                        BRUTAL_TEST_LOCAL='0' if local_present else '1',
-                       BRUTAL_TEST_PULL='0' if pull_succeeds else '1')
+                       BRUTAL_TEST_PULL='0' if pull_succeeds else '1',
+                       BRUTAL_TEST_LOCAL_ID=local_id,
+                       BRUTAL_TEST_TAGS='\n'.join(owned_tags))
             release_root = ROOT
             if crlf_release:
                 release_root = Path(directory)
@@ -81,7 +92,7 @@ class LinuxPullTests(unittest.TestCase):
                                     capture_output=True, text=True, timeout=10)
             calls = log.read_text().splitlines() if log.exists() else []
         self.assertEqual(result.returncode == 0, expected_success, result.stderr)
-        return calls
+        return calls if include_lists else [call for call in calls if not call.startswith('image ls')]
 
     def test_existing_local_image_does_not_pull_or_build(self):
         self.assertEqual(self.run_bootstrap(local_present=True),
@@ -114,6 +125,27 @@ class LinuxPullTests(unittest.TestCase):
         calls = self.run_bootstrap(local_present=True, pull_succeeds=False,
                                    operation='update', expected_success=False)
         self.assertEqual(calls, [f'pull {RELEASE}'])
+
+    def test_update_after_prepare_keeps_older_image_and_removes_only_old_tags(self):
+        old = 'brutal-op25:0.3.0-dev.16'
+        old_release = 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.16'
+        calls = self.run_bootstrap(local_present=True, operation='update', local_id='new-id',
+                                   owned_tags=(LOCAL, old, RELEASE, old_release,
+                                               'brutal-op25:0.3.0-dev.14',
+                                               'brutal-op25-sdrplay:0.3.0-dev.15-local',
+                                               'brutal-op25-sdrplay:0.3.0-dev.16-local',
+                                               'brutal-op25-sdrplay:private', 'ubuntu:24.04'),
+                                   include_lists=True)
+        self.assertIn(f'tag {old} {LOCAL}-previous', calls)
+        self.assertIn(f'image rm {old}', calls)
+        self.assertIn(f'image rm {old_release}', calls)
+        self.assertIn('image rm brutal-op25-sdrplay:0.3.0-dev.15-local', calls)
+        self.assertNotIn('image rm brutal-op25-sdrplay:0.3.0-dev.16-local', calls)
+        self.assertNotIn('image rm brutal-op25-sdrplay:private', calls)
+        self.assertNotIn('image rm ubuntu:24.04', calls)
+        self.assertNotIn(f'image rm {LOCAL}', calls)
+        self.assertNotIn(f'image rm {RELEASE}', calls)
+        self.assertNotIn('image rm brutal-op25:0.3.0-dev.14', calls)
 
     def test_image_rollback_keeps_failed_version_for_diagnosis(self):
         calls = self.run_bootstrap(local_present=True, operation='rollback')

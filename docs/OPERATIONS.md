@@ -43,7 +43,14 @@ existing checkout, use `Launch-Brutal-OP25.cmd --update-image` on Windows or
 `bash install-brutal-op25.sh --update-image` on Linux. A successful image update
 retains the previous image under a `-previous` tag. Use `--rollback-image` from
 the same launcher if you need to revert. A failed pull leaves the current
-image in place.
+image in place. After a successful update, older Brutal OP25 image tags and
+verified previous program folders are cleaned up automatically, leaving one
+rollback copy. Other Docker images, saved-system volumes, and the private
+SDRplay addon currently in use are not pruned. The newest locally built SDRplay
+addon is retained for rollback; older version-tagged addons are removed.
+An old program folder with changed or extra files is left in place for you to
+review rather than deleted automatically. Older folders from before the
+verified-install manifest was added may also remain.
 
 ## Checks and alternative modes
 
@@ -68,7 +75,7 @@ Audio** in the dashboard.
 Windows runs Docker Engine inside Ubuntu WSL, not Docker Desktop. The installer
 does not delete or migrate existing Docker Desktop images or profiles. Its own
 saved systems live in a separate Docker volume. The Windows uninstaller keeps
-that volume, previous-version folders, Ubuntu WSL, Docker images, and the USB
+that volume, the most recent rollback folder, Ubuntu WSL, Docker images, and the USB
 bridge so unrelated data is not removed.
 
 On supported Ubuntu and Debian versions, the Linux installer can offer Docker

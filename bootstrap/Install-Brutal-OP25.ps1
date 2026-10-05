@@ -10,6 +10,46 @@ New-Item -ItemType Directory -Path $taskParent -Force | Out-Null
 $taskWork = Join-Path ([IO.Path]::GetTempPath()) ('BrutalOP25-bootstrap-' + [guid]::NewGuid().ToString('N'))
 $taskBackup = ''
 $taskMoved = $false
+function Get-BrutalProgramManifest([string]$Root) {
+    $taskBase = [IO.Path]::GetFullPath($Root).TrimEnd('\')
+    $taskLines = [System.Collections.Generic.List[string]]::new()
+    foreach ($taskEntry in @(Get-ChildItem -LiteralPath $taskBase -Recurse -Force)) {
+        if ($taskEntry.Attributes -band [IO.FileAttributes]::ReparsePoint) {
+            throw "Linked item found in program folder: $($taskEntry.FullName)"
+        }
+        if ($taskEntry.PSIsContainer) { continue }
+        $taskRelative = $taskEntry.FullName.Substring($taskBase.Length + 1).Replace('\','/')
+        if ($taskRelative -in @('.brutal-op25-install','.brutal-op25-manifest')) { continue }
+        $taskLines.Add($taskRelative + "`t" + (Get-FileHash -LiteralPath $taskEntry.FullName -Algorithm SHA256).Hash)
+    }
+    return ([string]::Join("`n", @($taskLines | Sort-Object)) + "`n")
+}
+function Remove-BrutalOldProgramVersions([string]$Parent, [string]$Name,
+                                         [string]$Install, [string]$Keep) {
+    $taskRemovedCount = 0
+    $taskPattern = '^' + [regex]::Escape($Name) + '\.previous\.\d{8}-\d{6}$'
+    $taskSafeParent = [IO.Path]::GetFullPath($Parent).TrimEnd('\')
+    foreach ($taskCandidate in @(Get-ChildItem -LiteralPath $Parent -Directory)) {
+        $taskPath = [IO.Path]::GetFullPath($taskCandidate.FullName)
+        if ($taskCandidate.Name -notmatch $taskPattern -or $taskPath -ieq $Keep -or
+            [IO.Path]::GetDirectoryName($taskPath).TrimEnd('\') -ine $taskSafeParent -or
+            ($taskCandidate.Attributes -band [IO.FileAttributes]::ReparsePoint)) { continue }
+        $taskMarker = Join-Path $taskPath '.brutal-op25-install'
+        $taskManifest = Join-Path $taskPath '.brutal-op25-manifest'
+        if (-not (Test-Path -LiteralPath $taskMarker -PathType Leaf) -or
+            -not (Test-Path -LiteralPath $taskManifest -PathType Leaf) -or
+            -not (Test-Path -LiteralPath (Join-Path $taskPath 'Launch-Brutal-OP25.cmd') -PathType Leaf) -or
+            -not (Test-Path -LiteralPath (Join-Path $taskPath 'build/image-release.txt') -PathType Leaf) -or
+            (Get-Content -LiteralPath $taskMarker -Raw).Trim() -ine $Install) { continue }
+        if ([IO.File]::ReadAllText($taskManifest) -cne (Get-BrutalProgramManifest $taskPath)) {
+            Write-Warning "Keeping changed previous program folder: $taskPath"
+            continue
+        }
+        Remove-Item -LiteralPath $taskPath -Recurse -Force
+        $taskRemovedCount++
+    }
+    if ($taskRemovedCount) { Write-Host "Removed $taskRemovedCount older Brutal OP25 program version(s)." }
+}
 try {
     if ((Test-Path -LiteralPath $InstallPath) -and -not $Update) {
         throw "Brutal OP25 is already installed at $InstallPath. Use -Update to replace its program files. Saved systems are stored separately."
@@ -50,10 +90,6 @@ try {
     $taskMoved = $true
     & (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') --prepare-only
     if ($LASTEXITCODE -ne 0) { throw 'Linux engine or image preparation stopped. See the specific setup message above.' }
-    if ($Update) {
-        & (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') --update-image
-        if ($LASTEXITCODE -ne 0) { throw 'New release image could not be fetched; previous program files will be restored.' }
-    }
     [IO.File]::WriteAllText((Join-Path $InstallPath '.brutal-op25-install'), $InstallPath)
     . (Join-Path $InstallPath 'install/user-launcher.ps1')
     try {
@@ -70,8 +106,18 @@ try {
     } catch {
         Write-Warning ('Could not create the Desktop OP25 shortcuts: ' + $_.Exception.Message)
     }
+    [IO.File]::WriteAllText((Join-Path $InstallPath '.brutal-op25-manifest'),
+        (Get-BrutalProgramManifest $InstallPath))
+    if ($Update) {
+        & (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') --update-image
+        if ($LASTEXITCODE -ne 0) { throw 'New release image could not be fetched; previous program files will be restored.' }
+    }
     Write-Host "Brutal OP25 ready at $InstallPath"
     if ($taskBackup) { Write-Host "Previous program files kept at $taskBackup" }
+    if ($Update) {
+        try { Remove-BrutalOldProgramVersions $taskParent $taskName $InstallPath $taskBackup }
+        catch { Write-Warning ('Old program version cleanup was skipped: ' + $_.Exception.Message) }
+    }
     if (-not $NoLaunch) { & (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') }
 } catch {
     if ($taskBackup -and $taskMoved -and (Test-Path -LiteralPath $InstallPath)) {

@@ -62,7 +62,7 @@ Open the **OP25** folder on your Desktop. The installer creates three shortcuts 
 
 - **Launch Brutal OP25** starts the receiver. You can also search the Start menu for **Brutal OP25**.
 - **Update Brutal OP25** downloads the latest program files and matching receiver image. Stop the receiver first, then use **Launch Brutal OP25** when the update finishes. Updates never happen silently.
-- **Uninstall Brutal OP25** asks you to type `UNINSTALL`, then removes the installed program folder and managed shortcuts. It keeps saved systems, previous-version folders, Docker images, Ubuntu WSL, and the USB bridge. Files you added inside the installed program folder are removed; unrelated items in the Desktop **OP25** folder are left alone.
+- **Uninstall Brutal OP25** asks you to type `UNINSTALL`, then removes the installed program folder and managed shortcuts. It keeps saved systems, the most recent rollback folder, Docker images, Ubuntu WSL, and the USB bridge. Files you added inside the installed program folder are removed; unrelated items in the Desktop **OP25** folder are left alone.
 
 The Desktop folder is also created if your Desktop is redirected into OneDrive. If a
 shortcut is missing, launch directly from PowerShell:
@@ -100,7 +100,12 @@ bash "$HOME/brutal-op25/bootstrap/install-brutal-op25.sh" --update
 
 If you chose a custom installation path, use its `bootstrap/install-brutal-op25.sh`
 instead. A failed update restores the previous program folder. Saved systems live in
-a separate Docker volume, not in the program folder.
+a separate Docker volume, not in the program folder. Successful updates keep one
+verified previous program folder and one receiver-image rollback; older Brutal
+OP25 versions are removed without pruning unrelated Docker images or data.
+If you add or change files inside an old program folder, cleanup leaves that
+folder alone so your files are not lost; keep personal files outside the
+installation folder for predictable updates.
 
 ## After installation
 

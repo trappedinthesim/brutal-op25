@@ -50,6 +50,37 @@ task_cleanup() {
     [[ $task_work == /tmp/tmp.* || $task_work == "${TMPDIR:-/tmp}"/tmp.* ]] && rm -r -- "$task_work"
 }
 trap task_cleanup EXIT
+task_program_manifest() {
+    (
+        cd -- "$1"
+        [[ -z $(find . -type l -print -quit) ]] || return 1
+        find . -type f ! -path './.brutal-op25-install' ! -path './.brutal-op25-manifest' -print0 |
+            LC_ALL=C sort -z | xargs -0 -r sha256sum
+    )
+}
+task_remove_old_program_versions() {
+    local task_candidate task_candidate_name task_suffix task_marker task_manifest task_removed=0
+    while IFS= read -r -d '' task_candidate; do
+        [[ $task_candidate != "$task_backup" && ! -L $task_candidate ]] || continue
+        task_candidate_name=$(basename -- "$task_candidate")
+        [[ $task_candidate_name == "$task_name.previous."* ]] || continue
+        task_suffix=${task_candidate_name#"$task_name.previous."}
+        [[ $task_suffix =~ ^[0-9]{14}$ ]] || continue
+        [[ $(dirname -- "$(realpath -m -- "$task_candidate")") == "$task_parent" ]] || continue
+        task_marker="$task_candidate/.brutal-op25-install"
+        task_manifest="$task_candidate/.brutal-op25-manifest"
+        [[ -f $task_marker && -f $task_manifest && -f $task_candidate/install-brutal-op25.sh &&
+           -f $task_candidate/build/image-release.txt ]] || continue
+        [[ $(< "$task_marker") == "$task_install" ]] || continue
+        if ! cmp -s -- "$task_manifest" <(task_program_manifest "$task_candidate"); then
+            printf 'Keeping changed previous program folder: %s\n' "$task_candidate" >&2
+            continue
+        fi
+        rm -r -- "$task_candidate" || return 1
+        ((task_removed+=1))
+    done < <(find "$task_parent" -mindepth 1 -maxdepth 1 -type d -name "$task_name.previous.*" -print0)
+    if ((task_removed)); then printf 'Removed %s older Brutal OP25 program version(s).\n' "$task_removed"; fi
+}
 if [[ -n $task_archive ]]; then
     cp -- "$task_archive" "$task_work/source.tar.gz"
 else
@@ -83,7 +114,12 @@ fi
 mv -- "$task_work/payload" "$task_install"
 task_moved=1
 bash "$task_install/install-brutal-op25.sh" --prepare-only
+printf '%s\n' "$task_install" > "$task_install/.brutal-op25-install"
+task_program_manifest "$task_install" > "$task_install/.brutal-op25-manifest"
 if ((task_update)); then bash "$task_install/install-brutal-op25.sh" --update-image; fi
 printf 'Brutal OP25 ready at %s\n' "$task_install"
 if [[ -n $task_backup ]]; then printf 'Previous program files kept at %s\n' "$task_backup"; fi
+if ((task_update)); then
+    task_remove_old_program_versions || printf '%s\n' 'Old program version cleanup was skipped.' >&2
+fi
 if ((task_no_launch == 0)); then bash "$task_install/install-brutal-op25.sh"; fi
