@@ -20,7 +20,7 @@ else
     [[ -f $task_path ]] || { printf '%s\n' 'Backup file not found.' >&2; exit 1; }
 fi
 task_parent=$(cd -- "$task_parent" && pwd -P)
-task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.11}
+task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.12}
 task_volume=${BRUTAL_PROFILE_VOLUME:-brutal-op25-data}
 [[ $task_volume =~ ^brutal-op25-(data|test-[a-z0-9]+)$ ]] || {
     printf '%s\n' 'Invalid saved-system volume name.' >&2; exit 2;

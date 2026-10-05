@@ -56,7 +56,7 @@ class ReceiverUiTests(unittest.TestCase):
             self.assertNotIn("send_command('dump_tracking'", script)
             import re
             from brutal_ui import BRUTAL_VERSION, UPSTREAM_COMMIT
-            about = html[html.index('<div class="about-content">'):html.index('This program comes with')]
+            about = html[html.index('<div class="about-content">'):html.index('<!-- end about popup -->')]
             self.assertIn('Brutal OP25', about)
             self.assertIn(BRUTAL_VERSION, about)
             self.assertIn('https://github.com/trappedinthesim/brutal-op25', about)
@@ -64,6 +64,12 @@ class ReceiverUiTests(unittest.TestCase):
             self.assertIn('https://github.com/boatbod/op25', about)
             self.assertIn('https://git.osmocom.org/op25', about)
             self.assertIn('RadioReference imports', about)
+            self.assertIn('Install Brutal OP25:', about)
+            self.assertIn('brutal-op25#install-and-run-development-preview', about)
+            self.assertIn('Upstream source (not Brutal OP25 installers):', about)
+            self.assertIn('Original OP25 website:', about)
+            self.assertNotIn('<strong>Download:</strong>', about)
+            self.assertNotIn('git clone https://github.com/boatbod/op25', about)
             self.assertIn('Not affiliated with or endorsed', about)
             # Upstream's own copyright and licence text must survive, after our block.
             self.assertIn('Max H. Parke', about)

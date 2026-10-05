@@ -20,6 +20,24 @@ ABOUT_BRUTAL = (
     'rel="noopener noreferrer">original OP25 contributors</a>. '
     'Not affiliated with or endorsed by the OP25 authors.</p>'
     '</div>')
+UPSTREAM_DOWNLOAD = (
+    '<strong>Download:</strong>\n'
+    '                  <br>\n'
+    '                  <code>git clone https://git.osmocom.org/op25</code> &nbsp; '
+    '<a href="https://gitea.osmocom.org/op25/op25?h=master" target="_blank">[original]</a>\n'
+    '                  <br>\n'
+    '                  <code>git clone https://github.com/boatbod/op25</code> &nbsp; '
+    '<a href="https://github.com/boatbod/op25" target="_blank">[boatbod fork]</a>')
+BRUTAL_DOWNLOAD = (
+    '<strong>Install Brutal OP25:</strong> '
+    '<a href="https://github.com/trappedinthesim/brutal-op25#install-and-run-development-preview" '
+    'target="_blank" rel="noopener noreferrer">Setup instructions and project downloads</a>\n'
+    '                </p>\n'
+    '                <p><strong>Upstream source (not Brutal OP25 installers):</strong> '
+    '<a href="https://gitea.osmocom.org/op25/op25?h=master" target="_blank" '
+    'rel="noopener noreferrer">original OP25</a> &middot; '
+    '<a href="https://github.com/boatbod/op25" target="_blank" '
+    'rel="noopener noreferrer">boatbod/op25</a>')
 LEGACY_NAV ='<a href="legacy-index.html" class="nav-item" id="btn-legacy">Legacy UI</a>'
 LEGACY_REDIRECT = re.compile(
     r'\s*// Determine UI version required \(rx\.py => force to legacy terminal for compatibility reasons\)\s*'
@@ -57,6 +75,9 @@ def apply_branding(www_root, asset_root=None):
     # About: lead with this project's own identity; upstream copyright, warranty and license text stay below, unchanged.
     html = _replace_once(html, '<div class="about-content">',
                          '<div class="about-content">\n                ' + ABOUT_BRUTAL, 'about content')
+    html = _replace_once(html, UPSTREAM_DOWNLOAD, BRUTAL_DOWNLOAD, 'upstream download links')
+    html = _replace_once(html, '<strong>Website:</strong>',
+                         '<strong>Original OP25 website:</strong>', 'upstream website label')
     # Systems panel: a nav entry plus the script that builds the panel on demand.
     html = _replace_once(html, '<a href="#" class="nav-item" id="btn-settings"',
                          '<a href="#" class="nav-item" id="btn-systems" '
