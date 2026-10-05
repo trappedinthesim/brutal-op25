@@ -11,21 +11,27 @@ Live dashboard showing the receiver, call history, and signal plots:
 
 ![Brutal OP25 live dashboard with receiver telemetry, call history, and signal plots](docs/screenshots/dashboard-live.png)
 
-The compact radio tower in terminal setup (shown in the dashboard's blue on a color terminal):
+The terminal banner combines the block-letter name with the radio tower (shown in
+the dashboard's blue on a color terminal). Narrow or non-UTF-8 terminals use the compact name:
 
 ```text
-   /  /          \  \
-  |  |            |  |
-   \  \    /\    /  /
-          /||\
-         / || \
-        /--||--\
-       /   ||   \
-      /----||----\
-     /     ||     \
-    /______||______\
-BRUTAL OP25 // TERMINAL SETUP
-Built on boatbod/op25
+░█▀▄░█▀▄░█░█░▀█▀░█▀█░█░░░░░█▀█░█▀█░▀▀▄░█▀▀
+░█▀▄░█▀▄░█░█░░█░░█▀█░█░░░░░█░█░█▀▀░▄▀░░▀▀▄
+░▀▀░░▀░▀░▀▀▀░░▀░░▀░▀░▀▀▀░░░▀▀▀░▀░░░▀▀▀░▀▀░
+
+             /  /          \  \
+            |  |            |  |
+             \  \    /\    /  /
+                    /||\
+                   / || \
+                  /--||--\
+                 /   ||   \
+                /----||----\
+               /     ||     \
+              /______||______\
+
+              TERMINAL SETUP
+         BUILT ON BOATBOD / OP25
 ```
 
 ## What it adds on top of OP25
@@ -105,11 +111,11 @@ An `image-v<version>` Git tag triggers `.github/workflows/image.yml`: it checks 
 
 Manual base-image build from this checkout (the guided launchers do this automatically when needed):
 
-    docker build -f build/Dockerfile -t brutal-op25:0.3.0-dev.9 .
+    docker build -f build/Dockerfile -t brutal-op25:0.3.0-dev.10 .
 
 Quick refresh of an already-built image after editing app files (keeps installed drivers):
 
-    docker build -f build/Dockerfile.refresh --build-arg INSTALLED_IMAGE=brutal-op25:0.3.0-dev.9 -t brutal-op25:0.3.0-dev.9 .
+    docker build -f build/Dockerfile.refresh --build-arg INSTALLED_IMAGE=brutal-op25:0.3.0-dev.10 -t brutal-op25:0.3.0-dev.10 .
 
 Tests run inside the image (the dashboard patches target the upstream UI shipped there). The test runner mounts only the named source/test folders and files, never `.setup-cache` or the whole checkout:
 
