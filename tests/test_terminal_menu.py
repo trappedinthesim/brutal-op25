@@ -39,7 +39,7 @@ class MenuTests(unittest.TestCase):
 
     def test_compact_brand_stays_above_scrolling_choices(self):
         state = MenuState(list(range(50)), str)
-        with patch.dict(os.environ, {'TERM': 'xterm', 'BRUTAL_ASCII': '0'}), \
+        with patch.dict(os.environ, {'TERM': 'xterm'}), \
                 patch('terminal_art.sys.stdout') as output:
             output.encoding = 'utf-8'
             lines, rows = menu_layout(state, 'Country', 80, 24)

@@ -136,7 +136,7 @@ updates that change the checksum must be verified before updating this pin.
 To build from an official SDRplay Linux 3.15.2 package obtained separately:
   bash install/build-sdrplay.sh /path/to/official-installer
 This verifies the pinned checksum, displays the complete license, requires
-an explicit Yes, and builds brutal-op25-sdrplay:0.3.0-dev.8-local from an isolated
+an explicit Yes, and builds brutal-op25-sdrplay:0.3.0-dev.9-local from an isolated
 vendor context containing only that installer, not its parent directory.
 No license is accepted by automated tests. The user approved the SDRplay license
 and the private addon was built locally; its software factory check passed, but

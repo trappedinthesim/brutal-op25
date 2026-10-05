@@ -11,7 +11,7 @@ from hardware_check import check_profile
 from receiver_readiness import environment, usb_inventory, assess
 from container_receiver import prepare, run
 from brutal_supervisor import serve_setup
-from terminal_art import banner, paint, show_graphic_banner
+from terminal_art import banner, paint
 from terminal_menu import can_scroll, scrolling_menu, MenuCancelled
 
 
@@ -466,8 +466,7 @@ class Terminal:
         return ''
 
     def loop(self):
-        if not (self.interactive_menus and show_graphic_banner()):
-            self.output(banner(color=False))
+        self.output(banner(color=False))
         self.output('Profile store: ' + str(self.library.root))
         self.output('One system/site active at a time. No browser onboarding or ZIP required.')
         setup_only = self.setup_only_reason()

@@ -26,7 +26,6 @@
 !src/brutal-systems.js
 !src/brutal-tuning.js
 !src/brutal-logo.png
-!src/terminal-banner.png
 !src/hardware_check.py
 !src/receiver_readiness.py
 !src/brutal_cli.py

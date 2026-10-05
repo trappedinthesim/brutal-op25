@@ -49,7 +49,7 @@ FROM ${UBUNTU_IMAGE} AS runtime
 ARG OP25_COMMIT=71abcd0ead32f86f51615ea6cc8a6a4dba4c949a
 ARG SOURCE_REVISION=unknown
 LABEL org.opencontainers.image.title="Brutal OP25 - built on boatbod/op25" \
-      org.opencontainers.image.version="0.3.0-dev.8" \
+      org.opencontainers.image.version="0.3.0-dev.9" \
       org.opencontainers.image.source="https://github.com/trappedinthesim/brutal-op25" \
       org.opencontainers.image.revision="${SOURCE_REVISION}" \
       io.op25.boatbod.revision="${OP25_COMMIT}"
@@ -61,7 +61,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONPATH=/usr/local/lib/python3.10/dist-packages:/usr/lib/python3/dist-packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates gnuradio gr-osmosdr python3-venv \
-    python3-numpy python3-waitress python3-requests gnuplot-nox chafa \
+    python3-numpy python3-waitress python3-requests gnuplot-nox \
     libcppunit-1.15-0 liborc-0.4-0 libsndfile1 libspdlog1 libairspy0 \
     libhackrf0 librtlsdr0 libuhd4.1.0 libssl3 usbutils soapysdr-tools tini \
     && rm -rf /var/lib/apt/lists/*
@@ -78,7 +78,7 @@ RUN python -m pip install --no-cache-dir -r requirements.txt \
     && python -m pip install --no-cache-dir setuptools==84.0.0 \
     && python -c "from gnuradio import gr; import gnuradio.op25, gnuradio.op25_repeater, osmosdr; import zeep"
 # Explicit source allowlist: no raw credentials, key files, captures, or profiles.
-COPY src/importer.py src/rr_key.py src/library.py src/profile_transfer.py src/test_connection.py src/container_receiver.py src/brutal_ui.py src/brutal_runtime.py src/brutal_supervisor.py src/brutal-ui.css src/brutal-systems.js src/brutal-tuning.js src/brutal-logo.png src/terminal-banner.png src/hardware_check.py src/receiver_readiness.py src/brutal_cli.py src/terminal_art.py src/terminal_menu.py src/rsp_receiver.py ./
+COPY src/importer.py src/rr_key.py src/library.py src/profile_transfer.py src/test_connection.py src/container_receiver.py src/brutal_ui.py src/brutal_runtime.py src/brutal_supervisor.py src/brutal-ui.css src/brutal-systems.js src/brutal-tuning.js src/brutal-logo.png src/hardware_check.py src/receiver_readiness.py src/brutal_cli.py src/terminal_art.py src/terminal_menu.py src/rsp_receiver.py ./
 RUN useradd --uid 1000 --create-home --shell /usr/sbin/nologin op25 \
     && mkdir -p /data \
     && chown op25:op25 /data

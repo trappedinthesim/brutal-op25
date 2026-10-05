@@ -14,7 +14,7 @@ ALLOWED = {
     'src/importer.py', 'src/rr_key.py', 'src/library.py', 'src/profile_transfer.py', 'src/test_connection.py',
     'src/container_receiver.py', 'src/brutal_ui.py', 'src/brutal_runtime.py',
     'src/brutal_supervisor.py', 'src/brutal-ui.css', 'src/brutal-systems.js',
-    'src/brutal-tuning.js', 'src/brutal-logo.png', 'src/terminal-banner.png', 'src/hardware_check.py',
+    'src/brutal-tuning.js', 'src/brutal-logo.png', 'src/hardware_check.py',
     'src/receiver_readiness.py', 'src/brutal_cli.py', 'src/terminal_art.py',
     'src/terminal_menu.py', 'src/rsp_receiver.py',
 }
@@ -37,12 +37,6 @@ class ImagePrivacyTests(unittest.TestCase):
         self.assertEqual(lines[0], '*')
         self.assertEqual(set(lines[1:]), {'!' + name for name in ALLOWED})
         self.assertEqual(len(lines), len(ALLOWED) + 1)
-
-    def test_terminal_banner_is_installed_in_both_image_paths(self):
-        for filename in ('Dockerfile', 'Dockerfile.refresh'):
-            text = (ROOT / 'build' / filename).read_text()
-            self.assertIn('chafa', text)
-            self.assertIn('src/terminal-banner.png', text)
 
     def test_license_and_upstream_notices_ship_with_image(self):
         license_text = (ROOT / 'LICENSE').read_text()
