@@ -1,10 +1,12 @@
-BRUTAL OP25
+BRUTAL OP25 - engineering notes and test history (not the install guide)
+For installation, use ../README.md; for maintenance, use OPERATIONS.md.
+Results below are tied to the stated device and test path.
 Built on boatbod/op25, with credit to the original OP25 contributors.
 Independent development project; no upstream endorsement is implied.
 Upstream receiver sources and license notices remain in /opt/op25 in the image.
-Do not strip notices when publishing the eventual repository/release.
+Do not strip notices from redistributed source or images.
 
-Development installation - Linux first, terminal onboarding
+Terminal onboarding and installation details
 
 Windows entrypoint: double-click Launch-Brutal-OP25.cmd, or run it from
 PowerShell. Do not use a bare docker run.
@@ -48,7 +50,7 @@ to the container. Windows/WSL admin prompts remain visible when required.
 The RTL-SDR Blog V4 was identified and sampled with zero reported loss in a
 short WSL-native container test. A fresh manual AARRS test profile then decoded
 a live P25 control channel (WACN 0x91F78, system 0x0D2, site 50.50, NAC 0x3C).
-Browser speech remains unverified on this path. The test profile was archived
+The user later confirmed clear browser speech on this path. The test profile was archived
 so the next run opens fresh onboarding. RSPdx-R2 reception remains unverified.
 
 From this source directory on native Linux or WSL:
@@ -60,9 +62,9 @@ after the next login if ~/.local/bin is on PATH. WSL uses the Windows shortcut.
 For a portable backup on native Linux, run
   bash install-brutal-op25.sh --backup
 and restore with --restore /full/path/systems.zip while no receiver runs.
-The future public bootstrap/ scripts use GitHub source archives, not Git/SSH;
-they preserve the previous program folder when updating. Public anonymous
-downloads cannot be tested until repository and image publication.
+The public bootstrap/ scripts use GitHub source archives, not Git/SSH;
+they preserve the previous program folder when updating. Clean-host delivery
+remains a separate test from local-archive or already-provisioned WSL testing.
 
 On supported Ubuntu and Debian versions, this checks for Docker Engine and
 offers installation from Docker's official apt repository. It never silently
@@ -99,8 +101,8 @@ without the release helper, provide BRUTAL_RR_APP_KEY at runtime or mount a
 key file at /run/secrets/radioreference_app_key. The launchers mount only that
 file read-only, never its containing directory; .setup-cache remains excluded
 from Git and the build context. Without any key, import reports an app setup
-issue before asking for user credentials. Confirm key distribution terms
-before making the image public.
+issue before asking for user credentials. The image is public; seek a
+project-specific approved key and confirm its distribution terms.
 Supported SDR presets use their starting defaults automatically; custom setup
 alone asks for sample rate, named gains, and PPM. Normal import defaults to
 CQPSK demodulation without a technical settings question.
@@ -139,13 +141,13 @@ This verifies the pinned checksum, displays the complete license, requires
 an explicit Yes, and builds brutal-op25-sdrplay:0.3.0-dev.17-local from an isolated
 vendor context containing only that installer, not its parent directory.
 No license is accepted by automated tests. The user approved the SDRplay license
-and the private addon was built locally; its software factory check passed, but
-the RSPdx-R2 device and reception have not yet been tested.
+and the private addon was built locally. The RSPdx-R2 was identified and
+sampled in a smoke test, but control-channel lock and audio remain unverified.
 
-No public image/repository has been published yet. BRUTAL_OP25_IMAGE can choose
-a tested local image now, or a future versioned registry image once released.
-Users of a published image will not need to compile OP25. Signing, registry
-publication, architecture coverage and broader hardware validation remain.
+The repository and versioned base image are public. BRUTAL_OP25_IMAGE can
+choose a tested local or versioned registry image. Users of the published
+base image do not need to compile OP25. Signing, architecture coverage,
+and broader hardware validation remain.
 No browser is required for terminal onboarding; the optional skip path opens
 the existing Systems panel before any receiver runs. During reception, the live dashboard/audio
 endpoints are available on localhost:8080/9000; a runtime copy of boatbod's UI

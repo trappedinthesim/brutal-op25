@@ -18,8 +18,8 @@ container, opened it with rtl_test, identified the V4 tuner, and detached it.
 The new Ubuntu WSL Engine path repeated that test at 1 MSPS with zero reported
 sample loss over a short run. A fresh manual AARRS test profile then decoded
 the live Northeast Simulcast control channel (WACN 0x91F78, system 0x0D2,
-site 50.50, NAC 0x3C, hundreds of TSBKs). Browser speech on this new path
-was not independently heard. The temporary profile was archived afterward.
+site 50.50, NAC 0x3C, hundreds of TSBKs). The user later confirmed clear
+browser speech on this Ubuntu WSL path. The temporary profile was archived afterward.
 The same isolated test captured a three-second 1 MSPS stream through GNU Radio.
 The vendor says this updated driver is backward-compatible with Blog V3 and
 older generic RTL-SDRs, but those models still need a real hardware test here.

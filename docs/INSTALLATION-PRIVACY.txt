@@ -9,9 +9,9 @@ temporary BuildKit secret mount. It compiles a client helper into the image,
 never a plain-text key file or Docker ENV/ARG. The helper encodes the key, but
 any image recipient can recover it by analyzing the image or running process.
 Encoding is not a secrecy boundary. No user password, saved profile, or SDRplay
-installer enters the image. The release image starts private. Before publishing
-it, obtain a project-specific approved RadioReference key and confirm that its
-distribution terms permit this client design. Each end user still needs their
+installer enters the image. The release image is public. A project-specific
+approved RadioReference key and distribution approval are still being sought
+for this client design. Each end user still needs their
 own eligible RadioReference account. See RadioReference's Database Web Service
 API policy: https://support.radioreference.com/hc/en-us/articles/18844460198932-Database-Web-Service-API
 
