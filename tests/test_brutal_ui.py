@@ -74,6 +74,13 @@ class ReceiverUiTests(unittest.TestCase):
             # Upstream's own copyright and licence text must survive, after our block.
             self.assertIn('Max H. Parke', about)
             self.assertLess(about.index('Brutal OP25'), about.index('Max H. Parke'))
+            credits = page.xpath('//details[@class="brutal-upstream-credits"]')
+            self.assertEqual(len(credits), 1)
+            self.assertIn('Upstream copyright and UI credits', credits[0].xpath('./summary')[0].text)
+            self.assertIn('Graham J. Norbury', credits[0].text_content())
+            self.assertIn('Michael Rose', credits[0].text_content())
+            self.assertEqual(len(credits[0].xpath('.//*[@id="lastUiUpdate"]')), 1)
+            self.assertIn('ABSOLUTELY NO WARRANTY', about)
             self.assertIn('GPLv3 License', html)
             dockerfile = (Path(__file__).resolve().parents[1] / 'build/Dockerfile').read_text()
             pinned = re.search(r'ARG OP25_COMMIT=([0-9a-f]{40})', dockerfile).group(1)

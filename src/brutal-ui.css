@@ -456,6 +456,9 @@ input[type="checkbox"] { accent-color: var(--brutal-accent); }
 #div_debug { font-family: var(--mono); }
 .about-content p { color: var(--text-2); }
 .about-content .copyr { color: var(--text-3); font-size: 11px; }
+.brutal-upstream-credits { margin: 8px 0 12px; padding: 7px 10px; border: 1px solid var(--brutal-line-hi); }
+.brutal-upstream-credits summary { cursor: pointer; color: var(--text-2); font: 600 11px/1.5 var(--mono); }
+.brutal-upstream-credits .copyr { margin: 8px 0 2px; }
 .about-content code, #configDisplay code {
   color: var(--text-1);
   background: #0b0e11;

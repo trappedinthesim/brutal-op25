@@ -90,7 +90,7 @@ fi
 
 # Read and consume the one-time request from the private Docker volume.
 task_request=$(docker run --rm --network none --read-only --cap-drop ALL \
-    --volume brutal-op25-data:/data --entrypoint python brutal-op25:0.3.0-dev.13 \
+    --volume brutal-op25-data:/data --entrypoint python brutal-op25:0.3.0-dev.14 \
     -c 'from pathlib import Path; p=Path("/data/host-handoff.json"); print(p.read_text()); p.unlink()')
 task_fields=$(python3 -c '
 import json, re, sys
@@ -140,7 +140,7 @@ done
 printf 'Linux can see the selected radio: %s\n' "$task_device"
 
 if [[ $task_preset == rspdxr2 ]]; then
-    task_addon=brutal-op25-sdrplay:0.3.0-dev.13-local
+    task_addon=brutal-op25-sdrplay:0.3.0-dev.14-local
     if ! brutal_sdrplay_addon_current "$task_addon" || \
        ! docker run --rm --network none --read-only --cap-drop ALL --tmpfs /tmp \
            --tmpfs /home/op25:uid=1000,gid=1000 --entrypoint python "$task_addon" \

@@ -38,6 +38,11 @@ BRUTAL_DOWNLOAD = (
     'rel="noopener noreferrer">original OP25</a> &middot; '
     '<a href="https://github.com/boatbod/op25" target="_blank" '
     'rel="noopener noreferrer">boatbod/op25</a>')
+UPSTREAM_CREDITS = (
+    '                <p class="copyr"> &copy; 2017–2026 Max H. Parke & Graham J. Norbury '
+    '[boatbod version] <br> UI Updates, Michael Rose - Last UI Update: '
+    '<span id="lastUiUpdate"> - </span>\n'
+    '                </p>')
 LEGACY_NAV ='<a href="legacy-index.html" class="nav-item" id="btn-legacy">Legacy UI</a>'
 LEGACY_REDIRECT = re.compile(
     r'\s*// Determine UI version required \(rx\.py => force to legacy terminal for compatibility reasons\)\s*'
@@ -75,6 +80,11 @@ def apply_branding(www_root, asset_root=None):
     # About: lead with this project's own identity; upstream copyright, warranty and license text stay below, unchanged.
     html = _replace_once(html, '<div class="about-content">',
                          '<div class="about-content">\n                ' + ABOUT_BRUTAL, 'about content')
+    html = _replace_once(html, UPSTREAM_CREDITS,
+                         '<details class="brutal-upstream-credits">\n'
+                         '                  <summary>Upstream copyright and UI credits</summary>\n'
+                         '                  ' + UPSTREAM_CREDITS + '\n'
+                         '                </details>', 'upstream credits')
     html = _replace_once(html, UPSTREAM_DOWNLOAD, BRUTAL_DOWNLOAD, 'upstream download links')
     html = _replace_once(html,
                          '                <p>\n'
