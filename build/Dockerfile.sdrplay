@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Local/private addon only. Never push this image without vendor distribution approval.
-ARG BASE_IMAGE=brutal-op25:0.3.0-dev.16
+ARG BASE_IMAGE=brutal-op25:0.3.0-dev.17
 FROM ${BASE_IMAGE} AS addon
 ARG BRUTAL_BASE_IMAGE_ID=unknown
 LABEL io.brutal-op25.base-image-id="${BRUTAL_BASE_IMAGE_ID}"

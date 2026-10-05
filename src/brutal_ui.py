@@ -30,8 +30,8 @@ UPSTREAM_DOWNLOAD = (
     '<a href="https://github.com/boatbod/op25" target="_blank">[boatbod fork]</a>')
 BRUTAL_DOWNLOAD = (
     '<strong>Install Brutal OP25:</strong> '
-    '<a href="https://github.com/trappedinthesim/brutal-op25#install-and-run-development-preview" '
-    'target="_blank" rel="noopener noreferrer">Setup instructions and project downloads</a>\n'
+    '<a href="https://github.com/trappedinthesim/brutal-op25#readme" '
+    'target="_blank" rel="noopener noreferrer">Windows and Linux setup instructions</a>\n'
     '                </p>\n'
     '                <p><strong>Upstream source (not Brutal OP25 installers):</strong> '
     '<a href="https://gitea.osmocom.org/op25/op25?h=master" target="_blank" '
@@ -126,6 +126,10 @@ def apply_branding(www_root, asset_root=None):
     html = _replace_once(html, '<span class="info-large" id="displayTalkgroup"></span>\n                    </span>',
                          '<span class="info-large" id="displayTalkgroup"></span>',
                          'talkgroup markup')
+    html = _replace_once(html,
+                         '<span id="wsAudioButton" style="display: inline-block; margin: 10px;"></span>\n'
+                         '              <!-- Headphone icon to toggle WebSocket audio playback when ws endpoint is present -->',
+                         '', 'move receiver audio toggle to volume bar')
     html = _replace_once(html, '<label for="callHistoryToggle" style="color: #ccc;"> Track Affiliations Mode',
                          '<label for="subMode" style="color: #ccc;"> Track Affiliations Mode',
                          'affiliation label')
@@ -166,6 +170,7 @@ def apply_branding(www_root, asset_root=None):
                    '<span class="ops-context-item"><small>UPTIME</small><strong id="brutal-ctx-session">LOCAL</strong></span>'
                    '<span class="ops-context-item"><small>PROTOCOL</small><strong>PROJECT 25</strong></span>'
                    '<span class="ops-context-item"><small>SYSTEM</small><strong id="brutal-ctx-system">RECEIVER MONITOR</strong></span>'
+                   '<span id="wsAudioButton" class="ops-audio-button"></span>'
                    '<span class="ops-context-end">BRUTAL OP25 <b>◆</b> BOATBOD ENGINE</span></div>\n')
     html = _replace_once(html, layout_marker, navigation + context_bar + layout_marker,
                          'page-wide receiver navigation')
@@ -315,6 +320,26 @@ def apply_branding(www_root, asset_root=None):
                            "    if (!audioCtx || state.muted || state.queue.length === 0) return;\n"
                            "    if (audioCtx.state !== 'running') { state.queue = []; return; }",
                            'suspended audio backlog')
+    script = _replace_once(script,
+                           '    var state = audioChannels[channel];\n'
+                           '    state.muted = !state.muted;',
+                           '    var state = audioChannels[channel];\n'
+                           '    state.muted = !state.muted;\n'
+                           "    if (!state.muted && audioCtx.state === 'suspended')\n"
+                           '        audioCtx.resume().catch(function() { /* browser may require a gesture */ });',
+                           'resume audio when unmuting')
+    script = _replace_once(script,
+                           'wsAudioButton.innerHTML = "<span title=\'Play audio\' style=\'cursor:pointer;\' onclick=\'audio_toggle(" + viewed_ch + ")\'>&#127911;</span>";',
+                           'wsAudioButton.innerHTML = "<button type=\'button\' class=\'ops-audio-toggle\' '
+                           'title=\'Unmute selected receiver audio\' aria-label=\'Unmute selected receiver audio\' '
+                           'onclick=\'audio_toggle(" + viewed_ch + ")\'>UNMUTE</button>";',
+                           'muted receiver audio button')
+    script = _replace_once(script,
+                           'wsAudioButton.innerHTML = "<span title=\'Stop audio\' style=\'cursor:pointer;\' onclick=\'audio_toggle(" + viewed_ch + ")\'>&#127911;&#9646;&#9646;</span>";',
+                           'wsAudioButton.innerHTML = "<button type=\'button\' class=\'ops-audio-toggle\' '
+                           'title=\'Mute selected receiver audio\' aria-label=\'Mute selected receiver audio\' '
+                           'onclick=\'audio_toggle(" + viewed_ch + ")\'>MUTE</button>";',
+                           'playing receiver audio button')
     script = _replace_once(script, 'function full_config(config) {',
                            '''function full_config(config) {
     const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({

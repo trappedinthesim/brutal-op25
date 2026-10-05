@@ -284,9 +284,9 @@
         if (gainNode) gainNode.gain.value = volume;
         try { localStorage.setItem(VOLUME_KEY, String(volume)); } catch (e) { /* ignore */ }
       } });
-    const box = el('label', { class: 'ops-volume', title: 'Volume for audio played in this browser. Turn audio on with the headphone button.' },
+    const box = el('label', { class: 'ops-volume', title: 'Volume for audio played in this browser.' },
       el('small', {}, 'VOL'), slider, readout);
-    strip.insertBefore(box, strip.querySelector('.ops-context-end'));
+    strip.insertBefore(box, document.getElementById('wsAudioButton') || strip.querySelector('.ops-context-end'));
   }
   mountVolume();
 

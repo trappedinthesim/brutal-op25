@@ -134,6 +134,8 @@ async function run() {
     assert.match(base.title, /Brutal OP25/);
     assert.deepEqual(base.tabs, ['Home', 'Plot', 'Settings', 'View Config', 'About']);
     assert.deepEqual(base.duplicateIds, []);
+    assert.equal(await evaluate('document.getElementById("wsAudioButton").parentElement.classList.contains("ops-context")'), true);
+    assert.equal(await evaluate('document.getElementById("brutal-volume").parentElement.nextElementSibling.id'), 'wsAudioButton');
     assert.equal(await evaluate('getComputedStyle(document.getElementById("plot-container")).display !== "none"'), true);
     await screenshot('01-home.png');
 

@@ -726,6 +726,10 @@ input[type="checkbox"] { accent-color: var(--brutal-accent); }
 .ops-volume small { font-size: 9px; }
 .ops-volume input[type="range"] { width: 84px; height: 14px; margin: 0; background: transparent; accent-color: var(--brutal-accent); cursor: pointer; }
 .ops-volume-value { min-width: 34px; color: var(--text-2); font: 600 10px/1 var(--mono); text-align: right; }
+.ops-audio-button { display: inline-flex; align-items: center; padding: 0 12px 0 0; }
+.ops-audio-button:empty { display: none; }
+.ops-audio-toggle { padding: 5px 9px; border: 1px solid var(--brutal-line-hi); border-radius: 3px; background: var(--brutal-panel-high); color: var(--text-2); font: 700 10px/1 var(--mono); letter-spacing: .06em; cursor: pointer; }
+.ops-audio-toggle:hover, .ops-audio-toggle:focus-visible { border-color: var(--brutal-accent); color: var(--brutal-accent); }
 .ops-audio-enable { margin: 0 10px; padding: 5px 9px; border: 1px solid var(--brutal-accent); border-radius: 3px; background: transparent; color: var(--brutal-accent); font: 700 10px/1 var(--mono); letter-spacing: .08em; cursor: pointer; }
 .ops-audio-enable:hover, .ops-audio-enable:focus-visible { background: var(--brutal-accent); color: var(--brutal-bg); }
 .ops-audio-enable[hidden] { display: none; }
@@ -733,4 +737,5 @@ input[type="checkbox"] { accent-color: var(--brutal-accent); }
   .tg-controls { grid-template-columns: 1fr; }
   .rid-add { grid-template-columns: 1fr; }
   .ops-volume { padding: 4px 10px; }
+  .ops-audio-button { padding: 4px 10px 4px 0; }
 }

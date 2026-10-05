@@ -60,6 +60,7 @@ class TerminalTests(unittest.TestCase):
             self.assertIn('Receiver web UI: http://127.0.0.1:8080/', text)
             self.assertIn('starts automatically when allowed', text)
             self.assertIn('ENABLE AUDIO', text)
+            self.assertIn('MUTE or UNMUTE beside the volume slider', text)
             self.assertIn('not a webpage', text)
             self.assertIn('Selected system: Receiver', text)
             self.assertIn('Start listening now?', text)
