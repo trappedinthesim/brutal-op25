@@ -76,8 +76,13 @@ def apply_branding(www_root, asset_root=None):
     html = _replace_once(html, '<div class="about-content">',
                          '<div class="about-content">\n                ' + ABOUT_BRUTAL, 'about content')
     html = _replace_once(html, UPSTREAM_DOWNLOAD, BRUTAL_DOWNLOAD, 'upstream download links')
-    html = _replace_once(html, '<strong>Website:</strong>',
-                         '<strong>Original OP25 website:</strong>', 'upstream website label')
+    html = _replace_once(html,
+                         '                <p>\n'
+                         '                  <strong>Website:</strong>\n'
+                         '                  <a href="http://op25.osmocom.org" target="_blank">'
+                         'http://op25.osmocom.org</a>\n'
+                         '                </p>\n',
+                         '', 'upstream website')
     # Systems panel: a nav entry plus the script that builds the panel on demand.
     html = _replace_once(html, '<a href="#" class="nav-item" id="btn-settings"',
                          '<a href="#" class="nav-item" id="btn-systems" '

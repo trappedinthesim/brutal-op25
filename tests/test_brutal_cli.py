@@ -207,6 +207,8 @@ class TerminalTests(unittest.TestCase):
         self.assertIn('powershell.exe -NoProfile -ExecutionPolicy Bypass', launcher)
         self.assertNotIn('Set-ExecutionPolicy', launcher)
         self.assertIn('BRUTAL_HANDOFF_NONCE', script)
+        self.assertEqual(script.count('BRUTAL_WSL_HANDOFF=1 BRUTAL_HANDOFF_NONCE=$task_nonce'), 2)
+        self.assertIn('--env BRUTAL_WINDOWS_LAUNCHER=1', runner)
         self.assertIn('More than one Linux USB node matched', script)
 
     def test_missing_app_key_never_requests_username_password_or_radio(self):

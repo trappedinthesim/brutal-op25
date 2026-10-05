@@ -67,7 +67,7 @@ class ReceiverUiTests(unittest.TestCase):
             self.assertIn('Install Brutal OP25:', about)
             self.assertIn('brutal-op25#install-and-run-development-preview', about)
             self.assertIn('Upstream source (not Brutal OP25 installers):', about)
-            self.assertIn('Original OP25 website:', about)
+            self.assertNotIn('http://op25.osmocom.org', about)
             self.assertNotIn('<strong>Download:</strong>', about)
             self.assertNotIn('git clone https://github.com/boatbod/op25', about)
             self.assertIn('Not affiliated with or endorsed', about)

@@ -100,11 +100,11 @@ An `image-v<version>` Git tag triggers `.github/workflows/image.yml`: it checks 
 
 Manual base-image build from this checkout (the guided launchers do this automatically when needed):
 
-    docker build -f build/Dockerfile -t brutal-op25:0.3.0-dev.12 .
+    docker build -f build/Dockerfile -t brutal-op25:0.3.0-dev.13 .
 
 Quick refresh of an already-built image after editing app files (keeps installed drivers):
 
-    docker build -f build/Dockerfile.refresh --build-arg INSTALLED_IMAGE=brutal-op25:0.3.0-dev.12 -t brutal-op25:0.3.0-dev.12 .
+    docker build -f build/Dockerfile.refresh --build-arg INSTALLED_IMAGE=brutal-op25:0.3.0-dev.13 -t brutal-op25:0.3.0-dev.13 .
 
 Tests run inside the image (the dashboard patches target the upstream UI shipped there). The test runner mounts only the named source/test folders and files, never `.setup-cache` or the whole checkout:
 
