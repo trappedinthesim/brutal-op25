@@ -88,6 +88,25 @@ class PublicBootstrapTests(unittest.TestCase):
             self.assertTrue((older / 'user-notes.txt').exists())
             self.assertEqual(len(list(root.glob('BrutalOP25.previous.*'))), 2)
 
+    def test_unverified_legacy_folder_is_preserved_and_reported(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            destination = root / 'BrutalOP25'
+            fixture = root / 'source.tar.gz'
+            archive(fixture)
+            script = ROOT / 'bootstrap/install-brutal-op25.sh'
+            args = ['bash', str(script), '--no-launch', '--install-path', str(destination),
+                    '--archive', str(fixture)]
+            first = subprocess.run(args, capture_output=True, text=True)
+            self.assertEqual(first.returncode, 0, first.stderr)
+            legacy = root / 'BrutalOP25.previous.20000101000000'
+            legacy.mkdir()
+            (legacy / 'unknown-file.txt').write_text('Preserve this')
+            updated = subprocess.run(args + ['--update'], capture_output=True, text=True)
+            self.assertEqual(updated.returncode, 0, updated.stderr)
+            self.assertTrue((legacy / 'unknown-file.txt').exists())
+            self.assertIn('Keeping unverified previous program folder:', updated.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()

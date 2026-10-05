@@ -70,8 +70,10 @@ task_remove_old_program_versions() {
         task_marker="$task_candidate/.brutal-op25-install"
         task_manifest="$task_candidate/.brutal-op25-manifest"
         [[ -f $task_marker && -f $task_manifest && -f $task_candidate/install-brutal-op25.sh &&
-           -f $task_candidate/build/image-release.txt ]] || continue
-        [[ $(< "$task_marker") == "$task_install" ]] || continue
+           -f $task_candidate/build/image-release.txt && $(< "$task_marker") == "$task_install" ]] || {
+            printf 'Keeping unverified previous program folder: %s. Review it before deleting.\n' "$task_candidate" >&2
+            continue
+        }
         if ! cmp -s -- "$task_manifest" <(task_program_manifest "$task_candidate"); then
             printf 'Keeping changed previous program folder: %s\n' "$task_candidate" >&2
             continue

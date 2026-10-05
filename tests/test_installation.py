@@ -176,6 +176,8 @@ class WindowsInstallerSourceTests(unittest.TestCase):
         wsl = (ROOT / 'install/brutal-wsl.sh').read_text()
         self.assertIn('1c984914aec944de19b64eff232421439629699f8138e3ddc29301175bc6d938', source)
         self.assertIn('Get-AuthenticodeSignature', source)
+        self.assertIn('[IO.Path]::GetTempPath()', source)
+        self.assertNotIn("Join-Path $taskRoot '.setup-cache'", source)
         self.assertIn('if ($taskAttachedHere', source)
         self.assertIn('task_attached == 1', wsl)
         self.assertIn('BRUTAL_USB=', source)

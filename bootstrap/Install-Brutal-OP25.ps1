@@ -40,7 +40,10 @@ function Remove-BrutalOldProgramVersions([string]$Parent, [string]$Name,
             -not (Test-Path -LiteralPath $taskManifest -PathType Leaf) -or
             -not (Test-Path -LiteralPath (Join-Path $taskPath 'Launch-Brutal-OP25.cmd') -PathType Leaf) -or
             -not (Test-Path -LiteralPath (Join-Path $taskPath 'build/image-release.txt') -PathType Leaf) -or
-            (Get-Content -LiteralPath $taskMarker -Raw).Trim() -ine $Install) { continue }
+            (Get-Content -LiteralPath $taskMarker -Raw).Trim() -ine $Install) {
+            Write-Warning "Keeping unverified previous program folder: $taskPath. Review it before deleting."
+            continue
+        }
         if ([IO.File]::ReadAllText($taskManifest) -cne (Get-BrutalProgramManifest $taskPath)) {
             Write-Warning "Keeping changed previous program folder: $taskPath"
             continue

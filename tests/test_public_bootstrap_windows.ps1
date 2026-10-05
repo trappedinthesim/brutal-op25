@@ -58,6 +58,14 @@ try {
         -not (Test-Path -LiteralPath (Join-Path $taskBackups[1].FullName 'user-notes.txt'))) {
         throw 'Cleanup removed a modified previous program folder.'
     }
+    $taskLegacy = Join-Path $taskTest 'installed.previous.20000101-000000'
+    New-Item -ItemType Directory -Path $taskLegacy | Out-Null
+    Set-Content -LiteralPath (Join-Path $taskLegacy 'unknown-file.txt') -Value 'Preserve this'
+    Start-Sleep -Seconds 1
+    & $taskBootstrap -ArchivePath $taskFirst -InstallPath $taskInstall -DesktopDirectory $taskDesktop -ProgramsDirectory $taskPrograms -Update -NoLaunch
+    if (-not (Test-Path -LiteralPath (Join-Path $taskLegacy 'unknown-file.txt'))) {
+        throw 'Cleanup removed an unverified legacy folder.'
+    }
     Write-Output 'PASS: Windows update rollback, old-version cleanup, and changed-folder preservation'
 } finally {
     $taskResolved = [IO.Path]::GetFullPath($taskTest)

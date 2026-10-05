@@ -4,31 +4,35 @@ param(
     [string]$BusId = ''
 )
 $ErrorActionPreference = 'Stop'
-$taskRoot = Split-Path -Parent $PSScriptRoot
 $taskUsb = Join-Path $env:ProgramFiles 'usbipd-win/usbipd.exe'
 $taskAttachedHere = $false
 $taskSelectedBus = ''
 
 function Get-BrutalUsbBridge {
     if (Test-Path -LiteralPath $taskUsb -PathType Leaf) { return }
-    $taskCache = Join-Path $taskRoot '.setup-cache'
-    New-Item -ItemType Directory -Path $taskCache -Force | Out-Null
-    $taskMsi = Join-Path $taskCache 'usbipd-win_5.3.0_x64.msi'
-    if (-not (Test-Path -LiteralPath $taskMsi -PathType Leaf)) {
+    $taskDownloadDir = Join-Path ([IO.Path]::GetTempPath()) ('BrutalOP25-usb-' + [guid]::NewGuid().ToString('N'))
+    New-Item -ItemType Directory -Path $taskDownloadDir | Out-Null
+    try {
+        $taskMsi = Join-Path $taskDownloadDir 'usbipd-win_5.3.0_x64.msi'
         Write-Host 'Installing the Windows USB bridge from its official signed release. Administrator approval is required.'
         Invoke-WebRequest -UseBasicParsing 'https://github.com/dorssel/usbipd-win/releases/download/v5.3.0/usbipd-win_5.3.0_x64.msi' -OutFile $taskMsi
-    }
-    if ((Get-FileHash -LiteralPath $taskMsi -Algorithm SHA256).Hash -ne '1c984914aec944de19b64eff232421439629699f8138e3ddc29301175bc6d938') {
-        throw 'USB bridge package checksum did not match the vetted release. Nothing was installed.'
-    }
-    $taskSignature = Get-AuthenticodeSignature -LiteralPath $taskMsi
-    if ($taskSignature.Status -ne 'Valid' -or $taskSignature.SignerCertificate.Subject -notmatch 'Frans van Dorsselaer') {
-        throw 'USB bridge installer signature was not valid. Nothing was installed.'
-    }
-    $taskProcess = Start-Process msiexec.exe -Verb RunAs -WindowStyle Hidden -Wait -PassThru -ArgumentList @('/i',('"'+$taskMsi+'"'),'/qn','/norestart')
-    if ($taskProcess.ExitCode -eq 3010) { throw 'The USB bridge installed but Windows needs a restart. Relaunch afterward.' }
-    if ($taskProcess.ExitCode -ne 0 -or -not (Test-Path -LiteralPath $taskUsb -PathType Leaf)) {
-        throw 'USB bridge installation failed or administrator approval was declined.'
+        if ((Get-FileHash -LiteralPath $taskMsi -Algorithm SHA256).Hash -ne '1c984914aec944de19b64eff232421439629699f8138e3ddc29301175bc6d938') {
+            throw 'USB bridge package checksum did not match the vetted release. Nothing was installed.'
+        }
+        $taskSignature = Get-AuthenticodeSignature -LiteralPath $taskMsi
+        if ($taskSignature.Status -ne 'Valid' -or $taskSignature.SignerCertificate.Subject -notmatch 'Frans van Dorsselaer') {
+            throw 'USB bridge installer signature was not valid. Nothing was installed.'
+        }
+        $taskProcess = Start-Process msiexec.exe -Verb RunAs -WindowStyle Hidden -Wait -PassThru -ArgumentList @('/i',('"'+$taskMsi+'"'),'/qn','/norestart')
+        if ($taskProcess.ExitCode -eq 3010) { throw 'The USB bridge installed but Windows needs a restart. Relaunch afterward.' }
+        if ($taskProcess.ExitCode -ne 0 -or -not (Test-Path -LiteralPath $taskUsb -PathType Leaf)) {
+            throw 'USB bridge installation failed or administrator approval was declined.'
+        }
+    } finally {
+        if (Test-Path -LiteralPath $taskDownloadDir -PathType Container) {
+            try { Remove-Item -LiteralPath $taskDownloadDir -Recurse -Force }
+            catch { Write-Warning "Temporary USB installer could not be removed: $taskDownloadDir" }
+        }
     }
 }
 
