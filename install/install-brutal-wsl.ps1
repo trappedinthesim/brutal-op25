@@ -23,6 +23,7 @@ function Test-BrutalWslDistribution {
 function Install-BrutalWslDistribution {
     Write-Host 'Installing official Ubuntu 24.04 inside WSL. It runs in the terminal; no Docker Desktop application is installed.'
     Write-Host 'Windows may request administrator approval or a restart to enable WSL 2.'
+    Write-Host 'Windows may also open a one-time Welcome to WSL window. No sign-in is needed; close it and return here. Setup will continue.'
     $taskProcess = Start-Process -FilePath 'wsl.exe' -Verb RunAs -Wait -PassThru -ArgumentList @('--install','-d',$taskDistribution,'--web-download','--no-launch')
     if ($taskProcess.ExitCode -ne 0) {
         throw "Ubuntu WSL installation exited with status $($taskProcess.ExitCode). Restart Windows if requested, then relaunch Brutal OP25."

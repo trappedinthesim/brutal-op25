@@ -148,6 +148,9 @@ class WindowsInstallerSourceTests(unittest.TestCase):
         linux = (ROOT / 'install-brutal-op25.sh').read_text()
         self.assertIn("$taskDistribution = 'Ubuntu-24.04'", source)
         self.assertIn("'--web-download','--no-launch'", source)
+        self.assertIn('No sign-in is needed; close it and return here.', source)
+        self.assertLess(source.index('No sign-in is needed; close it and return here.'),
+                        source.index("Start-Process -FilePath 'wsl.exe'"))
         self.assertIn("Read-Host 'Install these components and continue? [y/N]'", source)
         self.assertLess(source.index('Read-Host'), source.index('Install-BrutalWslDistribution }'))
         self.assertIn('https://download.docker.com/linux/$ID', linux)
