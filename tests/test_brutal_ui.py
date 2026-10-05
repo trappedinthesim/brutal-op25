@@ -59,7 +59,11 @@ class ReceiverUiTests(unittest.TestCase):
             about = html[html.index('<div class="about-content">'):html.index('This program comes with')]
             self.assertIn('Brutal OP25', about)
             self.assertIn(BRUTAL_VERSION, about)
+            self.assertIn('https://github.com/trappedinthesim/brutal-op25', about)
+            self.assertIn('mailto:j@brutal.net', about)
             self.assertIn('https://github.com/boatbod/op25', about)
+            self.assertIn('https://git.osmocom.org/op25', about)
+            self.assertIn('RadioReference imports', about)
             self.assertIn('Not affiliated with or endorsed', about)
             # Upstream's own copyright and licence text must survive, after our block.
             self.assertIn('Max H. Parke', about)

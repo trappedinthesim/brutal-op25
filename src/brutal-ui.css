@@ -673,6 +673,7 @@ input[type="checkbox"] { accent-color: var(--brutal-accent); }
 /* About: this project's identity block sits above the unchanged upstream notices. */
 .brutal-about { margin: 0 0 14px; padding: 0 0 12px; border-bottom: 1px solid var(--brutal-line-hi); }
 .brutal-about p { margin: 0 0 6px; color: var(--text-2); }
+.brutal-about a { overflow-wrap: anywhere; }
 .brutal-about strong { color: var(--text-1); letter-spacing: .06em; }
 .brutal-about .brutal-version { margin-left: 4px; padding: 1px 6px; border: 1px solid var(--brutal-accent); color: var(--brutal-accent); font: 700 10px/1.4 var(--mono); }
 

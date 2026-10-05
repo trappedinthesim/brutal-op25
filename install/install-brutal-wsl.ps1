@@ -75,6 +75,7 @@ try {
     }
     Write-Host 'BRUTAL OP25 // WINDOWS + WSL SETUP'
     Write-Host 'Built on boatbod/op25. OP25 and Docker Engine run inside Ubuntu, not Docker Desktop.'
+    Write-Host 'Project: https://github.com/trappedinthesim/brutal-op25'
     try {
         if (Install-BrutalStartMenuShortcut $taskRoot) {
             Write-Host 'Next time, search the Windows Start menu for Brutal OP25.'

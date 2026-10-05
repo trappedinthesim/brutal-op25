@@ -467,6 +467,7 @@ class Terminal:
 
     def loop(self):
         self.output(banner(color=False))
+        self.output('Project: https://github.com/trappedinthesim/brutal-op25')
         self.output('Profile store: ' + str(self.library.root))
         self.output('One system/site active at a time. No browser onboarding or ZIP required.')
         setup_only = self.setup_only_reason()

@@ -1,7 +1,13 @@
 # Brutal OP25
 
-Dark, ops-style dashboard and guided launcher for monitoring P25 trunked radio, built on
-[boatbod/op25](https://github.com/boatbod/op25). Receive-only.
+Brutal OP25 makes receive-only P25 monitoring easier to set up and use. It builds on
+[boatbod/op25](https://github.com/boatbod/op25) with guided SDR and USB setup, a prebuilt
+Linux receiver image, RadioReference system and talkgroup imports, saved receiver
+profiles, live browser audio, listening controls, and signal analysis. Run it on
+Linux or Windows through WSL—no separate OP25 build or Docker Desktop account required.
+
+[Project repository](https://github.com/trappedinthesim/brutal-op25) ·
+[Contact j@brutal.net](mailto:j@brutal.net)
 
 > Status: `0.3.0-dev`. Clear reception was verified with an RTL-SDR Blog V4 on the earlier Docker Desktop path. The Ubuntu WSL Engine path has decoded a live P25 control channel, and the user confirmed browser audio worked immediately on startup. RSPdx-R2 signal lock and audio are not yet verified.
 
@@ -111,11 +117,11 @@ An `image-v<version>` Git tag triggers `.github/workflows/image.yml`: it checks 
 
 Manual base-image build from this checkout (the guided launchers do this automatically when needed):
 
-    docker build -f build/Dockerfile -t brutal-op25:0.3.0-dev.10 .
+    docker build -f build/Dockerfile -t brutal-op25:0.3.0-dev.11 .
 
 Quick refresh of an already-built image after editing app files (keeps installed drivers):
 
-    docker build -f build/Dockerfile.refresh --build-arg INSTALLED_IMAGE=brutal-op25:0.3.0-dev.10 -t brutal-op25:0.3.0-dev.10 .
+    docker build -f build/Dockerfile.refresh --build-arg INSTALLED_IMAGE=brutal-op25:0.3.0-dev.11 -t brutal-op25:0.3.0-dev.11 .
 
 Tests run inside the image (the dashboard patches target the upstream UI shipped there). The test runner mounts only the named source/test folders and files, never `.setup-cache` or the whole checkout:
 

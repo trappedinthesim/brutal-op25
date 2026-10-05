@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Source from host launchers only. Never store credentials in the image.
-BRUTAL_LOCAL_IMAGE=brutal-op25:0.3.0-dev.10
+BRUTAL_LOCAL_IMAGE=brutal-op25:0.3.0-dev.11
 
 brutal_release_reference() {
     local task_release_image
