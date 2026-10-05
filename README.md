@@ -53,7 +53,17 @@ Native Linux terminal:
 curl -fsSL https://raw.githubusercontent.com/trappedinthesim/brutal-op25/main/bootstrap/install-brutal-op25.sh -o /tmp/install-brutal-op25.sh && bash /tmp/install-brutal-op25.sh
 ```
 
-On Windows, setup creates a branded **OP25** folder on your actual Desktop (including OneDrive-redirected Desktops) with **Launch Brutal OP25**, **Update Brutal OP25**, and **Uninstall Brutal OP25** shortcuts. The Start menu also has **Brutal OP25**. Update fetches the latest program and matching image after you close the receiver; uninstall asks you to type `UNINSTALL`, removes program files and managed shortcuts, and keeps saved systems, previous-version folders, Docker images, WSL, and USB bridge components. Existing user-owned files or shortcuts in the Desktop folder are left alone. On native Linux, open a terminal and type `brutal-op25`. Setup creates these personal launchers without administrator access or shell-profile changes. On Linux, `~/.local/bin` may not join your `PATH` until your next login; `~/.local/bin/brutal-op25` works immediately. The commands below remain as fallbacks if a shortcut could not be created:
+### Launch, update, or uninstall later
+
+Windows setup creates an **OP25** folder on your actual Desktop (including a OneDrive-redirected Desktop) with three branded shortcuts:
+
+- **Launch Brutal OP25** starts the guided receiver. You can also search the Start menu for **Brutal OP25**.
+- **Update Brutal OP25** fetches the latest program files and matching receiver image. Close the receiver first; when the update finishes, use **Launch Brutal OP25** to start it again. Updates never happen silently.
+- **Uninstall Brutal OP25** asks you to type `UNINSTALL`, then removes the installed program folder and managed shortcuts. It keeps saved systems, previous-version folders, Docker images, Ubuntu WSL, and the USB bridge. Files you added inside the installed program folder are removed with it; unrelated items in the Desktop **OP25** folder are left alone.
+
+On native Linux, run `brutal-op25` to launch. Setup creates this personal command without changing your shell profile or requiring administrator access. If `~/.local/bin` is not on your `PATH` yet, use `~/.local/bin/brutal-op25` or log in again.
+
+If a Windows shortcut or Linux command was not created, launch from the installed folder:
 
 Windows PowerShell:
 
@@ -67,7 +77,13 @@ Native Linux terminal:
 bash "$HOME/brutal-op25/install-brutal-op25.sh"
 ```
 
-Use the Desktop **Update Brutal OP25** shortcut, rerun the downloaded bootstrap with `-Update` (Windows), or use `--update` (Linux) for program updates. Updates are explicit; the launcher never silently replaces a working version. A failed update restores the previous program folder. Saved systems live in a separate Docker volume, not in the program folder.
+On Linux, stop the receiver and update the default installation with:
+
+```bash
+bash "$HOME/brutal-op25/bootstrap/install-brutal-op25.sh" --update
+```
+
+If you chose a custom installation path, use its `bootstrap/install-brutal-op25.sh` instead. On Windows, use the Desktop update shortcut; if it is missing, rerun the Windows bootstrap command above with `-Update` on its final `powershell.exe` invocation. A failed update restores the previous program folder. Saved systems live in a separate Docker volume, not in the program folder.
 
 For an explicit image refresh after a source update, run `Launch-Brutal-OP25.cmd --update-image` on Windows or `bash install-brutal-op25.sh --update-image` on Linux. A failed pull leaves the current image in place; a successful update keeps the prior image under a `-previous` tag. Use `--rollback-image` if you need to revert. Stop the receiver before updating.
 
