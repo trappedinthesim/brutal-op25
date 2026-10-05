@@ -6,6 +6,11 @@ Linux receiver image, RadioReference system and talkgroup imports, saved receive
 profiles, live browser audio, listening controls, and signal analysis. Run it on
 Linux or Windows through WSL—no separate OP25 build or Docker Desktop account required.
 
+This is a development preview. Ready to try it? Pick your one-command setup:
+[Windows](#windows-one-command) or
+[Linux](#linux-one-command). After installation, use the Windows Desktop shortcuts
+or the `brutal-op25` command on Linux.
+
 ## Screenshots
 
 Live dashboard showing the receiver, call history, and signal plots:
@@ -38,60 +43,85 @@ Narrow or non-UTF-8 terminals use a compact text banner.
 
 No Docker Scout login is part of setup. Normal local builds use public upstream packages and images; anonymous registry rate limits can still apply.
 
-## Install and run (development preview)
-The installer downloads this repository and the prebuilt receiver image. Git, Docker Desktop, and a Docker account are not required. Copy and paste the command for your system once:
+## Windows: one command
 
-Windows PowerShell:
+Open **Windows PowerShell** and paste this entire line. It downloads Brutal OP25 and
+the prebuilt receiver image; you do not need Git, Docker Desktop, or a Docker account.
 
 ```powershell
 $installer = Join-Path $env:TEMP 'Install-Brutal-OP25.ps1'; curl.exe -fsSL 'https://raw.githubusercontent.com/trappedinthesim/brutal-op25/main/bootstrap/Install-Brutal-OP25.ps1' -o $installer; if ($LASTEXITCODE -eq 0) { powershell.exe -NoProfile -ExecutionPolicy Bypass -File $installer }
 ```
 
-Native Linux terminal:
+Follow the on-screen prompts. On a new Windows setup, Windows may ask to install WSL,
+approve administrator access, or restart. **If a restart is required, run the same
+command again afterward.** A one-time Microsoft WSL Welcome window may open; it
+needs no sign-in and can be closed. The installer starts Brutal OP25 when setup finishes.
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/trappedinthesim/brutal-op25/main/bootstrap/install-brutal-op25.sh -o /tmp/install-brutal-op25.sh && bash /tmp/install-brutal-op25.sh
-```
+### Next time on Windows
 
-### Launch, update, or uninstall later
+Open the **OP25** folder on your Desktop. The installer creates three shortcuts there:
 
-Windows setup creates an **OP25** folder on your actual Desktop (including a OneDrive-redirected Desktop) with three branded shortcuts:
+- **Launch Brutal OP25** starts the receiver. You can also search the Start menu for **Brutal OP25**.
+- **Update Brutal OP25** downloads the latest program files and matching receiver image. Stop the receiver first, then use **Launch Brutal OP25** when the update finishes. Updates never happen silently.
+- **Uninstall Brutal OP25** asks you to type `UNINSTALL`, then removes the installed program folder and managed shortcuts. It keeps saved systems, previous-version folders, Docker images, Ubuntu WSL, and the USB bridge. Files you added inside the installed program folder are removed; unrelated items in the Desktop **OP25** folder are left alone.
 
-- **Launch Brutal OP25** starts the guided receiver. You can also search the Start menu for **Brutal OP25**.
-- **Update Brutal OP25** fetches the latest program files and matching receiver image. Close the receiver first; when the update finishes, use **Launch Brutal OP25** to start it again. Updates never happen silently.
-- **Uninstall Brutal OP25** asks you to type `UNINSTALL`, then removes the installed program folder and managed shortcuts. It keeps saved systems, previous-version folders, Docker images, Ubuntu WSL, and the USB bridge. Files you added inside the installed program folder are removed with it; unrelated items in the Desktop **OP25** folder are left alone.
-
-On native Linux, run `brutal-op25` to launch. Setup creates this personal command without changing your shell profile or requiring administrator access. If `~/.local/bin` is not on your `PATH` yet, use `~/.local/bin/brutal-op25` or log in again.
-
-If a Windows shortcut or Linux command was not created, launch from the installed folder:
-
-Windows PowerShell:
+The Desktop folder is also created if your Desktop is redirected into OneDrive. If a
+shortcut is missing, launch directly from PowerShell:
 
 ```powershell
 & (Join-Path $env:USERPROFILE 'BrutalOP25\Launch-Brutal-OP25.cmd')
 ```
 
-Native Linux terminal:
+## Linux: one command
+
+On native Linux, open a terminal and paste this line. It downloads the program and
+prebuilt receiver image without Git. Supported Ubuntu and Debian versions can install
+Docker Engine during setup; the installer will ask before making system changes.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/trappedinthesim/brutal-op25/main/bootstrap/install-brutal-op25.sh -o /tmp/install-brutal-op25.sh && bash /tmp/install-brutal-op25.sh
+```
+
+### Next time on Linux
+
+Run `brutal-op25` to launch. Setup creates that personal command without changing
+your shell profile. If your shell does not find it yet, run
+`~/.local/bin/brutal-op25` or log in again. You can also launch directly from the
+default installation folder:
 
 ```bash
 bash "$HOME/brutal-op25/install-brutal-op25.sh"
 ```
 
-On Linux, stop the receiver and update the default installation with:
+To update, stop the receiver and run:
 
 ```bash
 bash "$HOME/brutal-op25/bootstrap/install-brutal-op25.sh" --update
 ```
 
-If you chose a custom installation path, use its `bootstrap/install-brutal-op25.sh` instead. On Windows, use the Desktop update shortcut; if it is missing, rerun the Windows bootstrap command above with `-Update` on its final `powershell.exe` invocation. A failed update restores the previous program folder. Saved systems live in a separate Docker volume, not in the program folder.
+If you chose a custom installation path, use its `bootstrap/install-brutal-op25.sh`
+instead. A failed update restores the previous program folder. Saved systems live in
+a separate Docker volume, not in the program folder.
+
+## Further setup and maintenance notes
+
+The installer downloads this repository and the prebuilt receiver image. The
+`bootstrap/` scripts install or update from GitHub's source archive without Git or
+SSH. They download to a temporary directory, verify the expected launcher and image
+reference, prepare the image, and keep the previous program folder on update. These
+commands have been tested against local archives; clean-host delivery and RSPdx-R2
+reception still need production testing.
+
+On Windows, if the update shortcut is missing, rerun the Windows setup command above
+with `-Update` on its final `powershell.exe` invocation. Windows setup asks before
+installing Ubuntu WSL and Docker Engine and leaves required Windows/WSL approval
+prompts visible.
 
 For an explicit image refresh after a source update, run `Launch-Brutal-OP25.cmd --update-image` on Windows or `bash install-brutal-op25.sh --update-image` on Linux. A failed pull leaves the current image in place; a successful update keeps the prior image under a `-previous` tag. Use `--rollback-image` if you need to revert. Stop the receiver before updating.
 
 Back up saved systems while the receiver is stopped: `Launch-Brutal-OP25.cmd --backup` writes a ZIP into **Documents / Brutal OP25 Backups** on Windows; `bash install-brutal-op25.sh --backup` writes under `~/.local/share/brutal-op25/backups` on Linux. Restore with `Launch-Brutal-OP25.cmd --restore "C:\path\to\systems.zip"` or `bash install-brutal-op25.sh --restore /full/path/systems.zip`. Restore never overwrites a different saved system with the same ID. Receiver cache and RadioReference credentials are not in the backup.
 
 The Ubuntu WSL Engine has its own volume. Profiles previously saved under Docker Desktop are not migrated automatically; new installs start fresh. No existing Docker Desktop images or volumes are deleted by this installer.
-
-The `bootstrap/` scripts install or update from GitHub's source archive without Git or SSH. They download to a temporary directory, verify the expected launcher and image reference, prepare the image, and keep the previous program folder on update. Windows setup asks before installing Ubuntu WSL and Docker Engine and leaves required Windows/WSL approval prompts visible. These commands have been tested against local archives; clean-host delivery and RSPdx-R2 reception still need production testing.
 
 Both entrypoints check prerequisites, fetch the versioned prebuilt RTL image when available, otherwise build from this repository, detect a single connected radio automatically, and enter the terminal setup. On Windows, the USB bridge forwards only the selected radio into Ubuntu WSL; Docker Desktop is not started. On supported Ubuntu 22.04/24.04/26.04 or Debian 12/13, the Linux installer can add Docker's official apt repository and Engine; it uses `sudo` rather than granting root-equivalent docker-group membership. Other Linux distributions can run the launcher after installing their own local Docker Engine. No separate OP25 or RTL-SDR driver install is required on the host.
 
