@@ -5,7 +5,8 @@ Windows USB forwarding is handled by Launch-Brutal-OP25.cmd; native Linux uses
 install-brutal-op25.sh, which enters brutal-op25.sh. Neither launcher exposes
 the whole USB bus or a Docker socket to the receiver container.
 
-Selectable presets are RTL-SDR, RTL-SDR Blog V4, SDRplay RSPdx-R2, and custom.
+Selectable presets are RTL-SDR (Blog V1-V3 / other non-V4), RTL-SDR Blog V4,
+SDRplay RSPdx-R2, and custom.
 Other gr-osmosdr backends are not presented as tested hardware presets.
 
 RTL-SDR Blog V4: the base image builds the pinned rtl-sdr-blog driver at

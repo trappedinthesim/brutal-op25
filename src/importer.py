@@ -15,8 +15,8 @@ API_VERSION = "18"
 NAMESPACE = "http://api.radioreference.com/soap2"
 ENDPOINT = "https://api.radioreference.com/soap2/index.php"
 PROFILES = {
-    "rtl": {"name": "RTL-SDR", "args": "rtl", "rate": 1000000, "gains": "LNA:39",
-        "backend": "rtl", "libraries": ["rtlsdr"], "note": "Driver check available; reception untested. Choose the separate V4 preset for Blog V4."},
+    "rtl": {"name": "RTL-SDR (Blog V1-V3 / other non-V4)", "args": "rtl", "rate": 1000000, "gains": "LNA:39",
+        "backend": "rtl", "libraries": ["rtlsdr"], "note": "For Blog V1-V3 and other non-V4 RTL-SDRs. The bundled driver is documented as backward-compatible, but these radios have not been hardware-tested here. Choose the separate V4 preset for Blog V4."},
     "rtlv4": {"name": "RTL-SDR Blog V4", "args": "rtl", "rate": 1000000, "gains": "LNA:39",
         "backend": "rtl", "libraries": ["rtlsdr"], "note": "Uses the V4-capable RTL-SDR Blog driver in our image. USB access and reception still need testing."},
     "airspy": {"name": "Airspy R2", "args": "airspy", "rate": 2500000, "gains": "LNA:8,MIX:8,IF:8",

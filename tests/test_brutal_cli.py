@@ -115,13 +115,16 @@ class TerminalTests(unittest.TestCase):
         for number, identity in [('1', 'rtl'), ('2', 'rtlv4'), ('3', 'rspdxr2')]:
             with tempfile.TemporaryDirectory() as root:
                 prompt = Mock(return_value=number)
-                terminal = Terminal(root, prompt, lambda _: None)
+                output = []
+                terminal = Terminal(root, prompt, output.append)
                 hardware = terminal.hardware()
                 prompt.assert_called_once()
                 self.assertEqual(hardware['profile'], identity)
                 self.assertEqual(hardware['rate'], PROFILES[identity]['rate'])
                 self.assertEqual(hardware['gains'], PROFILES[identity]['gains'])
                 self.assertEqual(hardware['ppm'], 0)
+                if identity == 'rtl':
+                    self.assertIn('Blog V1-V3 / other non-V4', '\n'.join(output))
 
     def test_windows_launcher_selection_is_reused_without_second_question(self):
         with tempfile.TemporaryDirectory() as root, patch.dict('os.environ', {'BRUTAL_SELECTED_PROFILE': 'rtlv4'}):

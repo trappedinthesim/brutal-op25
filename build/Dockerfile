@@ -49,7 +49,7 @@ FROM ${UBUNTU_IMAGE} AS runtime
 ARG OP25_COMMIT=71abcd0ead32f86f51615ea6cc8a6a4dba4c949a
 ARG SOURCE_REVISION=unknown
 LABEL org.opencontainers.image.title="Brutal OP25 - built on boatbod/op25" \
-      org.opencontainers.image.version="0.3.0-dev.15" \
+      org.opencontainers.image.version="0.3.0-dev.16" \
       org.opencontainers.image.source="https://github.com/trappedinthesim/brutal-op25" \
       org.opencontainers.image.revision="${SOURCE_REVISION}" \
       io.op25.boatbod.revision="${OP25_COMMIT}"
