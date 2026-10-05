@@ -6,9 +6,6 @@ Linux receiver image, RadioReference system and talkgroup imports, saved receive
 profiles, live browser audio, listening controls, and signal analysis. Run it on
 Linux or Windows through WSL—no separate OP25 build or Docker Desktop account required.
 
-[Project repository](https://github.com/trappedinthesim/brutal-op25) ·
-[Contact j@brutal.net](mailto:j@brutal.net)
-
 > Status: `0.3.0-dev`. Clear reception was verified with an RTL-SDR Blog V4 on the earlier Docker Desktop path. The Ubuntu WSL Engine path has decoded a live P25 control channel, and the user confirmed browser audio worked immediately on startup. RSPdx-R2 signal lock and audio are not yet verified.
 
 ## Screenshots
