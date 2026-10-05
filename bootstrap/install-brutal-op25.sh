@@ -59,7 +59,7 @@ task_program_manifest() {
     )
 }
 task_remove_old_program_versions() {
-    local task_candidate task_candidate_name task_suffix task_marker task_manifest task_removed=0
+    local task_candidate task_candidate_name task_suffix task_marker task_manifest task_removed=0 task_kept=0
     while IFS= read -r -d '' task_candidate; do
         [[ $task_candidate != "$task_backup" && ! -L $task_candidate ]] || continue
         task_candidate_name=$(basename -- "$task_candidate")
@@ -71,17 +71,21 @@ task_remove_old_program_versions() {
         task_manifest="$task_candidate/.brutal-op25-manifest"
         [[ -f $task_marker && -f $task_manifest && -f $task_candidate/install-brutal-op25.sh &&
            -f $task_candidate/build/image-release.txt && $(< "$task_marker") == "$task_install" ]] || {
-            printf 'Keeping unverified previous program folder: %s. Review it before deleting.\n' "$task_candidate" >&2
+            ((task_kept+=1))
             continue
         }
         if ! cmp -s -- "$task_manifest" <(task_program_manifest "$task_candidate"); then
-            printf 'Keeping changed previous program folder: %s\n' "$task_candidate" >&2
+            ((task_kept+=1))
             continue
         fi
         rm -r -- "$task_candidate" || return 1
         ((task_removed+=1))
     done < <(find "$task_parent" -mindepth 1 -maxdepth 1 -type d -name "$task_name.previous.*" -print0)
     if ((task_removed)); then printf 'Removed %s older Brutal OP25 program version(s).\n' "$task_removed"; fi
+    if ((task_kept)); then
+        printf 'Kept %s older program folder(s) beside %s. The current installation does not use them.\n' "$task_kept" "$task_install" >&2
+        printf '%s\n' 'They lack cleanup records or contain changed files, so check for personal files before deleting them.' >&2
+    fi
 }
 if [[ -n $task_archive ]]; then
     cp -- "$task_archive" "$task_work/source.tar.gz"

@@ -105,7 +105,8 @@ class PublicBootstrapTests(unittest.TestCase):
             updated = subprocess.run(args + ['--update'], capture_output=True, text=True)
             self.assertEqual(updated.returncode, 0, updated.stderr)
             self.assertTrue((legacy / 'unknown-file.txt').exists())
-            self.assertIn('Keeping unverified previous program folder:', updated.stderr)
+            self.assertIn('Kept 1 older program folder(s)', updated.stderr)
+            self.assertIn('check for personal files before deleting them', updated.stderr)
 
 
 if __name__ == '__main__':

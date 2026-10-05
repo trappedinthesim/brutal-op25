@@ -27,6 +27,7 @@ function Get-BrutalProgramManifest([string]$Root) {
 function Remove-BrutalOldProgramVersions([string]$Parent, [string]$Name,
                                          [string]$Install, [string]$Keep) {
     $taskRemovedCount = 0
+    $taskKeptCount = 0
     $taskPattern = '^' + [regex]::Escape($Name) + '\.previous\.\d{8}-\d{6}$'
     $taskSafeParent = [IO.Path]::GetFullPath($Parent).TrimEnd('\')
     foreach ($taskCandidate in @(Get-ChildItem -LiteralPath $Parent -Directory)) {
@@ -41,17 +42,21 @@ function Remove-BrutalOldProgramVersions([string]$Parent, [string]$Name,
             -not (Test-Path -LiteralPath (Join-Path $taskPath 'Launch-Brutal-OP25.cmd') -PathType Leaf) -or
             -not (Test-Path -LiteralPath (Join-Path $taskPath 'build/image-release.txt') -PathType Leaf) -or
             (Get-Content -LiteralPath $taskMarker -Raw).Trim() -ine $Install) {
-            Write-Warning "Keeping unverified previous program folder: $taskPath. Review it before deleting."
+            $taskKeptCount++
             continue
         }
         if ([IO.File]::ReadAllText($taskManifest) -cne (Get-BrutalProgramManifest $taskPath)) {
-            Write-Warning "Keeping changed previous program folder: $taskPath"
+            $taskKeptCount++
             continue
         }
         Remove-Item -LiteralPath $taskPath -Recurse -Force
         $taskRemovedCount++
     }
     if ($taskRemovedCount) { Write-Host "Removed $taskRemovedCount older Brutal OP25 program version(s)." }
+    if ($taskKeptCount) {
+        Write-Warning "Kept $taskKeptCount older program folder(s) beside $Install. The current installation does not use them."
+        Write-Host 'They lack cleanup records or contain changed files, so check for personal files before deleting them.'
+    }
 }
 try {
     if ((Test-Path -LiteralPath $InstallPath) -and -not $Update) {
