@@ -73,13 +73,8 @@ try {
     if (($BackupProfiles -or $RestoreProfilesPath) -and -not $taskReady) {
         throw 'Ubuntu WSL is not installed yet. Install Brutal OP25 before backing up or restoring systems.'
     }
-    Write-Host 'BRUTAL OP25 // WINDOWS + WSL SETUP'
-    Write-Host 'Built on boatbod/op25. OP25 and Docker Engine run inside Ubuntu, not Docker Desktop.'
-    Write-Host 'Project: https://github.com/trappedinthesim/brutal-op25'
     try {
-        if (Install-BrutalStartMenuShortcut $taskRoot) {
-            Write-Host 'Next time, search the Windows Start menu for Brutal OP25.'
-        }
+        Install-BrutalStartMenuShortcut $taskRoot | Out-Null
     } catch {
         Write-Warning ('Could not create the Start menu shortcut: ' + $_.Exception.Message)
     }
@@ -148,13 +143,11 @@ try {
         return
     }
     Assert-BrutalHostPortsFree
-    Write-Host 'Dashboard link: http://127.0.0.1:8080/'
-    Write-Host 'The dashboard will open in your default browser when the receiver starts.'
     $taskWatcher = Join-Path $PSScriptRoot 'open-brutal-ui.ps1'
     try {
         $taskDashboardWatcher = Start-Process -FilePath 'powershell.exe' -WindowStyle Hidden -PassThru -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"'+$taskWatcher+'"'),'-ParentProcessId',([string]$PID))
     } catch {
-        Write-Host 'Automatic browser opening is unavailable. Use the dashboard link shown above.'
+        Write-Host 'Automatic browser opening is unavailable. Open http://127.0.0.1:8080/ after the receiver starts.'
     }
     & wsl.exe @taskLinuxArgs
     if ($LASTEXITCODE -ne 0) { throw 'Brutal OP25 stopped with an error. See the message above; saved systems were not removed.' }

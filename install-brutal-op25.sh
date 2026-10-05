@@ -73,7 +73,6 @@ if [[ ${BRUTAL_WSL_NATIVE:-} != 1 ]]; then
     brutal_install_user_command "$task_root"
 fi
 
-printf '%s\n' 'BRUTAL OP25 // LINUX SETUP' 'Built on boatbod/op25. No separate OP25 or RTL driver installation is needed.'
 task_docker_command=$(command -v docker || true)
 # WSL inherits Windows PATH. A Windows Docker CLI (including a Desktop stub)
 # is not a Linux Engine installation, even if `command -v docker` finds it.
@@ -192,7 +191,9 @@ if "$task_prepare_only"; then
     else
         brutal_ensure_base_image "$task_root"
     fi
-    printf '%s\n' 'Docker and the OP25 image are ready. Run bash install-brutal-op25.sh to connect a radio.'
+    if [[ ${BRUTAL_WSL_NATIVE:-} != 1 ]]; then
+        printf '%s\n' 'Linux receiver dependencies are ready.'
+    fi
     exit 0
 fi
 

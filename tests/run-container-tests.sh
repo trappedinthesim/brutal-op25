@@ -2,7 +2,7 @@
 # Mount only test/source inputs. Never mount .setup-cache, credentials or home.
 set -euo pipefail
 task_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
-task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.14}
+task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.15}
 task_mounts=()
 for task_dir in src tests build install bootstrap docs .github; do
     task_mounts+=(--mount "type=bind,source=$task_root/$task_dir,target=/app/$task_dir,readonly")

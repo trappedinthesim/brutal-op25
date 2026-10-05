@@ -200,6 +200,9 @@ class TerminalTests(unittest.TestCase):
         self.assertIn('--device "$task_device"', script)
         self.assertIn('--cap-drop ALL', runner)
         self.assertNotIn('--privileged', runner)
+        self.assertNotIn('Using separate data volume:', runner)
+        self.assertNotIn('BRUTAL OP25 // WINDOWS + WSL', script)
+        self.assertNotIn('Dashboard link:', script)
         self.assertNotIn('--force', usb)
         self.assertNotIn('Downloads', usb)
         self.assertIn('task_attached', script)
@@ -438,7 +441,8 @@ class TerminalTests(unittest.TestCase):
     def test_saved_listening_continues_after_usb_handoff_without_selecting_again(self):
         system = json.loads((Path(__file__).parent / 'live-bexar-system.json').read_text())
         with tempfile.TemporaryDirectory() as root:
-            terminal = Terminal(root, lambda _: '0', lambda _: None, rr_factory=Mock())
+            output = []
+            terminal = Terminal(root, lambda _: '0', output.append, rr_factory=Mock())
             profile = terminal.library.save(system, {'hardware': {'profile': 'rtlv4'},
                 'site_id': system['sites'][0]['id'], 'source': 'radioreference'})
             with patch.dict('os.environ', {'BRUTAL_HANDOFF_NONCE': 'd'*32}):
@@ -454,6 +458,8 @@ class TerminalTests(unittest.TestCase):
                 self.assertNotIn('BRUTAL_RESUME_LISTEN', os.environ)
             terminal.listen.assert_called_once_with(terminal.library.read(profile['id']))
             terminal.rr_factory.assert_not_called()
+            self.assertIn('USB connected. Resuming listening setup', '\n'.join(output))
+            self.assertNotIn('Project: https://github.com/trappedinthesim/brutal-op25', '\n'.join(output))
 
     def test_usb_continuation_rejects_profile_mismatch_and_path_injection(self):
         system = json.loads((Path(__file__).parent / 'live-bexar-system.json').read_text())

@@ -466,10 +466,13 @@ class Terminal:
         return ''
 
     def loop(self):
-        self.output(banner(color=False))
-        self.output('Project: https://github.com/trappedinthesim/brutal-op25')
-        self.output('Profile store: ' + str(self.library.root))
-        self.output('One system/site active at a time. No browser onboarding or ZIP required.')
+        resume = os.environ.pop('BRUTAL_RESUME_LISTEN', '')
+        # USB forwarding starts a second container; keep it in the same visible setup flow.
+        if not (resume and os.environ.get('BRUTAL_WINDOWS_LAUNCHER') == '1'):
+            self.output(banner(color=False))
+            self.output('Project: https://github.com/trappedinthesim/brutal-op25')
+            self.output('Profile store: ' + str(self.library.root))
+            self.output('One system/site active at a time. No browser onboarding or ZIP required.')
         setup_only = self.setup_only_reason()
         if setup_only:
             self.output('\nSYSTEM SETUP ONLY — listening is unavailable in this session.\n' + setup_only +
@@ -477,7 +480,6 @@ class Terminal:
                         'Launch-Brutal-OP25.cmd on Windows, or brutal-op25.sh on Linux/WSL. '
                         'Do not use a bare docker run. Your saved systems remain available there.')
         try:
-            resume = os.environ.pop('BRUTAL_RESUME_LISTEN', '')
             if resume:
                 try:
                     if os.environ.get('BRUTAL_WINDOWS_LAUNCHER') != '1':
