@@ -6,7 +6,7 @@ const http = require('node:http');
 const net = require('node:net');
 const os = require('node:os');
 const path = require('node:path');
-const { spawn } = require('node:child_process');
+const { spawn, spawnSync } = require('node:child_process');
 
 const assets = process.argv[2];
 const edge = process.argv[3];
@@ -70,7 +70,7 @@ async function run() {
     await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
     const url = `http://127.0.0.1:${server.address().port}/`;
     const debugPort = await port();
-    browser = spawn(edge, ['--headless=new', '--disable-gpu', '--no-first-run',
+    browser = spawn(edge, ['--headless=new', '--disable-gpu', '--edge-skip-compat-layer-relaunch', '--no-first-run',
       '--no-default-browser-check', '--no-sandbox', '--remote-allow-origins=*',
       `--remote-debugging-port=${debugPort}`, `--user-data-dir=${profile}`,
       '--window-size=1440,1000', 'about:blank'], { windowsHide: true, stdio: 'ignore' });
@@ -289,7 +289,10 @@ async function run() {
     console.log(`Screenshots: ${shots}`);
   } finally {
     if (ws && ws.readyState === WebSocket.OPEN) ws.close();
-    if (browser && !browser.killed) browser.kill();
+    if (browser && process.platform === 'win32' && Number.isInteger(browser.pid)) {
+      spawnSync('taskkill', ['/T', '/F', '/PID', String(browser.pid)],
+        { windowsHide: true, stdio: 'ignore' });
+    } else if (browser && !browser.killed) browser.kill();
     if (browser && browser.exitCode === null) {
       await Promise.race([new Promise(resolve => browser.once('exit', resolve)), delay(1500)]);
     }

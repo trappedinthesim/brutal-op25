@@ -5,7 +5,7 @@ const net = require('node:net');
 const os = require('node:os');
 const fs = require('node:fs');
 const path = require('node:path');
-const { spawn } = require('node:child_process');
+const { spawn, spawnSync } = require('node:child_process');
 
 const edge = process.argv[2];
 const url = process.argv[3] || 'http://127.0.0.1:8080/';
@@ -25,7 +25,7 @@ const freePort = () => new Promise((resolve, reject) => {
   let browser, ws;
   try {
     const debugPort = await freePort();
-    browser = spawn(edge, ['--headless=new', '--disable-gpu', '--no-first-run',
+    browser = spawn(edge, ['--headless=new', '--disable-gpu', '--edge-skip-compat-layer-relaunch', '--no-first-run',
       '--no-default-browser-check', '--no-sandbox', '--remote-allow-origins=*',
       `--remote-debugging-port=${debugPort}`, `--user-data-dir=${profile}`, 'about:blank'],
       { windowsHide: true, stdio: 'ignore' });
@@ -94,12 +94,20 @@ const freePort = () => new Promise((resolve, reject) => {
     console.log('PASS: empty dashboard adds two systems without a radio or receiver start');
   } finally {
     ws?.close();
-    browser?.kill();
-    await pause(300);
+    // On Windows, terminating only Edge's parent leaves child processes holding
+    // its temporary profile open. Stop only this test browser's process tree.
+    if (browser && process.platform === 'win32' && Number.isInteger(browser.pid)) {
+      spawnSync('taskkill', ['/T', '/F', '/PID', String(browser.pid)],
+        { windowsHide: true, stdio: 'ignore' });
+    } else browser?.kill();
+    if (browser && browser.exitCode === null) {
+      await Promise.race([new Promise(resolve => browser.once('exit', resolve)), pause(2000)]);
+    }
     const tempRoot = fs.realpathSync(os.tmpdir());
     const target = fs.realpathSync(profile);
     if (!target.startsWith(tempRoot + path.sep) || !path.basename(target).startsWith('brutal-empty-ui-'))
       throw new Error('Refusing to remove an unexpected browser test directory');
-    fs.rmSync(target, { recursive: true, force: true });
+    try { fs.rmSync(target, { recursive: true, force: true, maxRetries: 20, retryDelay: 250 }); }
+    catch (error) { console.warn(`Temporary browser profile cleanup deferred: ${error.code}`); }
   }
 })().catch(error => { console.error(error); process.exitCode = 1; });
