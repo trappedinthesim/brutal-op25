@@ -38,7 +38,7 @@ Narrow or non-UTF-8 terminals use a compact text banner.
 - x86-64 Windows 10/11 with WSL 2 support, or x86-64 Linux. Windows setup installs Ubuntu 24.04 in WSL and Docker Engine inside Ubuntu; Docker Desktop and a Docker account are not needed.
 - Windows uses built-in PowerShell to set up WSL and connect the USB radio. Administrator approval may be needed on the first run.
 - An RTL-SDR (including Blog V4) or, with a locally built private addon, an SDRplay RSPdx-R2.
-- Optional: a RadioReference Premium account for imports. Users enter their own credentials; prebuilt releases include the client application key (see [key distribution and privacy](docs/INSTALLATION-PRIVACY.txt)).
+- Optional: a RadioReference Premium account for imports. Users enter their own credentials; no application-key setup is needed.
 
 No Docker account or Docker Desktop sign-in is required.
 
@@ -114,8 +114,7 @@ The dashboard opens at `http://127.0.0.1:8080/` on this computer. Its **Systems*
 adds, updates, and switches between systems. Only one system and radio can receive at a time.
 
 RadioReference import requires your own eligible account. Your credentials go directly
-from your local receiver to RadioReference and are not saved in your profile. The
-prebuilt image includes Brutal OP25's application key; users do not need to supply one.
+from your local receiver to RadioReference and are not saved in your profile.
 See [installation and privacy](docs/INSTALLATION-PRIVACY.txt).
 
 RSPdx-R2 setup downloads SDRplay's driver, asks you to review and accept its license,

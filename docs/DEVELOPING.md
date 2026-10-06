@@ -45,8 +45,8 @@ through `BRUTAL_RR_APP_KEY` or the git-ignored
 `.setup-cache/radioreference_app_key`; never commit it. A fork does not inherit
 this project's GitHub Actions secret. Its tagged image-publishing workflow
 requires the fork owner to configure an authorized key for their own release;
-normal builds and tests do not run that workflow. Review [privacy and key
-distribution](INSTALLATION-PRIVACY.txt) before shipping any image.
+normal builds and tests do not run that workflow. Review [installation and
+privacy](INSTALLATION-PRIVACY.txt) before shipping any image.
 
 ## Maintainer image releases
 
@@ -54,8 +54,7 @@ An `image-v<version>` tag triggers `.github/workflows/image.yml`. The workflow
 checks the tag against `build/image-release.txt`, builds with the repository's
 Actions secret through a temporary BuildKit secret mount, runs tests and image
 checks, and publishes to GitHub Container Registry. The approved application
-key is not committed to source; the distributed client includes it, so the
-client image must not be treated as a secure place to keep a private key.
+key is not committed to source.
 
 ## Upstream OP25
 

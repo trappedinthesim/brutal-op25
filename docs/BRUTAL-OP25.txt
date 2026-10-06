@@ -95,9 +95,9 @@ The terminal stores new profiles in the separate brutal-op25-data volume.
 Older prototype data is not migrated or automatically selected.
 It requires a TTY. RadioReference credentials are prompted only for imports
 and updates, kept in memory, and never saved as profile data. RadioReference
-imports require each user's own Premium account. The prebuilt release includes
-Brutal OP25's application key, so users never enter one. Their credentials go
-directly from the local receiver to RadioReference, not to a Brutal OP25 server.
+imports require each user's own Premium account. Users do not have to enter an
+application key. Their credentials go directly from the local receiver to
+RadioReference, not to a Brutal OP25 server.
 For local source builds without a key, import reports an app setup issue before
 asking for user credentials. Development key setup is covered in DEVELOPING.md.
 Supported SDR presets use their starting defaults automatically; custom setup

@@ -1,8 +1,4 @@
-"""Build a client key helper from a BuildKit secret.
-
-The resulting library is extractable by an image recipient. Encoding only
-avoids shipping the key as a source file, image ENV, or obvious string.
-"""
+"""Build the client key helper from a BuildKit secret."""
 import argparse
 from pathlib import Path
 import secrets
