@@ -235,7 +235,9 @@ class Control:
     def rr_connected(self):
         """Read-only check: polling status must not keep the sign-in alive."""
         with self.lock:
-            return self.rr is not None and self.clock() - self.rr_used <= RR_SESSION_TTL
+            if self.rr is not None and self.clock() - self.rr_used > RR_SESSION_TTL:
+                self._close_rr()
+            return self.rr is not None
 
     def session(self):
         try:
@@ -333,12 +335,9 @@ class Control:
         new = deepcopy(old)
 
         def ids(values):
-            if not isinstance(values, list):
+            if not isinstance(values, list) or any(type(value) is not int for value in values):
                 raise ValueError('Talkgroups must be given as a list of numbers')
-            try:
-                return {int(v) for v in values}
-            except (TypeError, ValueError):
-                raise ValueError('Talkgroups must be given as numbers') from None
+            return set(values)
 
         if {'priority_tgids', 'blocked_tgids', 'only_priority'} & set(changes):
             derived = set(old.get('priority_tgids', [])) | (set(old.get('talkgroup_ids', [])) if old.get('selected_only') else set())

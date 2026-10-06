@@ -7,7 +7,7 @@ from pathlib import Path
 import sys
 from importer import PROFILES, RadioReference, application_key
 from library import ProfileLibrary
-from hardware_check import check_profile
+from hardware_check import check_profile, runtime_inventory
 from receiver_readiness import environment, usb_inventory, assess
 from container_receiver import prepare, run
 from brutal_supervisor import serve_setup
@@ -261,6 +261,23 @@ class Terminal:
         profile = self.library.save(system, {'hardware': hardware, 'site_id': 1, 'source': 'manual'})
         self.output('Saved. No RadioReference login was needed.')
         return profile
+
+    def driver_check(self, profile_id):
+        """Report the actual Windows-stream backend instead of requiring Linux's SDRplay USB plugin."""
+        if profile_id == 'rspdxr2' and os.environ.get('BRUTAL_WINDOWS_LAUNCHER') == '1':
+            address = os.environ.get('BRUTAL_RSP_TCP_ADDR', '')
+            if address:
+                from rsp_receiver import network_arguments
+                network_arguments(address)
+                inventory = runtime_inventory()
+                missing = [] if 'rtl_tcp' in inventory['backends'] else ['gr-osmosdr rtl_tcp backend']
+                return {'profile': profile_id, 'name': PROFILES[profile_id]['name'],
+                        'backend': 'rtl_tcp (Windows SDRplay stream)',
+                        'software_dependencies_present': not missing, 'missing': missing,
+                        'hardware_verified': False, 'inventory': inventory,
+                        'note': 'Windows supplies samples through a local stream. The Linux SDRplay plugin '
+                                'is not used on this path; signal lock and audio are not tested here.'}
+        return check_profile(profile_id)
 
     def readiness(self, profile, resume_profile=None):
         hardware = profile['settings']['hardware']['profile']
@@ -542,7 +559,7 @@ class Terminal:
                         self.output(json.dumps({'environment': environment(), 'usb': usb_inventory()}, indent=2))
                         preset = self.pick('Driver check', [{'id': k, **v} for k, v in PROFILES.items()
                                            if v.get('selectable', True)])
-                        self.output(json.dumps(check_profile(preset['id']), indent=2))
+                        self.output(json.dumps(self.driver_check(preset['id']), indent=2))
                     elif action == '5':
                         self.manual()
                     elif action == '6':

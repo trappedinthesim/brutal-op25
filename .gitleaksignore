@@ -1,0 +1,2 @@
+# This fixed, synthetic WebSocket test handshake is not an account credential.
+c8aeea970a8e03c517694425cc14d3390156c75f:tests/test_audio_origin.ps1:generic-api-key:14

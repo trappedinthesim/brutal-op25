@@ -14,7 +14,7 @@ function New-TestArchive([string]$Target, [int]$ExitCode) {
     Copy-Item -LiteralPath (Join-Path $taskRoot 'install/desktop-actions.ps1') -Destination (Join-Path $taskPayload 'install/desktop-actions.ps1')
     Copy-Item -LiteralPath (Join-Path $taskRoot 'install/uninstall-brutal-data.sh') -Destination (Join-Path $taskPayload 'install/uninstall-brutal-data.sh')
     Copy-Item -LiteralPath (Join-Path $taskRoot 'src/brutal-logo.png') -Destination (Join-Path $taskPayload 'src/brutal-logo.png')
-    Set-Content -LiteralPath (Join-Path $taskPayload 'build/image-release.txt') -Value 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.20'
+    Set-Content -LiteralPath (Join-Path $taskPayload 'build/image-release.txt') -Value 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.21'
     Compress-Archive -LiteralPath $taskPayload -DestinationPath $Target
 }
 try {

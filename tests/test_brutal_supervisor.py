@@ -250,9 +250,10 @@ class ControlTests(unittest.TestCase):
         self.assertTrue(self.control.status()['rr_connected'])  # a poll near expiry...
         self.clock[0] += 10
         self.assertFalse(self.control.status()['rr_connected'])  # ...must not have renewed it
+        self.rr.close.assert_called_once()  # expired credentials are released on the status poll
         with self.assertRaisesRegex(ValueError, 'Sign in'):
             self.control.rr_browse('countries')
-        self.rr.close.assert_called()
+        self.rr.close.assert_called_once()
 
     def test_logout_closes_the_session_and_forgets_the_selected_system(self):
         self.control.rr_login('user', 'secret')
@@ -340,7 +341,9 @@ class ControlTests(unittest.TestCase):
 
     def test_bad_settings_are_rejected_before_anything_is_saved_or_restarted(self):
         a, b = self.tg_ids(2)
-        bad = [{'nonsense': 1}, {'priority_tgids': ['x']}, {'priority_tgids': [a], 'blocked_tgids': [a]},
+        bad = [{'nonsense': 1}, {'priority_tgids': ['x']}, {'priority_tgids': [True]},
+               {'priority_tgids': [float(a) + 0.5]},
+               {'priority_tgids': [a], 'blocked_tgids': [a]},
                {'priority_tgids': [999999999]}, {'crypt_behavior': 7}, {'hold_time': 99},
                {'rid_labels': {'0': 'zero'}}, {'rid_labels': {'abc': 'x'}},
                {'only_priority': 'false'}, {'priority_tgids': str(a)}]

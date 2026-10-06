@@ -39,11 +39,45 @@ class ProfileLibrary:
             raise ValueError("Saved profile is damaged: invalid contents")
         settings, system = profile["settings"], profile["system"]
         if (not isinstance(settings.get("hardware"), dict)
-                or not isinstance(settings.get("site_id"), int)
+                or type(settings.get("site_id")) is not int
+                or not isinstance(settings.get("source"), str)
+                or not isinstance(settings.get("talkgroup_ids"), list)
+                or any(type(tgid) is not int or not 1 <= tgid <= 65535
+                       for tgid in settings["talkgroup_ids"])
+                or type(settings.get("selected_only")) is not bool
+                or not isinstance(settings["hardware"].get("profile"), str)
+                or type(system.get("id")) is not int
                 or not isinstance(system.get("name"), str)
                 or not isinstance(system.get("sites"), list)
                 or not isinstance(system.get("talkgroups"), list)):
             raise ValueError("Saved profile is damaged: incomplete system or radio settings")
+        sites = system["sites"]
+        if any(not isinstance(site, dict)
+               or type(site.get("id")) is not int
+               or not isinstance(site.get("name"), str)
+               or not isinstance(site.get("nac"), str)
+               or type(site.get("tdma_cc")) is not bool
+               or not isinstance(site.get("warnings"), list)
+               or not isinstance(site.get("controls_hz"), list)
+               or any(type(frequency) is not int or frequency <= 0
+                      for frequency in site["controls_hz"])
+               for site in sites):
+            raise ValueError("Saved profile is damaged: invalid receiver site")
+        if not any(site["id"] == settings["site_id"] and site["controls_hz"] for site in sites):
+            raise ValueError("Saved profile is damaged: selected site is missing control channels")
+        if any(not isinstance(group, dict)
+               or type(group.get("id")) is not int
+               or not 1 <= group["id"] <= 65535
+               or not isinstance(group.get("label"), str)
+               for group in system["talkgroups"]):
+            raise ValueError("Saved profile is damaged: invalid talkgroup")
+        categories = system.get("categories", [])
+        if not isinstance(categories, list) or any(
+                not isinstance(category, dict)
+                or type(category.get("id")) is not int
+                or not isinstance(category.get("name"), str)
+                for category in categories):
+            raise ValueError("Saved profile is damaged: invalid talkgroup category")
         return profile
 
     def read(self, identity):

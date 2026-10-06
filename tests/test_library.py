@@ -78,6 +78,26 @@ class LibraryTests(unittest.TestCase):
             self.assertEqual(self.library.list(), [])
             self.assertEqual(self.library.unreadable, [path.name])
 
+    def test_damaged_nested_record_cannot_break_the_whole_library(self):
+        good = self.library.save(self.system, self.request)
+        other = self.library.save(self.system, self.request)
+        path = self.library.path(good["id"])
+        bad_versions = [
+            {**good, "system": {**good["system"], "sites": [None]}},
+            {**good, "system": {**good["system"], "talkgroups": [None]}},
+            {**good, "system": {**good["system"], "categories": [None]}},
+            {**good, "settings": {**good["settings"], "site_id": 999999}},
+            {**good, "settings": {**good["settings"], "source": None}},
+            {**good, "settings": {**good["settings"], "talkgroup_ids": [False]}},
+            {**good, "system": {**good["system"], "id": None}},
+        ]
+        for bad in bad_versions:
+            path.write_text(json.dumps(bad), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "Saved profile is damaged"):
+                self.library.read(good["id"])
+            self.assertEqual([p["id"] for p in self.library.list()], [other["id"]])
+            self.assertEqual(self.library.unreadable, [path.name])
+
     def test_listening_preferences_persist_and_plain_saves_stay_clean(self):
         plain = self.library.save(self.system, self.request)
         for key in ("priority_tgids", "blocked_tgids", "rid_labels", "crypt_behavior", "hold_time"):

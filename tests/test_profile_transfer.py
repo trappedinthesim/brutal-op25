@@ -14,8 +14,11 @@ PROFILE_ID = 'a' * 32
 
 def profile(name='Test P25'):
     return {'id': PROFILE_ID, 'revision': 1, 'name': name,
-            'settings': {'hardware': {'profile': 'rtlv4'}, 'site_id': 1},
-            'system': {'name': name, 'sites': [], 'talkgroups': []}}
+            'settings': {'hardware': {'profile': 'rtlv4'}, 'site_id': 1,
+                         'source': 'manual', 'talkgroup_ids': [], 'selected_only': False},
+            'system': {'id': 0, 'name': name, 'sites': [{'id': 1, 'name': 'Test site',
+                       'nac': '0x0', 'tdma_cc': False, 'warnings': [], 'controls_hz': [851012500]}],
+                       'talkgroups': []}}
 
 
 class ProfileTransferTests(unittest.TestCase):

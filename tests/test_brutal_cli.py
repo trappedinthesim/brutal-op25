@@ -9,6 +9,25 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class TerminalTests(unittest.TestCase):
+    def test_windows_rsp_driver_check_describes_stream_not_unused_linux_plugin(self):
+        with tempfile.TemporaryDirectory() as root, patch.dict('os.environ', {
+                'BRUTAL_WINDOWS_LAUNCHER': '1', 'BRUTAL_RSP_TCP_ADDR': '172.20.208.1:12345'}), \
+                patch('brutal_cli.runtime_inventory', return_value={'backends': ['rtl_tcp']}), \
+                patch('brutal_cli.check_profile', side_effect=AssertionError('wrong backend')):
+            report = Terminal(root, lambda _: '', lambda _: None).driver_check('rspdxr2')
+            self.assertTrue(report['software_dependencies_present'])
+            self.assertEqual(report['missing'], [])
+            self.assertIn('rtl_tcp', report['backend'])
+            self.assertFalse(report['hardware_verified'])
+
+    def test_windows_rsp_driver_check_reports_missing_stream_backend(self):
+        with tempfile.TemporaryDirectory() as root, patch.dict('os.environ', {
+                'BRUTAL_WINDOWS_LAUNCHER': '1', 'BRUTAL_RSP_TCP_ADDR': '172.20.208.1:12345'}), \
+                patch('brutal_cli.runtime_inventory', return_value={'backends': []}):
+            report = Terminal(root, lambda _: '', lambda _: None).driver_check('rspdxr2')
+            self.assertFalse(report['software_dependencies_present'])
+            self.assertEqual(report['missing'], ['gr-osmosdr rtl_tcp backend'])
+
     def test_confirmation_keeps_answer_prompt_short_and_separate(self):
         with tempfile.TemporaryDirectory() as root:
             messages, prompts = [], []
