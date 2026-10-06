@@ -90,6 +90,10 @@ class LibraryTests(unittest.TestCase):
             {**good, "settings": {**good["settings"], "source": None}},
             {**good, "settings": {**good["settings"], "talkgroup_ids": [False]}},
             {**good, "system": {**good["system"], "id": None}},
+            {**good, "settings": {**good["settings"], "priority_tgids": None}},
+            {**good, "settings": {**good["settings"], "blocked_tgids": [999999]}},
+            {**good, "settings": {**good["settings"], "rid_labels": []}},
+            {**good, "settings": {**good["settings"], "selected_only": True, "talkgroup_ids": []}},
         ]
         for bad in bad_versions:
             path.write_text(json.dumps(bad), encoding="utf-8")

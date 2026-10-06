@@ -1,8 +1,8 @@
 # Development-only app refresh. Keeps already-installed, user-approved drivers;
 # never downloads vendor software or accepts a license.
 # Keep this list identical to the application COPY in Dockerfile (a test enforces it).
-ARG INSTALLED_IMAGE=brutal-op25-sdrplay:0.3.0-dev.21-local
-ARG PATCHED_BASE_IMAGE=brutal-op25:0.3.0-dev.21
+ARG INSTALLED_IMAGE=brutal-op25-sdrplay:0.3.0-dev.22-local
+ARG PATCHED_BASE_IMAGE=brutal-op25:0.3.0-dev.22
 FROM ${PATCHED_BASE_IMAGE} AS patched-op25
 FROM ${INSTALLED_IMAGE}
 WORKDIR /opt/manager
@@ -11,7 +11,7 @@ WORKDIR /opt/manager
 USER root
 COPY --from=patched-op25 /usr/local/lib/x86_64-linux-gnu/libgnuradio-op25_repeater.so.1.0.0.0 /usr/local/lib/x86_64-linux-gnu/libgnuradio-op25_repeater.so.1.0.0.0
 RUN apt-get update \
-    && apt-get install -y --only-upgrade libssl3 \
+    && apt-get install -y --no-install-recommends --only-upgrade libssl3 \
     && apt-get purge -y python3-setuptools \
     && rm -rf /var/lib/apt/lists/* \
     && python -m pip install --no-cache-dir setuptools==84.0.0 \

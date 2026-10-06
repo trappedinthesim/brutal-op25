@@ -2,7 +2,7 @@
 # Linux/WSL host launcher. The separate installer prepares host prerequisites.
 set -euo pipefail
 task_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.21}
+task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.22}
 task_original_args=("$@")
 task_device=''
 task_no_usb=false
@@ -85,7 +85,7 @@ if ! "$task_no_usb"; then
         case "$task_selected_id" in
             1df7:3060)
                 if [[ "$task_image" == "$BRUTAL_LOCAL_IMAGE" ]]; then
-                    task_addon=brutal-op25-sdrplay:0.3.0-dev.21-local
+                    task_addon=brutal-op25-sdrplay:0.3.0-dev.22-local
                     if "$task_build" || ! brutal_sdrplay_addon_current "$task_addon" || \
                         ! docker run --rm --network none --read-only --cap-drop ALL \
                             --tmpfs /tmp --tmpfs /home/op25:uid=1000,gid=1000 \

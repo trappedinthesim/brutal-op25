@@ -32,7 +32,7 @@ class ContainerTests(unittest.TestCase):
         self.assertIn('libssl3 usbutils', base)
         self.assertNotIn('python3-venv python3-setuptools', base)
         self.assertIn('setuptools==84.0.0', base)
-        self.assertIn('apt-get install -y --only-upgrade libssl3', refresh)
+        self.assertIn('apt-get install -y --no-install-recommends --only-upgrade libssl3', refresh)
         self.assertIn('setuptools==84.0.0', refresh)
 
     def test_launchers_check_published_ports_before_docker_run(self):

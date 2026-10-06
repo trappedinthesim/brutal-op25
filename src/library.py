@@ -71,6 +71,17 @@ class ProfileLibrary:
                or not isinstance(group.get("label"), str)
                for group in system["talkgroups"]):
             raise ValueError("Saved profile is damaged: invalid talkgroup")
+        known_tgids = {group["id"] for group in system["talkgroups"]}
+        for key in ("talkgroup_ids", "priority_tgids", "blocked_tgids"):
+            values = settings.get(key, [])
+            if not isinstance(values, list) or any(type(tgid) is not int or tgid not in known_tgids
+                                                    for tgid in values):
+                raise ValueError("Saved profile is damaged: invalid listening preferences")
+        if settings["selected_only"] and not settings["talkgroup_ids"]:
+            raise ValueError("Saved profile is damaged: empty listen-only selection")
+        if (set(settings.get("priority_tgids", [])) & set(settings.get("blocked_tgids", []))
+                or not isinstance(settings.get("rid_labels", {}), dict)):
+            raise ValueError("Saved profile is damaged: conflicting listening preferences")
         categories = system.get("categories", [])
         if not isinstance(categories, list) or any(
                 not isinstance(category, dict)
