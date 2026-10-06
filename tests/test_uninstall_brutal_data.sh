@@ -30,8 +30,8 @@ docker() {
 }
 export -f docker
 
-printf '%s\n' 'brutal-op25:0.3.0-dev.22' \
-    'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.22' \
+printf '%s\n' 'brutal-op25:0.3.0-dev.23' \
+    'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.23' \
     'unrelated:latest' > "$task_tmp/tags"
 touch "$task_tmp/volume" "$task_tmp/block-volume"
 if bash "$task_root/install/uninstall-brutal-data.sh" > "$task_tmp/out" 2>&1; then

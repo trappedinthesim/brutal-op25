@@ -249,6 +249,9 @@ def normalize_system(sid, details, sites, groups, type_name="P25", categories=No
     seen = {}
     for row in groups:
         # One malformed database row must not discard the whole system. Skip it and say so.
+        if not isinstance(row, dict):
+            import_warnings.append("Skipped a malformed talkgroup record.")
+            continue
         name = clean_label(row.get("tgAlpha") or row.get("tgDescr") or "") or "(unnamed)"
         try:
             tgid = int(row["tgDec"])

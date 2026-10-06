@@ -66,6 +66,15 @@ class ImporterTests(unittest.TestCase):
         self.assertEqual(len(system["import_warnings"]), 4)
         self.assertIn("Zero", " ".join(system["import_warnings"]))
 
+    def test_non_object_talkgroup_is_skipped_not_fatal(self):
+        system = normalize_system(1, {"sName": "Test"}, [], [
+            None, "bad row", {"tgDec": 7, "tgAlpha": "Good"}])
+        self.assertEqual([g["id"] for g in system["talkgroups"]], [7])
+        self.assertEqual(system["import_warnings"], [
+            "Skipped a malformed talkgroup record.",
+            "Skipped a malformed talkgroup record.",
+        ])
+
     def test_one_malformed_site_does_not_hide_other_valid_sites(self):
         sites = [{"siteId": "bad", "siteDescr": "Broken"},
                  {"siteId": 9, "siteDescr": "Good", "siteFreqs": [

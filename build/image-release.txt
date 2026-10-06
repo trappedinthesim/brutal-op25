@@ -1,1 +1,1 @@
-ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.22
+ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.23
