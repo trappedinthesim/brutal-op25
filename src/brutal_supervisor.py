@@ -71,7 +71,7 @@ EMPTY_DASHBOARD = """<!doctype html><html><head><meta charset="utf-8"><meta name
 <h2 style="color:var(--text-1)">Your system library</h2><p>Use Systems to add one or more P25 systems from RadioReference or enter control channels manually. Nothing is listening until you select a saved system and have a connected radio.</p>
 <button class="brutal-btn primary" onclick="brutalSystems.open('saved')">Open Systems</button>
 <p id="radio-hint" role="status"></p></main><script src="/brutal/systems.js" defer></script>
-<script>window.addEventListener('DOMContentLoaded',async()=>{try{const s=await (await fetch('/brutal/api/session',{cache:'no-store'})).json();document.getElementById('radio-hint').textContent=s.can_listen?'Radio connected: you can start a saved system here.':'Radio not connected: save systems here, then relaunch with the guided USB connection to listen.';brutalSystems.open('saved')}catch(e){document.getElementById('radio-hint').textContent='The local control service is unavailable.'}})</script>
+<script>window.addEventListener('DOMContentLoaded',async()=>{try{const s=await (await fetch('/brutal/api/session',{cache:'no-store'})).json();document.getElementById('radio-hint').textContent=s.can_listen?'Radio connected: you can start a saved system here.':'Radio not connected: save systems here, then relaunch with the guided radio connection to listen.';brutalSystems.open('saved')}catch(e){document.getElementById('radio-hint').textContent='The local control service is unavailable.'}})</script>
 </body></html>"""
 
 
@@ -84,10 +84,15 @@ def receiver_command(profile, internal_port, root, rsp_serial=None):
     here = Path(__file__).resolve().parent
     env = {**os.environ, 'OP25_HTTP_BIND': f'127.0.0.1:{internal_port}', 'OP25_DATA_DIR': str(root)}
     if family_of(profile) == 'rsp':
-        from rsp_receiver import selected_arguments
-        serial = env.get('OP25_RSP_SERIAL', '') if rsp_serial is None else rsp_serial
-        selected_arguments(serial)  # Fail before spawning a receiver that cannot bind the selected radio.
-        env['OP25_RSP_SERIAL'] = serial
+        from rsp_receiver import network_arguments, selected_arguments
+        network = env.get('OP25_RSP_TCP_ADDR') or env.get('BRUTAL_RSP_TCP_ADDR')
+        if network:
+            network_arguments(network)
+            env['OP25_RSP_TCP_ADDR'] = network
+        else:
+            serial = env.get('OP25_RSP_SERIAL', '') if rsp_serial is None else rsp_serial
+            selected_arguments(serial)  # Fail before spawning a receiver that cannot bind the selected radio.
+            env['OP25_RSP_SERIAL'] = serial
         return [sys.executable, str(here / 'rsp_receiver.py')], env
     return [sys.executable, str(here / 'container_receiver.py'), 'run'], env
 
@@ -665,7 +670,7 @@ def build(root, public_port=PUBLIC_PORT, internal_port=INTERNAL_PORT, bind='0.0.
 def serve_setup(root, hardware, can_listen=False, public_port=PUBLIC_PORT, internal_port=INTERNAL_PORT,
                 rr_factory=RadioReference, key_provider=application_key, rsp_serial=None):
     """Use the regular Systems panel before a first profile exists; no receiver starts implicitly."""
-    if can_listen and hardware.get('profile') == 'rspdxr2':
+    if can_listen and hardware.get('profile') == 'rspdxr2' and not os.environ.get('BRUTAL_RSP_TCP_ADDR'):
         from rsp_receiver import selected_arguments
         try:
             selected_arguments(rsp_serial or '')

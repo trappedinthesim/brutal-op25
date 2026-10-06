@@ -1,5 +1,6 @@
-"""Supervise SDRplay's API and OP25 in the same private receiver container."""
+"""Run SDRplay through a native Linux addon or a Windows-local sample stream."""
 import ctypes
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -15,6 +16,35 @@ def selected_arguments(serial):
     if not re.fullmatch(r'[A-Za-z0-9]+', serial):
         raise ValueError('A validated RSP serial number is required')
     return 'soapy=0,driver=sdrplay,serial=' + serial
+
+
+def network_arguments(address):
+    """Accept only an IP endpoint supplied by the guided local Windows launcher."""
+    try:
+        host, port_text = address.rsplit(':', 1)
+        ip = ipaddress.IPv4Address(host)
+        port = int(port_text)
+    except (AttributeError, ValueError) as exc:
+        raise ValueError('Invalid local SDRplay stream address') from exc
+    if (not (ip.is_private or ip.is_loopback) or ip.is_unspecified or ip.is_multicast
+            or ip.is_reserved or not 1024 <= port <= 65535):
+        raise ValueError('The SDRplay stream must use a private address and a non-privileged port')
+    return f'rtl_tcp={ip}:{port}'
+
+
+def network_main(address):
+    """Receive Windows-hosted RSP samples over TCP, bypassing WSL USB/IP."""
+    root = os.environ.get('OP25_DATA_DIR', '/data')
+    config = json.loads(active_config(root).read_text())
+    if len(config['devices']) != 1 or 'driver=sdrplay' not in config['devices'][0]['args']:
+        raise ValueError('Select an RSPdx-R2 saved profile, not an RTL-SDR export')
+    config['devices'][0].update(args=network_arguments(address), rate=1000000,
+                                gains='LNA:20', gain_mode=False)
+    temporary = Path('/tmp/rsp-config.json')
+    temporary.write_text(json.dumps(config))
+    print('RSPdx-R2 stream connected from Windows; starting OP25.', flush=True)
+    os.execvpe(sys.executable, [sys.executable, 'container_receiver.py', 'run'],
+               {**os.environ, 'OP25_PREPARED_CONFIG': str(temporary)})
 
 
 def wait_for_api(service, api, shared_memory=Path('/dev/shm/Glbl\\sdrSrvComShMem'), timeout=10):
@@ -54,6 +84,8 @@ def stop_receiver_then_service(receiver, service):
 
 
 def main():
+    if os.environ.get('OP25_RSP_TCP_ADDR'):
+        return network_main(os.environ['OP25_RSP_TCP_ADDR'])
     root = os.environ.get('OP25_DATA_DIR', '/data')
     config = json.loads(active_config(root).read_text())
     serial = os.environ.get('OP25_RSP_SERIAL', '')

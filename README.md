@@ -24,7 +24,7 @@ Terminal launcher and onboarding:
 Narrow or non-UTF-8 terminals use a compact text banner.
 
 ## What it adds on top of OP25
-- **Guided launch** (Windows and Linux/WSL): picks your radio, forwards USB into a locked-down container, and opens the dashboard.
+- **Guided launch** (Windows and Linux/WSL): picks your radio, connects it to the receiver, and opens the dashboard. Windows forwards RTL-SDR USB to WSL; the RSPdx-R2 streams samples locally from its Windows driver to the Linux receiver.
 - **Terminal onboarding**: choose a radio, then save the first P25 system or skip importing and open the dashboard's Systems panel. Nothing listens until a saved system and connected radio are selected.
 - **Brutal dashboard theme**: one graphite palette and one accent colour, flat plot tabs, live status strip, tower logo.
 - **RadioReference import**: browse P25 systems by country, state, and county right in the dashboard—no copying frequencies from the website. Pick a receiver site and Brutal OP25 imports its control channels, talkgroup names, and available category data. Save multiple systems with your own RadioReference Premium account; credentials are used for the current session, not stored in your profile.
@@ -37,7 +37,7 @@ Narrow or non-UTF-8 terminals use a compact text banner.
 ## Requirements
 - x86-64 Windows 10/11 with WSL 2 support, or x86-64 Linux. Windows setup installs Ubuntu 24.04 in WSL and Docker Engine inside Ubuntu; Docker Desktop and a Docker account are not needed.
 - Windows uses built-in PowerShell to set up WSL and connect the USB radio. Administrator approval may be needed on the first run.
-- An RTL-SDR (including Blog V4) or, with a locally built private addon, an SDRplay RSPdx-R2.
+- An RTL-SDR (including Blog V4) or an SDRplay RSPdx-R2. On native Linux, the RSPdx-R2 uses a locally built private driver addon.
 - Optional: a RadioReference Premium account for imports. Users enter their own credentials; no application-key setup is needed.
 
 No Docker account or Docker Desktop sign-in is required.
@@ -117,10 +117,13 @@ RadioReference import requires your own eligible account. Your credentials go di
 from your local receiver to RadioReference and are not saved in your profile.
 See [installation and privacy](docs/INSTALLATION-PRIVACY.txt).
 
-RSPdx-R2 setup downloads SDRplay's driver, asks you to review and accept its license,
-and builds a private addon on your computer. It is not included in the public image.
-RTL-SDR users do not see that license. RSPdx-R2 reception and audio still need live
-validation; see [tested hardware boundaries](docs/SDR-SUPPORT.txt).
+RSPdx-R2 setup uses SDRplay's separate driver and asks you to review its license if
+that driver must be installed. On Windows, the driver runs locally on Windows and
+streams samples to the Linux receiver; no SDRplay driver is put in the public image.
+On native Linux, the installer builds a private local addon. RTL-SDR users do not
+see the SDRplay license. RSPdx-R2 control-channel reception was verified on one
+Windows/WSL machine; browser audio and other hosts still need a live check. See
+[tested hardware boundaries](docs/SDR-SUPPORT.txt).
 
 For backup, restore, image rollback, and other launcher options, see
 [operations and troubleshooting](docs/OPERATIONS.md). To change the code or make a

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Guided Windows launch with Docker Engine in a real Ubuntu WSL distribution.
-# Windows only supplies the one selected USB radio; OP25 and Docker stay in Linux.
+# Windows connects RTL USB or streams a selected SDRplay radio; OP25 and Docker stay in Linux.
 set -euo pipefail
 task_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 . "$task_root/install/image-bootstrap.sh"
@@ -13,7 +13,7 @@ while (($#)); do
         --rollback-image) task_mode=rollback ;;
         --help)
             printf '%s\n' 'Usage: bash install/brutal-wsl.sh [--check | --prepare-only | --update-image | --rollback-image]' \
-                'Uses Ubuntu WSL, a local Linux Docker Engine and the Windows USB bridge.'
+                'Uses Ubuntu WSL and a local Linux Docker Engine. Windows connects the selected radio.'
             exit 0 ;;
         *) printf 'Unknown option: %s\n' "$1" >&2; exit 2 ;;
     esac
@@ -64,12 +64,20 @@ command -v flock >/dev/null || { printf '%s\n' 'The WSL launcher needs flock (ut
 exec 9>/tmp/brutal-op25-wsl.lock
 flock -n 9 || { printf '%s\n' 'Brutal OP25 is already running in this WSL distribution.' >&2; exit 1; }
 task_usb_script=$(wslpath -w "$task_root/install/wsl-usb.ps1")
+task_rsp_script=$(wslpath -w "$task_root/install/wsl-rsp-tcp.ps1")
 task_bus=''
 task_attached=0
+task_rsp_pid=''
+task_rsp_helper_pid=''
+task_rsp_result_file=''
 task_cleanup() {
+    if [[ -n $task_rsp_pid ]]; then
+        powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$task_rsp_script" -Mode stop -ServerProcessId "$task_rsp_pid" || true
+    fi
     if [[ $task_attached == 1 && -n $task_bus ]]; then
         powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$task_usb_script" -Mode detach -BusId "$task_bus" || true
     fi
+    if [[ -n $task_rsp_result_file ]]; then rm -f -- "$task_rsp_result_file"; fi
 }
 trap task_cleanup EXIT
 
@@ -87,7 +95,7 @@ fi
 
 # Read and consume the one-time request from the private Docker volume.
 task_request=$(docker run --rm --network none --read-only --cap-drop ALL \
-    --volume brutal-op25-data:/data --entrypoint python brutal-op25:0.3.0-dev.19 \
+    --volume brutal-op25-data:/data --entrypoint python "${BRUTAL_OP25_IMAGE:-$BRUTAL_LOCAL_IMAGE}" \
     -c 'from pathlib import Path; p=Path("/data/host-handoff.json"); print(p.read_text()); p.unlink()')
 task_fields=$(python3 -c '
 import json, re, sys
@@ -103,6 +111,67 @@ print(preset + "|" + resume)
     printf '%s\n' 'Invalid or stale USB connection request. No host action was taken.' >&2; exit 1;
 }
 IFS='|' read -r task_preset task_resume <<< "$task_fields"
+
+if [[ $task_preset == rspdxr2 ]]; then
+    task_host_ip=$(ip -4 route show default | awk '/^default / {print $3; exit}')
+    [[ $task_host_ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]] || {
+        printf '%s\n' 'Could not locate the Windows side of the WSL network for SDRplay streaming.' >&2; exit 1;
+    }
+    task_license_args=()
+    if ! powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$task_rsp_script" -Mode check-api; then
+        . "$task_root/install/sdrplay-license.sh"
+        brutal_request_sdrplay_license "$task_root/docs/SDRplay-EULA.txt" windows || exit 1
+        task_license_args=(-LicenseAccepted)
+    fi
+    task_rsp_result_file=$(mktemp /tmp/brutal-op25-rsp-handoff.XXXXXXXX)
+    powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$task_rsp_script" \
+        -Mode start -Address "$task_host_ip" "${task_license_args[@]}" >"$task_rsp_result_file" 2>&1 &
+    task_rsp_helper_pid=$!
+    for ((task_attempt=0; task_attempt<80; task_attempt++)); do
+        if grep -q '^BRUTAL_RSP_TCP=' "$task_rsp_result_file"; then break; fi
+        if ! kill -0 "$task_rsp_helper_pid" 2>/dev/null; then break; fi
+        sleep 0.25
+    done
+    task_rsp_result=$(<"$task_rsp_result_file")
+    if [[ $task_rsp_result != *BRUTAL_RSP_TCP=* ]]; then
+        printf '%s\n' "$task_rsp_result" | tr -d '\r' >&2
+        printf '%s\n' 'Windows SDRplay stream setup failed. Your saved systems remain available.' >&2; exit 1
+    fi
+    printf '%s\n' "$task_rsp_result" | sed '/^BRUTAL_RSP_TCP=/d' | tr -d '\r'
+    task_rsp_marker=$(printf '%s\n' "$task_rsp_result" | tr -d '\r' | grep '^BRUTAL_RSP_TCP=' | tail -n 1) || {
+        printf '%s\n' 'The Windows SDRplay server did not return its local stream address.' >&2; exit 1;
+    }
+    IFS='|' read -r task_rsp_address task_rsp_pid <<< "${task_rsp_marker#BRUTAL_RSP_TCP=}"
+    [[ $task_rsp_address == "$task_host_ip:1234" && $task_rsp_pid =~ ^[1-9][0-9]*$ ]] || {
+        printf '%s\n' 'The Windows SDRplay server returned invalid connection details.' >&2; exit 1;
+    }
+    if ! python3 - "$task_host_ip" <<'PY'
+import socket, sys
+try:
+    with socket.create_connection((sys.argv[1], 1234), timeout=4) as stream:
+        stream.settimeout(4)
+        header = b''
+        while len(header) < 12:
+            part = stream.recv(12 - len(header))
+            if not part:
+                break
+            header += part
+        if len(header) != 12 or header[:4] != b'RTL0':
+            raise OSError('invalid SDRplay stream header')
+except OSError as exc:
+    print('Linux cannot reach the selected Windows SDRplay stream: ' + str(exc), file=sys.stderr)
+    sys.exit(1)
+PY
+    then
+        printf '%s\n' 'Check the Windows firewall for the local WSL connection, then try again. Your saved systems are unchanged.' >&2
+        exit 1
+    fi
+    export BRUTAL_RSP_TCP_ADDR=$task_rsp_address BRUTAL_SELECTED_PROFILE=$task_preset BRUTAL_RESUME_LISTEN=$task_resume
+    exec_status=0
+    BRUTAL_WSL_HANDOFF=1 BRUTAL_HANDOFF_NONCE=$task_nonce \
+        bash "$task_root/brutal-op25.sh" --no-usb || exec_status=$?
+    exit "$exec_status"
+fi
 
 task_usb_result=$(powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$task_usb_script" -Mode connect -Profile "$task_preset") || {
     printf '%s\n' 'Windows USB connection failed. Your saved systems remain available.' >&2; exit 1;
@@ -136,16 +205,6 @@ done
 [[ -n $task_device ]] || { printf 'Radio serial %s was not visible in Ubuntu WSL after USB forwarding.\n' "$task_serial" >&2; exit 1; }
 printf 'Linux can see the selected radio: %s\n' "$task_device"
 
-if [[ $task_preset == rspdxr2 ]]; then
-    task_addon=brutal-op25-sdrplay:0.3.0-dev.19-local
-    if ! brutal_sdrplay_addon_current "$task_addon" || \
-       ! docker run --rm --network none --read-only --cap-drop ALL --tmpfs /tmp \
-           --tmpfs /home/op25:uid=1000,gid=1000 --entrypoint python "$task_addon" \
-           -c 'from hardware_check import check_profile; r=check_profile("rspdxr2"); assert r["software_dependencies_present"], r["missing"]'; then
-        bash "$task_root/install/prepare-sdrplay.sh"
-    fi
-    export BRUTAL_OP25_IMAGE=$task_addon
-fi
 export BRUTAL_SELECTED_PROFILE=$task_preset BRUTAL_RESUME_LISTEN=$task_resume
 exec_status=0
 BRUTAL_WSL_HANDOFF=1 BRUTAL_HANDOFF_NONCE=$task_nonce \

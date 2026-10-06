@@ -8,7 +8,7 @@ import threading
 import time
 import unittest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 import brutal_supervisor as sup
 from library import ProfileLibrary
@@ -648,6 +648,16 @@ class CommandTests(unittest.TestCase):
         command, env = receiver.command_for(rsp, 18080)
         self.assertTrue(command[1].endswith('rsp_receiver.py'))
         self.assertEqual(env['OP25_RSP_SERIAL'], '24052A9770')
+
+    def test_windows_rsp_stream_needs_no_linux_sdrplay_serial(self):
+        rsp = {'settings': {'hardware': {'profile': 'rspdxr2'}}}
+        with patch.dict('os.environ', {'BRUTAL_RSP_TCP_ADDR': '172.20.208.1:1234'}, clear=True):
+            command, env = sup.receiver_command(rsp, 18080, '/data', rsp_serial='')
+        self.assertTrue(command[1].endswith('rsp_receiver.py'))
+        self.assertEqual(env['OP25_RSP_TCP_ADDR'], '172.20.208.1:1234')
+        with patch.dict('os.environ', {'BRUTAL_RSP_TCP_ADDR': '8.8.8.8:1234'}, clear=True):
+            with self.assertRaisesRegex(ValueError, 'private address'):
+                sup.receiver_command(rsp, 18080, '/data', rsp_serial='')
 
 
 if __name__ == '__main__':

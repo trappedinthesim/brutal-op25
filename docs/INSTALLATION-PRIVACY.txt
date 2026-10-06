@@ -14,13 +14,20 @@ Saved profiles live in the separate local brutal-op25-data Docker volume. They a
 available to the running receiver, not baked into image layers.
 Do not publish a data-volume backup or commit a running container as an image.
 
-The RSP addon is a private local build. Its separate vendor context contributes
+On Windows, the SDRplay API installer is downloaded directly from SDRplay after
+license review, then checked against a pinned checksum and vendor signature.
+The local rsp_tcp sample server is bundled with its corresponding GPL source;
+it binds only to the WSL virtual host interface. The proprietary SDRplay API
+is not copied into the published receiver image.
+
+On native Linux, the RSP addon is a private local build. Its separate vendor context contributes
 only the explicitly named, checksum-verified SDRplay installer. It does not
 copy the entire cache. The addon includes proprietary SDRplay software and
 must not be published without permission to distribute it.
 
 The guided launchers select the actual connected radio. The Windows launcher
-checks the RSPdx-R2 serial before USB forwarding; Downloads are never used to
+checks the connected RSPdx-R2 identity before starting its Windows-local stream;
+Downloads are never used to
 choose a configuration. SDRplay license acceptance and Windows administrator
 approval require the user.
 
@@ -28,7 +35,9 @@ Development status: Windows uses Ubuntu WSL with Docker Engine inside Ubuntu;
 native Linux uses its local Docker Engine. Docker Desktop is not a prerequisite.
 This is not yet a signed, consumer-ready installer.
 CheckOnly makes no installation or USB changes. Real API/service operation,
-USB forwarding, control-channel reception, and audio still require validation.
+RTL USB forwarding, control-channel reception, and audio still require validation
+on other hosts. One Windows RSPdx-R2 decoded a live control channel; audio
+there and native-Linux RSP reception remain unverified.
 The launchers publish dashboard HTTP (8080) and OP25 audio WebSocket (9000)
 on host loopback only. Do not expose either port to a LAN or the internet.
 The build patches the pinned OP25 audio WebSocket to accept browser handshakes

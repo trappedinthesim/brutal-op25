@@ -162,14 +162,25 @@ class WindowsInstallerSourceTests(unittest.TestCase):
         for path in ('prepare-sdrplay.sh', 'build-sdrplay.sh'):
             self.assertIn(expected, (ROOT / 'install' / path).read_text(), path)
 
-    def test_sdrplay_addon_is_checked_before_use(self):
+    def test_sdrplay_addon_is_checked_before_use_on_native_linux(self):
         linux = (ROOT / 'install/build-sdrplay.sh').read_text()
         launcher = (ROOT / 'brutal-op25.sh').read_text()
         wsl = (ROOT / 'install/brutal-wsl.sh').read_text()
         self.assertIn('check_profile("rspdxr2")', linux)
         self.assertIn('check_profile("rspdxr2")', launcher)
-        self.assertIn('check_profile("rspdxr2")', wsl)
-        self.assertIn('install/prepare-sdrplay.sh', wsl)
+        self.assertIn('wsl-rsp-tcp.ps1', wsl)
+        self.assertIn('-Mode check-api', wsl)
+        self.assertNotIn('install/prepare-sdrplay.sh', wsl)
+
+    def test_windows_sdrplay_stream_is_local_and_vendor_installer_is_verified(self):
+        source = (ROOT / 'install/wsl-rsp-tcp.ps1').read_text()
+        self.assertIn('Get-AuthenticodeSignature', source)
+        self.assertIn('8AD5C36F1CA26CF7A61010C3F3C80DAE69D4468EF5E59F7A0D42FB135A1C7326', source)
+        self.assertIn('93F007D74AAFFBF8B7F1EBC05402B09F6CB424E39BE612A1DE19EC13559028CD', source)
+        self.assertIn('vEthernet (WSL*', source)
+        self.assertIn('$LicenseAccepted', source)
+        self.assertIn("@('-a',$Address,'-p','1234','-P','0','-s','1000000')", source)
+        self.assertNotIn('BRUTAL_RR_APP_KEY', source)
 
     def test_usb_bridge_is_pinned_and_releases_only_its_own_attach(self):
         source = (ROOT / 'install/wsl-usb.ps1').read_text()

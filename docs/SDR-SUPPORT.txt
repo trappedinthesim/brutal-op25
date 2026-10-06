@@ -1,7 +1,7 @@
 SDR support and validation boundaries
 
 The receiver runs on Linux, including a dedicated Ubuntu WSL Docker Engine on Windows.
-Windows USB forwarding is handled by Launch-Brutal-OP25.cmd; native Linux uses
+Windows RTL-SDR USB forwarding and local SDRplay streaming are handled by Launch-Brutal-OP25.cmd; native Linux uses
 install-brutal-op25.sh, which enters brutal-op25.sh. Neither launcher exposes
 the whole USB bus or a Docker socket to the receiver container.
 
@@ -27,23 +27,28 @@ No separate Windows SDR driver or host Linux RTL package is installed by our
 launcher: the Linux driver is inside the base image, while Windows only needs
 the guided USB bridge to forward the selected device to WSL.
 
-SDRplay RSPdx-R2: the private addon uses the official Linux SDRplay API and
-SoapySDRPlay3. An isolated no-profile hardware smoke test forwarded the local
-RSPdx-R2, started its API service in the addon, and confirmed SoapySDR identified
-the selected device and serial. Control-channel lock and clear audio on RSPdx-R2
-have not been verified. A separate three-second 2 MSPS GNU Radio stream also
-passed; the test releases the radio before stopping SDRplay's API service.
-On the new Ubuntu WSL Engine path, the Windows USB bridge also forwarded the
-RSPdx-R2 and Ubuntu saw the expected device serial and vendor/product 1df7:3060.
-The proprietary addon and reception have not yet been retested on that path.
-The vendor driver is not in the public base
-image and must not be redistributed without permission. See SDRplay-EULA.txt
-and INSTALLATION-PRIVACY.txt before building that addon. The guided launcher
-downloads the official installer, verifies its pinned checksum and requests
-explicit license acceptance when an RSPdx-R2 is selected.
-The private addon is built on the user's machine at first use. A driver-load
-smoke check runs before reception; a vendor download or checksum change must
-be reviewed and updated by the project rather than bypassed by the installer.
+SDRplay RSPdx-R2 on Windows/WSL: USB forwarding through WSL limited this radio
+to about 0.37 MSPS in a 2 MSPS test and prevented P25 control-channel decode.
+The guided launcher instead uses SDRplay's official Windows API with the
+open-source rsp_tcp server, bound to the local WSL virtual network interface.
+The Linux base image receives that sample stream at 1 MSPS without a private
+SDRplay addon. On one RSPdx-R2 with antenna A, the normal launcher decoded
+AARRS Northeast Simulcast: WACN 0x91F78, system 0x0D2, site 50.50, NAC 0x3C,
+hundreds of TSBKs and live talkgroup call entries. Browser audio on this path
+has not yet been checked by listening, nor has a clean Windows host been tested.
+The server is open-source and its matching source and license are in
+../install/vendor/rsp-tcp/; the proprietary SDRplay API is not in the repo or
+public image. A first-time Windows install downloads SDRplay's official API,
+verifies its pinned checksum and signature, and requires explicit license
+acceptance. A changed vendor download requires project review before use.
+
+SDRplay RSPdx-R2 on native Linux: the private addon uses the official Linux
+SDRplay API and SoapySDRPlay3. An isolated no-profile smoke test identified
+the selected device and serial and captured a three-second 2 MSPS stream.
+Control-channel lock and clear audio on native Linux have not been verified.
+The proprietary addon is built on the user's computer after license review;
+do not redistribute it without permission. See SDRplay-EULA.txt and
+INSTALLATION-PRIVACY.txt.
 
 Presets are starting settings, not hardware verification. Check USB visibility,
 driver operation, control-channel lock, and audio on the actual receiver host.

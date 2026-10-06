@@ -54,7 +54,9 @@ The RTL-SDR Blog V4 was identified and sampled with zero reported loss in a
 short WSL-native container test. A fresh manual AARRS test profile then decoded
 a live P25 control channel (WACN 0x91F78, system 0x0D2, site 50.50, NAC 0x3C).
 The user later confirmed clear browser speech on this path. The test profile was archived
-so the next run opens fresh onboarding. RSPdx-R2 reception remains unverified.
+so the next run opens fresh onboarding. A later RSPdx-R2 Windows-local stream
+decoded the same site's control channel and live call entries; browser audio
+on that radio still needs a listening check.
 
 From this source directory on native Linux or WSL:
   bash install-brutal-op25.sh
@@ -122,24 +124,25 @@ Site changes and updates preserve history. Encrypted voice cannot be decoded.
 
 The base image includes a pinned RTL-SDR Blog V4-capable driver. A local Blog V4
 received the AARRS Northeast Simulcast site with clear browser speech. This is
-one-device, one-host validation, not a compatibility guarantee. RSPdx-R2
-hardware reception/audio remains unverified and requires the private,
-license-accepted SDRplay addon; do not publish proprietary vendor software
-without distribution permission. On first RSPdx-R2 selection, the native
-Linux launcher downloads the official vendor package, verifies the pinned
-checksum, presents the full license with pager controls, and builds the private
-addon only if the user explicitly chooses Yes after leaving the license viewer.
-The user can review again or cancel without losing the saved profile. The WSL
-launcher has the same terminal-gated flow. Vendor
-updates that change the checksum must be verified before updating this pin.
+one-device, one-host validation, not a compatibility guarantee. On Windows,
+RSPdx-R2 uses SDRplay's official Windows API and a local sample stream to WSL;
+the base image needs no proprietary addon. One RSPdx-R2 decoded a live P25
+control channel with call entries through the normal launcher. Browser audio
+on that path has not yet been heard. On native Linux, RSPdx-R2 still requires
+the private, license-accepted SDRplay addon; do not publish proprietary vendor
+software without distribution permission. On first RSPdx-R2 selection, the
+app presents the full license with pager controls. Native Linux builds the
+private addon after acceptance; Windows installs the official API locally.
+The user can review again or cancel without losing the saved profile. Vendor
+updates that change pinned checksums must be reviewed before updating them.
 To build from an official SDRplay Linux 3.15.2 package obtained separately:
   bash install/build-sdrplay.sh /path/to/official-installer
 This verifies the pinned checksum, displays the complete license, requires
-an explicit Yes, and builds brutal-op25-sdrplay:0.3.0-dev.19-local from an isolated
+an explicit Yes, and builds brutal-op25-sdrplay:0.3.0-dev.20-local from an isolated
 vendor context containing only that installer, not its parent directory.
 No license is accepted by automated tests. The user approved the SDRplay license
-and the private addon was built locally. The RSPdx-R2 was identified and
-sampled in a smoke test, but control-channel lock and audio remain unverified.
+and the private native-Linux addon was built locally. That path identified and
+sampled the device, but native-Linux control-channel lock and audio remain unverified.
 
 The repository and versioned base image are public. BRUTAL_OP25_IMAGE can
 choose a tested local or versioned registry image. Users of the published
@@ -202,7 +205,8 @@ port. It accepts only loopback host names, requires a per-run token on every cha
 exposes no Docker or USB control, and logs no credentials. Verified on a throwaway
 receiver fed synthetic noise (switching, manual add, validation, removal, crash
 recovery, clean shutdown) with a fake RadioReference client; a real RadioReference
-sign-in and a real RSPdx-R2 switch still need hands-on verification.
+sign-in was tested with an eligible account, and a real RSPdx-R2 launch decoded
+live call entries. Browser audio on the RSP path still needs hands-on verification.
 
 LISTENING CONTROLS (Talkgroups, Radio IDs, Advanced tabs and the volume slider)
 These tabs act on the system that is listening. Talkgroups: every talkgroup can be Priority, Normal or

@@ -84,4 +84,5 @@ On supported Ubuntu and Debian versions, the Linux installer can offer Docker
 Engine from Docker's official repository. Other distributions can install a
 local Docker Engine separately, then use the launcher. Neither platform needs
 a separate OP25 or RTL-SDR host-driver installation. SDRplay uses a separate
-vendor download and license review; see [SDR support](SDR-SUPPORT.txt).
+vendor download and license review on native Linux. Windows uses SDRplay's
+Windows API and a local sample stream instead; see [SDR support](SDR-SUPPORT.txt).

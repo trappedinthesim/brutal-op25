@@ -1,12 +1,35 @@
+import json
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import Mock, call, patch
 
-from rsp_receiver import selected_arguments, stop_receiver_then_service, wait_for_api
+from rsp_receiver import network_arguments, network_main, selected_arguments, stop_receiver_then_service, wait_for_api
 
 
 class RspReceiverTests(unittest.TestCase):
+    def test_local_network_address_is_validated(self):
+        self.assertEqual(network_arguments('172.20.208.1:1234'), 'rtl_tcp=172.20.208.1:1234')
+        for address in ('8.8.8.8:1234', '0.0.0.0:1234', '172.20.208.1:22',
+                        'localhost:1234', '172.20.208.1:bad'):
+            with self.subTest(address=address), self.assertRaises(ValueError):
+                network_arguments(address)
+
+    def test_windows_stream_uses_transient_config_without_linux_sdrplay_driver(self):
+        with tempfile.TemporaryDirectory() as root:
+            config = Path(root) / 'active.json'
+            config.write_text('{"devices":[{"args":"soapy=0,driver=sdrplay","rate":2000000,"gains":"IFGR:40,RFGR:0"}]}')
+            with patch('rsp_receiver.active_config', return_value=config), \
+                 patch('rsp_receiver.Path', return_value=config), \
+                 patch('rsp_receiver.os.execvpe', side_effect=RuntimeError('exec intercepted')) as execute:
+                with self.assertRaisesRegex(RuntimeError, 'exec intercepted'):
+                    network_main('172.20.208.1:1234')
+                self.assertEqual(execute.call_args.args[2]['OP25_PREPARED_CONFIG'], str(config))
+                data = json.loads(config.read_text())
+                self.assertEqual(data['devices'][0]['args'], 'rtl_tcp=172.20.208.1:1234')
+                self.assertEqual(data['devices'][0]['rate'], 1000000)
+                self.assertEqual(data['devices'][0]['gains'], 'LNA:20')
+
     def test_serial_is_bound_to_selected_radio(self):
         self.assertEqual(selected_arguments('EXAMPLE123'),
                          'soapy=0,driver=sdrplay,serial=EXAMPLE123')

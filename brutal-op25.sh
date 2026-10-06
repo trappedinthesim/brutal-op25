@@ -2,7 +2,7 @@
 # Linux/WSL host launcher. The separate installer prepares host prerequisites.
 set -euo pipefail
 task_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.19}
+task_image=${BRUTAL_OP25_IMAGE:-brutal-op25:0.3.0-dev.20}
 task_original_args=("$@")
 task_device=''
 task_no_usb=false
@@ -14,7 +14,7 @@ while (($#)); do
         --device) shift; task_device=${1:?Supply /dev/bus/usb/BBB/DDD} ;;
         --help) printf '%s\n' 'Brutal OP25 - built on boatbod/op25' \
             'Usage: bash brutal-op25.sh [--build] [--no-usb | --device /dev/bus/usb/BBB/DDD]' \
-            'Uses separate volume brutal-op25-data. --no-usb allows import/manage only.'; exit 0 ;;
+            'Uses separate volume brutal-op25-data. --no-usb allows import/manage; the Windows SDRplay launcher also uses a local stream.'; exit 0 ;;
         *) printf 'Unknown argument: %s\n' "$1" >&2; exit 2 ;;
     esac
     shift
@@ -85,7 +85,7 @@ if ! "$task_no_usb"; then
         case "$task_selected_id" in
             1df7:3060)
                 if [[ "$task_image" == "$BRUTAL_LOCAL_IMAGE" ]]; then
-                    task_addon=brutal-op25-sdrplay:0.3.0-dev.19-local
+                    task_addon=brutal-op25-sdrplay:0.3.0-dev.20-local
                     if "$task_build" || ! brutal_sdrplay_addon_current "$task_addon" || \
                         ! docker run --rm --network none --read-only --cap-drop ALL \
                             --tmpfs /tmp --tmpfs /home/op25:uid=1000,gid=1000 \
@@ -138,6 +138,12 @@ if [[ -n ${BRUTAL_SELECTED_PROFILE:-} ]]; then
         printf '%s\n' 'Invalid selected SDR profile.' >&2; exit 2;
     }
     task_mode_args+=(--env "BRUTAL_SELECTED_PROFILE=$BRUTAL_SELECTED_PROFILE")
+fi
+if [[ -n ${BRUTAL_RSP_TCP_ADDR:-} ]]; then
+    [[ ${BRUTAL_WINDOWS_LAUNCHER:-${BRUTAL_WSL_HANDOFF:-}} == 1 && $BRUTAL_RSP_TCP_ADDR =~ ^[0-9.]+:[0-9]{4,5}$ ]] || {
+        printf '%s\n' 'Invalid Windows SDRplay stream address.' >&2; exit 2;
+    }
+    task_mode_args+=(--env "BRUTAL_RSP_TCP_ADDR=$BRUTAL_RSP_TCP_ADDR")
 fi
 if [[ -n ${BRUTAL_RESUME_LISTEN:-} ]]; then
     [[ $BRUTAL_RESUME_LISTEN =~ ^[a-f0-9]{32}$ ]] || { printf '%s\n' 'Invalid saved-system continuation.' >&2; exit 2; }

@@ -20,18 +20,23 @@ brutal_review_sdrplay_license() {
 
 brutal_request_sdrplay_license() {
     local task_license=${1:?Supply the full SDRplay license path}
+    local task_target=${2:-addon}
     local task_consent
     brutal_review_sdrplay_license "$task_license" || return 1
     while true; do
         printf '\n%s\n' 'SDRplay permits this API to be used with its hardware under the agreement above.'
-        printf '%s\n' 'The addon will be built only on this computer and must not be published without permission.'
+        if [[ $task_target == windows ]]; then
+            printf '%s\n' 'The official Windows API will be installed only on this computer; the radio will stream to local Linux.'
+        else
+            printf '%s\n' 'The addon will be built only on this computer and must not be published without permission.'
+        fi
         printf '%s' 'Accept SDRplay’s license and install its driver? [y] Yes  [r] Review again  [n] Cancel: '
         if ! IFS= read -r task_consent; then
             printf '\n%s\n' 'No license decision was received. Nothing was installed.' >&2
             return 1
         fi
         case ${task_consent,,} in
-            y|yes|accept) printf '%s\n' 'License accepted. Building the private SDRplay addon...'; return 0 ;;
+            y|yes|accept) printf '%s\n' 'License accepted. Continuing SDRplay setup...'; return 0 ;;
             r|review) brutal_review_sdrplay_license "$task_license" || return 1 ;;
             n|no|cancel|q) printf '%s\n' 'Cancelled. Your saved profile is unchanged; no addon was built.'; return 1 ;;
             *) printf '%s\n' 'Choose y to accept, r to read again, or n to cancel. Enter alone does nothing.' ;;

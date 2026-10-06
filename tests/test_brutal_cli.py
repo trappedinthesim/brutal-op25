@@ -214,7 +214,9 @@ class TerminalTests(unittest.TestCase):
         self.assertIn('powershell.exe -NoProfile -ExecutionPolicy Bypass', launcher)
         self.assertNotIn('Set-ExecutionPolicy', launcher)
         self.assertIn('BRUTAL_HANDOFF_NONCE', script)
-        self.assertEqual(script.count('BRUTAL_WSL_HANDOFF=1 BRUTAL_HANDOFF_NONCE=$task_nonce'), 2)
+        self.assertEqual(script.count('BRUTAL_WSL_HANDOFF=1 BRUTAL_HANDOFF_NONCE=$task_nonce'), 3)
+        self.assertIn('BRUTAL_RSP_TCP_ADDR=$task_rsp_address', script)
+        self.assertIn('wsl-rsp-tcp.ps1', script)
         self.assertIn('--env BRUTAL_WINDOWS_LAUNCHER=1', runner)
         self.assertIn('More than one Linux USB node matched', script)
 

@@ -264,6 +264,15 @@ class Terminal:
 
     def readiness(self, profile, resume_profile=None):
         hardware = profile['settings']['hardware']['profile']
+        network = os.environ.get('BRUTAL_RSP_TCP_ADDR', '') if hardware == 'rspdxr2' else ''
+        if network and os.environ.get('BRUTAL_WINDOWS_LAUNCHER') == '1':
+            from rsp_receiver import network_arguments
+            network_arguments(network)
+            self.output('Using the RSPdx-R2 connected to Windows; samples stream locally to Linux.')
+            return {'environment': environment(), 'devices': [],
+                    'selected_device': {'name': 'SDRplay RSPdx-R2', 'serial': ''},
+                    'prerequisites_ready': True, 'blockers': [], 'hardware_verified': False,
+                    'note': 'The local stream is ready; control-channel lock and audio still need verification.'}
         env, devices = environment(), usb_inventory()
         software = check_profile(hardware)
         candidates = [d for d in devices if d['device_node_present'] and
@@ -278,8 +287,10 @@ class Terminal:
         report = assess(env, devices, hardware, software, selected['node'] if selected else None)
         if env['wsl'] and hardware != 'custom' and os.environ.get('BRUTAL_HANDOFF_NONCE') and (
                 not candidates or software.get('missing')):
-            choice = self.pick('Connect your radio to Linux', [
-                'Connect my radio now (approve Windows prompts when asked)',
+            title = 'Connect your SDRplay radio' if hardware == 'rspdxr2' else 'Connect your radio to Linux'
+            choice = self.pick(title, [
+                'Connect my radio now (Windows may ask for approval)' if hardware == 'rspdxr2'
+                else 'Connect my radio now (approve Windows prompts when asked)',
                 'Not now - continue without listening'], str)
             if choice.startswith('Connect'):
                 self.output('Connecting your radio. Setup will continue automatically in this window.')
@@ -331,11 +342,15 @@ class Terminal:
         self.output('Browser audio starts automatically when allowed. If the dashboard shows ENABLE AUDIO, click it once; use MUTE or UNMUTE beside the volume slider to control sound. Port 9000 is audio transport, not a webpage.')
         self.output('Use the Systems button in the web UI to add, switch or remove systems while listening.')
         if profile['settings']['hardware']['profile'] == 'rspdxr2':
-            serial = report['selected_device'].get('serial', '')
-            if not serial:
-                raise ValueError('The selected RSP serial is unavailable; cannot bind the correct radio')
             os.environ['OP25_DATA_DIR'] = str(self.root)
-            os.environ['OP25_RSP_SERIAL'] = serial
+            network = os.environ.get('BRUTAL_RSP_TCP_ADDR', '')
+            if network:
+                os.environ['OP25_RSP_TCP_ADDR'] = network
+            else:
+                serial = report['selected_device'].get('serial', '')
+                if not serial:
+                    raise ValueError('The selected RSP serial is unavailable; cannot bind the correct radio')
+                os.environ['OP25_RSP_SERIAL'] = serial
         run(self.root)
 
     def manage(self):
@@ -490,7 +505,9 @@ class Terminal:
                     profile = self.library.read(resume)
                     if profile['settings']['hardware']['profile'] != os.environ.get('BRUTAL_SELECTED_PROFILE'):
                         raise ValueError('Saved system SDR no longer matches the connected radio')
-                    self.output('USB connected. Resuming listening setup for ' + profile_label(profile))
+                    connection = ('Radio stream connected' if profile['settings']['hardware']['profile'] == 'rspdxr2'
+                                  and os.environ.get('BRUTAL_RSP_TCP_ADDR') else 'USB connected')
+                    self.output(connection + '. Resuming listening setup for ' + profile_label(profile))
                     self.listen(profile)
                 except Cancelled:
                     self.output('Receiver start cancelled. Your saved system is unchanged.')

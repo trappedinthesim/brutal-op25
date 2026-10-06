@@ -30,7 +30,7 @@ PROFILES = {
         "backend": "hackrf", "libraries": ["hackrf"], "note": "Receive only; RF amplifier off. 8 MSPS starting point. Hardware untested."},
     "rspdxr2": {"name": "SDRplay RSPdx-R2", "args": "soapy=0,driver=sdrplay", "rate": 2000000,
         "gains": "IFGR:40,RFGR:0", "backend": "soapy", "libraries": ["SoapySDR", "sdrplay_api"],
-        "factory": "sdrplay", "note": "Requires SDRplay API 3.15 and an RSPdx-R2-capable SoapySDRPlay3 plugin in the receiver environment. Not included in the base image; reception untested."},
+        "factory": "sdrplay", "note": "Windows uses the official SDRplay API and a local stream to Linux; native Linux builds a private driver addon after license review. Control-channel decode was verified on one Windows RSPdx-R2, but audio and other hosts still need testing."},
     "custom": {"name": "Other / custom", "args": "", "rate": 2000000, "gains": "",
         "note": "Enter gr-osmosdr arguments and named integer gains. Compatibility depends on the chosen driver."},
 }
