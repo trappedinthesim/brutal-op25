@@ -74,9 +74,11 @@ Audio** in the dashboard.
 
 Windows runs Docker Engine inside Ubuntu WSL, not Docker Desktop. The installer
 does not delete or migrate existing Docker Desktop images or profiles. Its own
-saved systems live in a separate Docker volume. The Windows uninstaller keeps
-that volume, the most recent rollback folder, Ubuntu WSL, Docker images, and the USB
-bridge so unrelated data is not removed.
+saved systems live in a separate Docker volume. The Windows uninstaller deletes
+that volume, Brutal OP25 image tags, program files, and verified rollback
+folders after explicit confirmation. It offers separately confirmed removal
+of Ubuntu-24.04, which also removes its Docker Engine and any unrelated Linux
+files in that distribution. The Windows WSL platform and USB bridge remain.
 
 On supported Ubuntu and Debian versions, the Linux installer can offer Docker
 Engine from Docker's official repository. Other distributions can install a

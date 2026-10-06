@@ -16,6 +16,7 @@ try {
     Copy-Item -LiteralPath (Join-Path $taskRoot 'src/brutal-logo.png') -Destination (Join-Path $taskLauncherRoot 'src/brutal-logo.png')
     Copy-Item -LiteralPath (Join-Path $taskRoot 'install/desktop-actions.ps1') -Destination (Join-Path $taskLauncherRoot 'install/desktop-actions.ps1')
     Copy-Item -LiteralPath (Join-Path $taskRoot 'install/user-launcher.ps1') -Destination (Join-Path $taskLauncherRoot 'install/user-launcher.ps1')
+    Copy-Item -LiteralPath (Join-Path $taskRoot 'install/uninstall-brutal-data.sh') -Destination (Join-Path $taskLauncherRoot 'install/uninstall-brutal-data.sh')
     if (-not (Install-BrutalStartMenuShortcut $taskLauncherRoot $taskPrograms)) {
         throw 'Shortcut creation returned false.'
     }
@@ -101,16 +102,42 @@ try {
     }
     $taskUserFile = Join-Path $taskDesktop 'OP25/my-notes.txt'
     Set-Content -LiteralPath $taskUserFile -Value 'keep this'
+    $taskVerifiedBackup = Join-Path $taskFolder 'Install With Spaces.previous.20261006-120000'
+    Copy-Item -LiteralPath $taskLauncherRoot -Destination $taskVerifiedBackup -Recurse
+    [IO.File]::WriteAllText((Join-Path $taskVerifiedBackup '.brutal-op25-manifest'),
+        (Get-BrutalUninstallManifest $taskVerifiedBackup))
+    $taskUnverifiedBackup = Join-Path $taskFolder 'Install With Spaces.previous.20261006-130000'
+    New-Item -ItemType Directory -Path $taskUnverifiedBackup | Out-Null
+    Set-Content -LiteralPath (Join-Path $taskUnverifiedBackup 'user-file.txt') -Value 'keep this'
+    $global:taskDockerCleanupCalls = 0
+    $global:taskDockerCleanupFail = $true
+    function Invoke-BrutalDockerCleanup {
+        param([string]$Root)
+        $global:taskDockerCleanupCalls++
+        if ($global:taskDockerCleanupFail) { throw 'Test Docker cleanup failure' }
+    }
+    try { Invoke-BrutalUninstall $taskLauncherRoot $taskDesktop $taskPrograms -NoPrompt | Out-Null }
+    catch { if ($_.Exception.Message -ne 'Test Docker cleanup failure') { throw } }
+    if (-not (Test-Path -LiteralPath $taskLauncherRoot) -or
+        -not (Test-Path -LiteralPath $taskVerifiedBackup)) {
+        throw 'Docker cleanup failure removed program files or rollback.'
+    }
+    $global:taskDockerCleanupFail = $false
     if (-not (Invoke-BrutalUninstall $taskLauncherRoot $taskDesktop $taskPrograms -NoPrompt)) {
         throw 'Fixture uninstall did not complete.'
     }
-    if ((Test-Path -LiteralPath $taskLauncherRoot) -or
+    if ($global:taskDockerCleanupCalls -ne 2 -or
+        (Test-Path -LiteralPath $taskLauncherRoot) -or
+        (Test-Path -LiteralPath $taskVerifiedBackup) -or
+        -not (Test-Path -LiteralPath (Join-Path $taskUnverifiedBackup 'user-file.txt')) -or
         -not (Test-Path -LiteralPath $taskPath) -or
         -not (Test-Path -LiteralPath $taskUserFile) -or
         -not (Test-Path -LiteralPath $taskUserLinkPath) -or
         ((Get-ChildItem -LiteralPath (Join-Path $taskDesktop 'OP25') -Filter '*.lnk').Count -ne 1)) {
         throw 'Uninstall changed user-owned files or left managed shortcuts.'
     }
+    Remove-Item Function:Invoke-BrutalDockerCleanup
+    Remove-Variable -Name taskDockerCleanupCalls,taskDockerCleanupFail -Scope Global
     Write-Host 'Windows Start menu, desktop icon, and uninstall tests passed.'
 } finally {
     $taskResolved = [IO.Path]::GetFullPath($taskFolder)

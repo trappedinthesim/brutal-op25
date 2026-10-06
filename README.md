@@ -62,7 +62,7 @@ Open the **OP25** folder on your Desktop. The installer creates three shortcuts 
 
 - **Launch Brutal OP25** starts the receiver. You can also search the Start menu for **Brutal OP25**.
 - **Update Brutal OP25** downloads the latest program files and matching receiver image. Stop the receiver first, then use **Launch Brutal OP25** when the update finishes. Updates never happen silently.
-- **Uninstall Brutal OP25** asks you to type `UNINSTALL`, then removes the installed program folder and managed shortcuts. It keeps saved systems, the most recent rollback folder, Docker images, Ubuntu WSL, and the USB bridge. Files you added inside the installed program folder are removed; unrelated items in the Desktop **OP25** folder are left alone.
+- **Uninstall Brutal OP25** asks you to type `DELETE`, then permanently removes saved systems and settings, Brutal OP25 images, program files, managed shortcuts, and verified program rollbacks. Close the receiver first. It also offers an optional, separately confirmed removal of the entire Ubuntu-24.04 WSL distribution (which may contain other apps or files). The Windows WSL platform and usbipd-win USB bridge are shared and remain installed; remove them separately from Windows Settings only if you no longer use them. Files you added inside the installed program folder are removed; unrelated items in the Desktop **OP25** folder and unverified old program folders are left alone.
 
 The Desktop folder is also created if your Desktop is redirected into OneDrive. If a
 shortcut is missing, launch directly from PowerShell:

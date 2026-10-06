@@ -12,6 +12,7 @@ function New-TestArchive([string]$Target, [int]$ExitCode) {
     Set-Content -LiteralPath (Join-Path $taskPayload 'install/install-brutal-wsl.ps1') -Value '# fixture'
     Copy-Item -LiteralPath (Join-Path $taskRoot 'install/user-launcher.ps1') -Destination (Join-Path $taskPayload 'install/user-launcher.ps1')
     Copy-Item -LiteralPath (Join-Path $taskRoot 'install/desktop-actions.ps1') -Destination (Join-Path $taskPayload 'install/desktop-actions.ps1')
+    Copy-Item -LiteralPath (Join-Path $taskRoot 'install/uninstall-brutal-data.sh') -Destination (Join-Path $taskPayload 'install/uninstall-brutal-data.sh')
     Copy-Item -LiteralPath (Join-Path $taskRoot 'src/brutal-logo.png') -Destination (Join-Path $taskPayload 'src/brutal-logo.png')
     Set-Content -LiteralPath (Join-Path $taskPayload 'build/image-release.txt') -Value 'ghcr.io/trappedinthesim/brutal-op25-receiver:0.3.0-dev.17'
     Compress-Archive -LiteralPath $taskPayload -DestinationPath $Target

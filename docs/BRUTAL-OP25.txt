@@ -17,9 +17,11 @@ The public Windows installer also creates an OP25 Desktop folder with branded
 Launch, Update, and Uninstall shortcuts. Update fetches current program files
 and image after the receiver is closed. Successful updates keep one verified
 program and image rollback, removing older Brutal OP25 versions. Uninstall
-requires typing UNINSTALL; it removes the program and managed shortcuts, but
-keeps saved systems, images, WSL, the USB bridge, and the rollback folder. User-owned files
-in the OP25 Desktop folder are never removed by the uninstaller.
+requires typing DELETE; it removes saved systems, app images, the program,
+managed shortcuts, and verified rollback folders. It separately offers to
+remove the entire Ubuntu-24.04 WSL distribution with an explicit confirmation.
+The Windows WSL platform and USB bridge stay installed because they may be
+shared. User-owned files in the OP25 Desktop folder are never removed.
 The CMD bootstrap uses Windows' built-in PowerShell for WSL installation and
 the USB bridge only. A process-local execution-policy bypass does not change
 machine policy; enterprise Group Policy can still block it. PowerShell 7 and

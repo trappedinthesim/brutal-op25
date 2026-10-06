@@ -87,6 +87,7 @@ try {
     $taskPayload = $taskEntries[0].FullName
     foreach ($taskFile in @('Launch-Brutal-OP25.cmd','install/install-brutal-wsl.ps1',
                            'install/user-launcher.ps1','install/desktop-actions.ps1',
+                           'install/uninstall-brutal-data.sh',
                            'src/brutal-logo.png','build/image-release.txt')) {
         if (-not (Test-Path -LiteralPath (Join-Path $taskPayload $taskFile) -PathType Leaf)) {
             throw "The downloaded source archive is missing $taskFile."
