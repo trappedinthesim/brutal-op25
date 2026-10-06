@@ -322,6 +322,20 @@ class TerminalTests(unittest.TestCase):
             self.assertEqual(terminal.library.list(), [])
             self.assertIn('Nothing starts listening automatically', '\n'.join(output))
 
+    def test_first_run_passes_connected_rsp_serial_to_systems_dashboard(self):
+        with tempfile.TemporaryDirectory() as root:
+            terminal = Terminal(root, lambda _: 'unused', lambda _: None, rr_factory=Mock())
+            hardware = {'profile': 'rspdxr2', 'args': 'soapy=0,driver=sdrplay',
+                        'rate': 2000000, 'gains': 'IFGR:40,RFGR:0', 'ppm': 0}
+            terminal.hardware = Mock(return_value=hardware)
+            terminal.readiness = Mock(return_value={'prerequisites_ready': True,
+                'selected_device': {'serial': '24052A9770'}})
+            terminal.pick = Mock(return_value='Skip for now - add systems in the dashboard')
+            with patch('brutal_cli.serve_setup', return_value=True) as dashboard:
+                self.assertTrue(terminal.first_run())
+            dashboard.assert_called_once_with(terminal.root, hardware, can_listen=True,
+                                              rsp_serial='24052A9770')
+
     def test_returning_install_skips_first_run_and_login(self):
         with tempfile.TemporaryDirectory() as root:
             terminal = Terminal(root, lambda _: '0', lambda _: None, rr_factory=Mock())

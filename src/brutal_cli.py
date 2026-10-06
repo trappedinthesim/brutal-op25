@@ -426,8 +426,11 @@ class Terminal:
                     if source.startswith('Skip'):
                         self.output('Opening the Systems dashboard. Your selected radio settings will be used '
                                     'for any systems you save there. Nothing starts listening automatically.')
-                        return serve_setup(self.root, hardware,
-                            can_listen=report['prerequisites_ready'] and hardware['profile'] != 'custom')
+                        setup_options = {'can_listen': report['prerequisites_ready'] and
+                                         hardware['profile'] != 'custom'}
+                        if hardware['profile'] == 'rspdxr2':
+                            setup_options['rsp_serial'] = (report.get('selected_device') or {}).get('serial', '')
+                        return serve_setup(self.root, hardware, **setup_options)
                     profile = (self.import_system(hardware, onboarding=True) if source.startswith('RadioReference')
                                else self.manual(hardware, onboarding=True))
                     break

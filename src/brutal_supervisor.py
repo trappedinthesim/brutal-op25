@@ -79,11 +79,15 @@ def family_of(profile):
     return FAMILY.get(profile['settings']['hardware'].get('profile'))
 
 
-def receiver_command(profile, internal_port, root):
+def receiver_command(profile, internal_port, root, rsp_serial=None):
     """Command and environment that start OP25 for one saved profile."""
     here = Path(__file__).resolve().parent
     env = {**os.environ, 'OP25_HTTP_BIND': f'127.0.0.1:{internal_port}', 'OP25_DATA_DIR': str(root)}
     if family_of(profile) == 'rsp':
+        from rsp_receiver import selected_arguments
+        serial = env.get('OP25_RSP_SERIAL', '') if rsp_serial is None else rsp_serial
+        selected_arguments(serial)  # Fail before spawning a receiver that cannot bind the selected radio.
+        env['OP25_RSP_SERIAL'] = serial
         return [sys.executable, str(here / 'rsp_receiver.py')], env
     return [sys.executable, str(here / 'container_receiver.py'), 'run'], env
 
@@ -92,11 +96,11 @@ class Receiver:
     """Owns the OP25 child process: start, stop, switch, and report honest state."""
 
     def __init__(self, root, internal_port=INTERNAL_PORT, command_for=None, prepare_fn=prepare,
-                 stop_timeout=10, ready_timeout=90, release_delay=1.0):
+                 stop_timeout=10, ready_timeout=90, release_delay=1.0, rsp_serial=None):
         self.root = Path(root)
         self.internal_port = internal_port
         self.release_delay = release_delay
-        self.command_for = command_for or (lambda profile, port: receiver_command(profile, port, self.root))
+        self.command_for = command_for or (lambda profile, port: receiver_command(profile, port, self.root, rsp_serial))
         self.prepare = prepare_fn
         self.stop_timeout, self.ready_timeout = stop_timeout, ready_timeout
         self.lock = threading.RLock()
@@ -659,9 +663,17 @@ def build(root, public_port=PUBLIC_PORT, internal_port=INTERNAL_PORT, bind='0.0.
 
 
 def serve_setup(root, hardware, can_listen=False, public_port=PUBLIC_PORT, internal_port=INTERNAL_PORT,
-                rr_factory=RadioReference, key_provider=application_key):
+                rr_factory=RadioReference, key_provider=application_key, rsp_serial=None):
     """Use the regular Systems panel before a first profile exists; no receiver starts implicitly."""
-    receiver = Receiver(root, internal_port)
+    if can_listen and hardware.get('profile') == 'rspdxr2':
+        from rsp_receiver import selected_arguments
+        try:
+            selected_arguments(rsp_serial or '')
+        except ValueError:
+            print('RSPdx-R2 serial could not be read. Systems can be saved, but listening is disabled for this session.',
+                  flush=True)
+            can_listen = False
+    receiver = Receiver(root, internal_port, rsp_serial=rsp_serial)
     server, control = build(root, public_port, internal_port, receiver=receiver,
                             rr_factory=rr_factory, key_provider=key_provider,
                             seed_hardware=hardware, can_listen=can_listen)

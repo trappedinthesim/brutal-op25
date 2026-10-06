@@ -635,9 +635,19 @@ class CommandTests(unittest.TestCase):
         cmd, env = sup.receiver_command(rtl, 18080, '/data')
         self.assertTrue(cmd[1].endswith('container_receiver.py') and cmd[2] == 'run')
         self.assertEqual(env['OP25_HTTP_BIND'], '127.0.0.1:18080')
-        cmd, env = sup.receiver_command(rsp, 18080, '/data')
+        cmd, env = sup.receiver_command(rsp, 18080, '/data', rsp_serial='24052A9770')
         self.assertTrue(cmd[1].endswith('rsp_receiver.py'))
         self.assertEqual(env['OP25_DATA_DIR'], '/data')
+        self.assertEqual(env['OP25_RSP_SERIAL'], '24052A9770')
+        with self.assertRaisesRegex(ValueError, 'validated RSP serial'):
+            sup.receiver_command(rsp, 18080, '/data', rsp_serial='')
+
+    def test_receiver_binds_selected_rsp_serial_for_dashboard_starts(self):
+        rsp = {'settings': {'hardware': {'profile': 'rspdxr2'}}}
+        receiver = sup.Receiver('/tmp/brutal-test', rsp_serial='24052A9770')
+        command, env = receiver.command_for(rsp, 18080)
+        self.assertTrue(command[1].endswith('rsp_receiver.py'))
+        self.assertEqual(env['OP25_RSP_SERIAL'], '24052A9770')
 
 
 if __name__ == '__main__':
