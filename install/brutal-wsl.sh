@@ -146,26 +146,34 @@ if [[ $task_preset == rspdxr2 ]]; then
         printf '%s\n' 'The Windows SDRplay server returned invalid connection details.' >&2; exit 1;
     }
     if ! python3 - "$task_host_ip" <<'PY'
-import socket, sys
-try:
-    with socket.create_connection((sys.argv[1], 1234), timeout=4) as stream:
-        stream.settimeout(4)
-        header = b''
-        while len(header) < 12:
-            part = stream.recv(12 - len(header))
-            if not part:
-                break
-            header += part
-        if len(header) != 12 or header[:4] != b'RTL0':
-            raise OSError('invalid SDRplay stream header')
-except OSError as exc:
-    print('Linux cannot reach the selected Windows SDRplay stream: ' + str(exc), file=sys.stderr)
+import socket, sys, time
+last_error = 'no response'
+for attempt in range(8):
+    try:
+        with socket.create_connection((sys.argv[1], 1234), timeout=3) as stream:
+            stream.settimeout(3)
+            header = b''
+            while len(header) < 12:
+                part = stream.recv(12 - len(header))
+                if not part:
+                    break
+                header += part
+            if len(header) != 12 or header[:4] != b'RTL0':
+                raise OSError('invalid SDRplay stream header')
+        break
+    except OSError as exc:
+        last_error = str(exc)
+        if attempt < 7:
+            time.sleep(1)
+else:
+    print('Linux could not connect to the Windows SDRplay stream after several tries: ' + last_error, file=sys.stderr)
     sys.exit(1)
 PY
     then
-        printf '%s\n' 'Check the Windows firewall for the local WSL connection, then try again. Your saved systems are unchanged.' >&2
+        printf '%s\n' 'Check that the radio is still connected and Windows permits local WSL traffic on port 1234. Your saved systems are unchanged.' >&2
         exit 1
     fi
+    printf '%s\n' 'RSPdx-R2 stream reached Linux. No USB forwarding is needed for this radio.'
     export BRUTAL_RSP_TCP_ADDR=$task_rsp_address BRUTAL_SELECTED_PROFILE=$task_preset BRUTAL_RESUME_LISTEN=$task_resume
     exec_status=0
     BRUTAL_WSL_HANDOFF=1 BRUTAL_HANDOFF_NONCE=$task_nonce \

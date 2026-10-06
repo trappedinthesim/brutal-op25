@@ -130,34 +130,37 @@ try {
     $taskOutput = $taskLogBase + '.out'
     $taskInput = $taskLogBase + '.in'
     [IO.File]::WriteAllText($taskInput, '')
-    $taskProcess = Start-Process -FilePath $taskServer -WindowStyle Hidden -PassThru `
-        -RedirectStandardInput $taskInput -RedirectStandardOutput $taskOutput -RedirectStandardError $taskLog `
-        -ArgumentList @('-a',$Address,'-p','1234','-P','0','-s','1000000')
+    $taskProcess = $null
     try {
         $taskConnected = $false
-        for ($taskAttempt = 0; $taskAttempt -lt 30 -and -not $taskConnected; $taskAttempt++) {
-            Start-Sleep -Milliseconds 250
-            if ($taskProcess.HasExited) {
-                $taskDetail = if (Test-Path -LiteralPath $taskLog) { (Get-Content -LiteralPath $taskLog -Tail 8) -join ' ' } else { '' }
-                throw "The SDRplay sample server exited ($($taskProcess.ExitCode)). $taskDetail"
+        for ($taskStartAttempt = 0; $taskStartAttempt -lt 5 -and -not $taskConnected; $taskStartAttempt++) {
+            $taskProcess = Start-Process -FilePath $taskServer -WindowStyle Hidden -PassThru `
+                -RedirectStandardInput $taskInput -RedirectStandardOutput $taskOutput -RedirectStandardError $taskLog `
+                -ArgumentList @('-a',$Address,'-p','1234','-P','0','-s','1000000')
+            for ($taskAttempt = 0; $taskAttempt -lt 30 -and -not $taskConnected; $taskAttempt++) {
+                Start-Sleep -Milliseconds 250
+                if ($taskProcess.HasExited) { break }
+                $taskConnected = @(
+                    Get-NetTCPConnection -LocalAddress $Address -LocalPort 1234 -State Listen -ErrorAction SilentlyContinue |
+                        Where-Object { $_.OwningProcess -eq $taskProcess.Id }
+                ).Count -gt 0
             }
-            try {
-                $taskClient = [Net.Sockets.TcpClient]::new()
-                $taskClient.Connect($taskIp, 1234)
-                $taskClient.ReceiveTimeout = 2000
-                $taskHeader = New-Object byte[] 12
-                $taskRead = $taskClient.GetStream().Read($taskHeader, 0, 12)
-                if ($taskRead -eq 12 -and [Text.Encoding]::ASCII.GetString($taskHeader, 0, 4) -eq 'RTL0') {
-                    $taskConnected = $true
-                }
-            } catch { Start-Sleep -Milliseconds 250 }
-            finally { if ($taskClient) { $taskClient.Dispose(); $taskClient = $null } }
+            if ($taskConnected) { break }
+            if (-not $taskProcess.HasExited) {
+                throw 'The Windows SDRplay server did not open its local stream port.'
+            }
+            $taskDetail = if (Test-Path -LiteralPath $taskLog) { (Get-Content -LiteralPath $taskLog -Tail 8) -join ' ' } else { '' }
+            if ($taskDetail -match 'no RSP devices available' -and $taskStartAttempt -lt 4) {
+                Start-Sleep -Seconds 1
+                continue
+            }
+            throw "The SDRplay sample server exited ($($taskProcess.ExitCode)). $taskDetail"
         }
-        if (-not $taskConnected) { throw 'The Windows SDRplay server did not deliver a valid radio stream.' }
-        Write-Host 'RSPdx-R2 is streaming from Windows to Linux. No USB forwarding is needed for this radio.'
+        if (-not $taskConnected) { throw 'The Windows SDRplay server did not open its local stream port.' }
+        Write-Host 'Windows SDRplay server is ready. Checking the connection from Linux.'
         Write-Output "BRUTAL_RSP_TCP=$Address`:1234|$($taskProcess.Id)"
     } catch {
-        if (-not $taskProcess.HasExited) { Stop-Process -Id $taskProcess.Id -ErrorAction SilentlyContinue }
+        if ($taskProcess -and -not $taskProcess.HasExited) { Stop-Process -Id $taskProcess.Id -ErrorAction SilentlyContinue }
         throw
     }
 } catch {

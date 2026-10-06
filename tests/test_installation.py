@@ -178,6 +178,8 @@ class WindowsInstallerSourceTests(unittest.TestCase):
         self.assertIn('8AD5C36F1CA26CF7A61010C3F3C80DAE69D4468EF5E59F7A0D42FB135A1C7326', source)
         self.assertIn('93F007D74AAFFBF8B7F1EBC05402B09F6CB424E39BE612A1DE19EC13559028CD', source)
         self.assertIn('vEthernet (WSL*', source)
+        self.assertIn('Get-NetTCPConnection -LocalAddress $Address -LocalPort 1234 -State Listen', source)
+        self.assertNotIn('[Net.Sockets.TcpClient]::new()', source)
         self.assertIn('$LicenseAccepted', source)
         self.assertIn("@('-a',$Address,'-p','1234','-P','0','-s','1000000')", source)
         self.assertNotIn('BRUTAL_RR_APP_KEY', source)
