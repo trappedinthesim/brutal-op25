@@ -10,6 +10,7 @@ New-Item -ItemType Directory -Path $taskParent -Force | Out-Null
 $taskWork = Join-Path ([IO.Path]::GetTempPath()) ('BrutalOP25-bootstrap-' + [guid]::NewGuid().ToString('N'))
 $taskBackup = ''
 $taskMoved = $false
+$taskCommitted = $false
 function Get-BrutalProgramManifest([string]$Root) {
     $taskBase = [IO.Path]::GetFullPath($Root).TrimEnd('\')
     $taskLines = [System.Collections.Generic.List[string]]::new()
@@ -71,6 +72,17 @@ try {
     }
     if ($Update -and -not (Test-Path -LiteralPath $InstallPath -PathType Container)) {
         throw "No installation found at $InstallPath. Run without -Update first."
+    }
+    if ($Update) {
+        $taskExisting = Get-Item -LiteralPath $InstallPath -Force
+        $taskMarker = Join-Path $InstallPath '.brutal-op25-install'
+        if (($taskExisting.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+            -not (Test-Path -LiteralPath $taskMarker -PathType Leaf) -or
+            -not (Test-Path -LiteralPath (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') -PathType Leaf) -or
+            -not (Test-Path -LiteralPath (Join-Path $InstallPath 'build/image-release.txt') -PathType Leaf) -or
+            (Get-Content -LiteralPath $taskMarker -Raw).Trim() -ine $InstallPath) {
+            throw "Refusing to update $InstallPath`: it is not a verified Brutal OP25 installation. No files were moved."
+        }
     }
     New-Item -ItemType Directory -Path $taskWork | Out-Null
     $taskArchive = Join-Path $taskWork 'source.zip'
@@ -134,16 +146,19 @@ try {
         try { Remove-BrutalOldProgramVersions $taskParent $taskName $InstallPath $taskBackup }
         catch { Write-Warning ('Old program version cleanup was skipped: ' + $_.Exception.Message) }
     }
+    # Receiver startup is separate from installation. A radio or port error
+    # after this point must not undo verified program files.
+    $taskCommitted = $true
     if (-not $NoLaunch) { & (Join-Path $InstallPath 'Launch-Brutal-OP25.cmd') }
 } catch {
-    if ($taskBackup -and $taskMoved -and (Test-Path -LiteralPath $InstallPath)) {
+    if (-not $taskCommitted -and $taskBackup -and $taskMoved -and (Test-Path -LiteralPath $InstallPath)) {
         $taskFailed = Join-Path $taskParent ($taskName + '.failed.' + [guid]::NewGuid().ToString('N'))
         Move-Item -LiteralPath $InstallPath -Destination $taskFailed
         Move-Item -LiteralPath $taskBackup -Destination $InstallPath
         Write-Warning "Previous program files restored. Failed update retained at $taskFailed"
-    } elseif ($taskBackup -and -not (Test-Path -LiteralPath $InstallPath) -and (Test-Path -LiteralPath $taskBackup)) {
+    } elseif (-not $taskCommitted -and $taskBackup -and -not (Test-Path -LiteralPath $InstallPath) -and (Test-Path -LiteralPath $taskBackup)) {
         Move-Item -LiteralPath $taskBackup -Destination $InstallPath
-    } elseif (-not $Update -and $taskMoved -and (Test-Path -LiteralPath $InstallPath -PathType Container)) {
+    } elseif (-not $taskCommitted -and -not $Update -and $taskMoved -and (Test-Path -LiteralPath $InstallPath -PathType Container)) {
         $taskFailed = Join-Path $taskParent ($taskName + '.incomplete.' + [guid]::NewGuid().ToString('N'))
         Move-Item -LiteralPath $InstallPath -Destination $taskFailed
         Write-Warning "Incomplete program files kept at $taskFailed. Rerun the same install command after addressing the setup message."

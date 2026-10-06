@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Source from host launchers only. Never store credentials in the image.
-BRUTAL_LOCAL_IMAGE=brutal-op25:0.3.0-dev.23
+BRUTAL_LOCAL_IMAGE=brutal-op25:0.3.0-dev.24
 
 brutal_release_reference() {
     local task_release_image
@@ -110,11 +110,16 @@ brutal_ensure_base_image() {
     if [[ "$task_force_build" != true ]]; then
         task_release_image=$(brutal_release_reference "$task_root") || return 1
         printf 'Fetching prebuilt Brutal OP25 image: %s\n' "$task_release_image"
-        if docker pull "$task_release_image" && docker tag "$task_release_image" "$BRUTAL_LOCAL_IMAGE"; then
-            printf '%s\n' 'Prebuilt image ready. No OP25 compilation needed on this computer.'
-            return 0
+        if ! docker pull "$task_release_image"; then
+            printf '%s\n' 'Could not download the prebuilt receiver image. Check your connection and retry; no local build was started.' >&2
+            return 1
         fi
-        printf '%s\n' 'The prebuilt image is unavailable or still private. Building from this repository instead.'
+        docker tag "$task_release_image" "$BRUTAL_LOCAL_IMAGE" || {
+            printf '%s\n' 'Downloaded the receiver image but could not activate it locally. Check Docker storage and retry.' >&2
+            return 1
+        }
+        printf '%s\n' 'Prebuilt image ready. No OP25 compilation needed on this computer.'
+        return 0
     fi
     docker build --file "$task_root/build/Dockerfile" --tag "$BRUTAL_LOCAL_IMAGE" "$task_root"
 }

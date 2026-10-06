@@ -10,8 +10,9 @@ function Get-HandshakeStatus([string]$Origin) {
         $taskWriter = [IO.StreamWriter]::new($taskStream, [Text.Encoding]::ASCII)
         $taskWriter.NewLine = "`r`n"
         $taskWriter.AutoFlush = $true
+        $taskWebSocketKey = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes('the sample nonce'))
         @('GET / HTTP/1.1', "Host: 127.0.0.1:$Port", 'Upgrade: websocket',
-          'Connection: Upgrade', 'Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==',
+          'Connection: Upgrade', "Sec-WebSocket-Key: $taskWebSocketKey",
           'Sec-WebSocket-Version: 13') | ForEach-Object { $taskWriter.WriteLine($_) }
         if ($Origin) { $taskWriter.WriteLine("Origin: $Origin") }
         $taskWriter.WriteLine('')

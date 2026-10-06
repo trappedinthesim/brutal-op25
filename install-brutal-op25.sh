@@ -19,7 +19,7 @@ while (($#)); do
         --restore) shift; task_restore_path=${1:?Supply the full backup ZIP path} ;;
         --help)
             printf '%s\n' 'Usage: bash install-brutal-op25.sh [--check | --prepare-only | --update-image | --rollback-image | --backup | --restore /path.zip]' \
-                'Installs missing native-Linux Docker Engine only after your approval, builds OP25, then opens radio setup.' \
+                'Installs missing native-Linux Docker Engine only after your approval, fetches the prebuilt receiver, then opens radio setup.' \
                 'Windows WSL uses the same Linux engine with a guided USB bridge. --check changes nothing.'
             exit 0 ;;
         *) printf 'Unknown option: %s\n' "$1" >&2; exit 2 ;;
@@ -69,9 +69,6 @@ if "$task_check_only"; then
 fi
 
 . "$task_root/install/user-launcher.sh"
-if [[ ${BRUTAL_WSL_NATIVE:-} != 1 ]]; then
-    brutal_install_user_command "$task_root"
-fi
 
 task_docker_command=$(command -v docker || true)
 # WSL inherits Windows PATH. A Windows Docker CLI (including a Desktop stub)
@@ -192,11 +189,15 @@ if "$task_prepare_only"; then
         brutal_ensure_base_image "$task_root"
     fi
     if [[ ${BRUTAL_WSL_NATIVE:-} != 1 ]]; then
+        brutal_install_user_command "$task_root"
         printf '%s\n' 'Linux receiver dependencies are ready.'
     fi
     exit 0
 fi
 
+if [[ ${BRUTAL_WSL_NATIVE:-} != 1 ]]; then
+    brutal_install_user_command "$task_root"
+fi
 if "$task_use_sudo"; then
     [[ -z ${BRUTAL_RR_APP_KEY:-} ]] || printf '%s\n' 'Note: a RadioReference key in an environment variable is not forwarded through sudo; use the private .setup-cache key file instead.'
     task_image=${BRUTAL_OP25_IMAGE:-$BRUTAL_LOCAL_IMAGE}

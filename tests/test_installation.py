@@ -13,6 +13,27 @@ ROOT = Path(__file__).resolve().parents[1]
 @unittest.skipUnless(os.name != 'nt' and shutil.which('bash'),
                      'Bash installer checks need a native Linux/WSL shell')
 class LinuxInstallerTests(unittest.TestCase):
+    @unittest.skipUnless(Path('/.dockerenv').exists(), 'Container-only mocked Docker preparation')
+    def test_failed_image_preparation_does_not_create_personal_launcher(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            home = root / 'home'
+            home.mkdir()
+            mock = root / 'docker'
+            mock.write_text('#!/bin/sh\n'
+                            'case "$1 $2" in\n'
+                            '  "info --format") echo linux; exit 0;;\n'
+                            '  "context inspect") echo unix:///var/run/docker.sock; exit 0;;\n'
+                            '  "image inspect") exit 1;;\n'
+                            '  "pull "*) exit 1;;\n'
+                            'esac\nexit 0\n')
+            mock.chmod(0o755)
+            env = dict(os.environ, HOME=str(home), PATH=str(root) + os.pathsep + os.environ['PATH'])
+            result = subprocess.run(['bash', 'install-brutal-op25.sh', '--prepare-only'],
+                                    cwd=ROOT, env=env, capture_output=True, text=True, timeout=10)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertFalse((home / '.local/bin/brutal-op25').exists())
+
     def test_scripts_parse(self):
         scripts = ('install-brutal-op25.sh', 'install/user-launcher.sh', 'brutal-op25.sh',
                    'install/brutal-wsl.sh',

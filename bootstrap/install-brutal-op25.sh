@@ -31,12 +31,23 @@ if [[ ! -d $task_install && $task_update == 1 ]]; then
     printf 'No installation exists at %s. Run without --update first.\n' "$task_install" >&2
     exit 1
 fi
+if ((task_update)); then
+    task_marker="$task_install/.brutal-op25-install"
+    if [[ -L $task_install || ! -f $task_marker ||
+          ! -f $task_install/install-brutal-op25.sh ||
+          ! -f $task_install/build/image-release.txt ||
+          $(< "$task_marker") != "$task_install" ]]; then
+        printf 'Refusing to update %s: it is not a verified Brutal OP25 installation. No files were moved.\n' "$task_install" >&2
+        exit 1
+    fi
+fi
 task_work=$(mktemp -d)
 task_backup=''
 task_moved=0
+task_committed=0
 task_cleanup() {
     local task_status=$?
-    if ((task_status != 0)) && [[ -n $task_backup ]]; then
+    if ((task_status != 0 && !task_committed)) && [[ -n $task_backup ]]; then
         if ((task_moved)) && [[ -d $task_install ]]; then
             local task_failed="$task_parent/$task_name.failed.$(date -u +%Y%m%d%H%M%S)"
             mv -- "$task_install" "$task_failed"
@@ -45,6 +56,13 @@ task_cleanup() {
         if [[ ! -e $task_install && -d $task_backup ]]; then
             mv -- "$task_backup" "$task_install"
             printf '%s\n' 'Previous program files restored.' >&2
+        fi
+    elif ((task_status != 0 && !task_committed && task_moved)) && [[ -d $task_install && ! -L $task_install ]]; then
+        # Fresh-install failures must not make the same one-line command unusable.
+        # Preserve the downloaded program files separately for diagnosis.
+        local task_failed="$task_parent/$task_name.incomplete.$(date -u +%Y%m%d%H%M%S).$$"
+        if mv -- "$task_install" "$task_failed"; then
+            printf 'Incomplete program files kept at %s. Rerun the same install command after addressing the setup message.\n' "$task_failed" >&2
         fi
     fi
     [[ $task_work == /tmp/tmp.* || $task_work == "${TMPDIR:-/tmp}"/tmp.* ]] && rm -r -- "$task_work"
@@ -135,4 +153,7 @@ if [[ -n $task_backup ]]; then printf 'Previous program files kept at %s\n' "$ta
 if ((task_update)); then
     task_remove_old_program_versions || printf '%s\n' 'Old program version cleanup was skipped.' >&2
 fi
+# Startup is a separate operation: a radio, USB, or port error must not undo a
+# successful program install or update.
+task_committed=1
 if ((task_no_launch == 0)); then bash "$task_install/install-brutal-op25.sh"; fi
