@@ -1,7 +1,7 @@
 # Refresh only the local SDRplay addon's UI layer after the base UI changes.
 # The existing private image supplies the previously installed vendor runtime.
-FROM brutal-op25:0.3.0-dev.18 AS patched-op25
-FROM brutal-op25-sdrplay:0.3.0-dev.18-local
+FROM brutal-op25:0.3.0-dev.19 AS patched-op25
+FROM brutal-op25-sdrplay:0.3.0-dev.19-local
 COPY src/brutal_ui.py src/brutal-ui.css src/brutal-systems.js src/brutal-tuning.js src/brutal-logo.png /opt/manager/
 USER root
 COPY --from=patched-op25 /usr/local/lib/x86_64-linux-gnu/libgnuradio-op25_repeater.so.1.0.0.0 /usr/local/lib/x86_64-linux-gnu/libgnuradio-op25_repeater.so.1.0.0.0

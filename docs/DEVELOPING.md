@@ -53,9 +53,9 @@ distribution](INSTALLATION-PRIVACY.txt) before shipping any image.
 An `image-v<version>` tag triggers `.github/workflows/image.yml`. The workflow
 checks the tag against `build/image-release.txt`, builds with the repository's
 Actions secret through a temporary BuildKit secret mount, runs tests and image
-checks, and publishes to GitHub Container Registry. The published client image
-contains a recoverable app key, even though it is not committed as a plain-text
-file. Do not treat image compilation or encoding as a secrecy boundary.
+checks, and publishes to GitHub Container Registry. The approved application
+key is not committed to source; the distributed client includes it, so the
+client image must not be treated as a secure place to keep a private key.
 
 ## Upstream OP25
 

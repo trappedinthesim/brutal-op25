@@ -115,8 +115,8 @@ adds, updates, and switches between systems. Only one system and radio can recei
 
 RadioReference import requires your own eligible account. Your credentials go directly
 from your local receiver to RadioReference and are not saved in your profile. The
-prebuilt image contains a recoverable application key; see [privacy and key
-distribution](docs/INSTALLATION-PRIVACY.txt).
+prebuilt image includes Brutal OP25's application key; users do not need to supply one.
+See [installation and privacy](docs/INSTALLATION-PRIVACY.txt).
 
 RSPdx-R2 setup downloads SDRplay's driver, asks you to review and accept its license,
 and builds a private addon on your computer. It is not included in the public image.

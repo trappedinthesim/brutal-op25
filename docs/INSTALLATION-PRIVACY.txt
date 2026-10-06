@@ -4,16 +4,13 @@ Build only from this application directory. The default-deny .dockerignore
 permits an exact list of source files, and Dockerfiles copy explicit inputs.
 Downloads, local key files, user credentials, live captures, exported ZIPs,
 saved profiles, screenshots, and .setup-cache are not in the build context.
-The tag-triggered GitHub Actions build receives one application key through a
-temporary BuildKit secret mount. It compiles a client helper into the image,
-never a plain-text key file or Docker ENV/ARG. The helper encodes the key, but
-any image recipient can recover it by analyzing the image or running process.
-Encoding is not a secrecy boundary. No user password, saved profile, or SDRplay
-installer enters the image. The release image is public. A project-specific
-approved RadioReference key and distribution approval are still being sought
-for this client design. Each end user still needs their
-own eligible RadioReference account. See RadioReference's Database Web Service
-API policy: https://support.radioreference.com/hc/en-us/articles/18844460198932-Database-Web-Service-API
+The release build receives the Brutal OP25 application key from a private
+GitHub Actions secret, not from source files or user profiles. The public client
+image includes that key so users do not need to enter it. No distributed client
+can guarantee that an included key stays secret. The build does not include user
+passwords, saved profiles, or the SDRplay installer. Each end user still needs
+their own eligible RadioReference account. See RadioReference's Database Web
+Service API policy: https://support.radioreference.com/hc/en-us/articles/18844460198932-Database-Web-Service-API
 
 Saved profiles live in the separate local brutal-op25-data Docker volume. They are
 available to the running receiver, not baked into image layers.

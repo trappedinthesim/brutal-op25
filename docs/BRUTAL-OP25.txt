@@ -93,19 +93,13 @@ Disconnect/reconnect may change a USB node; rerun the launcher to select it.
 
 The terminal stores new profiles in the separate brutal-op25-data volume.
 Older prototype data is not migrated or automatically selected.
-It requires a TTY. Credentials/application keys are prompted only for RR
-imports/updates, kept in memory, and never bundled or saved as profile data.
-RadioReference imports require each user's own Premium account. A prebuilt
-release contains a recoverable client application key, so users never enter one. Their
-credentials go directly from the local receiver to RadioReference, not to a
-Brutal OP25 server. The app key is extractable from the image by a determined
-recipient; compilation only deters casual copying. For local source builds
-without the release helper, provide BRUTAL_RR_APP_KEY at runtime or mount a
-key file at /run/secrets/radioreference_app_key. The launchers mount only that
-file read-only, never its containing directory; .setup-cache remains excluded
-from Git and the build context. Without any key, import reports an app setup
-issue before asking for user credentials. The image is public; seek a
-project-specific approved key and confirm its distribution terms.
+It requires a TTY. RadioReference credentials are prompted only for imports
+and updates, kept in memory, and never saved as profile data. RadioReference
+imports require each user's own Premium account. The prebuilt release includes
+Brutal OP25's application key, so users never enter one. Their credentials go
+directly from the local receiver to RadioReference, not to a Brutal OP25 server.
+For local source builds without a key, import reports an app setup issue before
+asking for user credentials. Development key setup is covered in DEVELOPING.md.
 Supported SDR presets use their starting defaults automatically; custom setup
 alone asks for sample rate, named gains, and PPM. Normal import defaults to
 CQPSK demodulation without a technical settings question.
@@ -141,7 +135,7 @@ updates that change the checksum must be verified before updating this pin.
 To build from an official SDRplay Linux 3.15.2 package obtained separately:
   bash install/build-sdrplay.sh /path/to/official-installer
 This verifies the pinned checksum, displays the complete license, requires
-an explicit Yes, and builds brutal-op25-sdrplay:0.3.0-dev.18-local from an isolated
+an explicit Yes, and builds brutal-op25-sdrplay:0.3.0-dev.19-local from an isolated
 vendor context containing only that installer, not its parent directory.
 No license is accepted by automated tests. The user approved the SDRplay license
 and the private addon was built locally. The RSPdx-R2 was identified and

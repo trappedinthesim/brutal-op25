@@ -3,8 +3,8 @@
 set -euo pipefail
 task_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 task_package=${1:?Supply the official SDRplay Linux 3.15.2 installer path}
-task_base=${BRUTAL_OP25_BASE_IMAGE:-brutal-op25:0.3.0-dev.18}
-task_addon=brutal-op25-sdrplay:0.3.0-dev.18-local
+task_base=${BRUTAL_OP25_BASE_IMAGE:-brutal-op25:0.3.0-dev.19}
+task_addon=brutal-op25-sdrplay:0.3.0-dev.19-local
 command -v docker >/dev/null
 task_endpoint=${DOCKER_HOST:-$(docker context inspect --format '{{.Endpoints.docker.Host}}')}
 [[ "$task_endpoint" == unix://* ]] || { printf '%s\n' 'Use a local Linux Docker socket for this private addon.' >&2; exit 1; }
