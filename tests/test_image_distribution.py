@@ -148,7 +148,7 @@ class LinuxPullTests(unittest.TestCase):
     @staticmethod
     def user_check(image):
         return ('run --rm --network none --read-only --cap-drop ALL '
-                '--security-opt no-new-privileges:true --user 1000:1000 --entrypoint /usr/bin/id '
+                '--security-opt no-new-privileges:true --user 1000:1000 --env LC_ALL=C --entrypoint /usr/bin/id '
                 f'{image} -un')
 
     def test_broken_local_account_is_repaired_from_verified_release(self):
