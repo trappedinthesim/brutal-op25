@@ -45,7 +45,8 @@ class ImageReleaseTests(unittest.TestCase):
 class LinuxPullTests(unittest.TestCase):
     def run_bootstrap(self, *, local_present=False, pull_succeeds=True, crlf_release=False,
                       operation='ensure', expected_success=True, owned_tags=(),
-                      local_id='old-id', include_lists=False):
+                      local_id='old-id', include_lists=False, local_user_valid=True,
+                      release_user_valid=True):
         with tempfile.TemporaryDirectory() as directory:
             mock = Path(directory) / 'docker'
             log = Path(directory) / 'calls'
@@ -69,6 +70,12 @@ class LinuxPullTests(unittest.TestCase):
                             '    exit 0;;\n'
                             '  "image ls") printf "%s\\n" "$BRUTAL_TEST_TAGS"; exit 0;;\n'
                             '  "pull "*) exit "$BRUTAL_TEST_PULL";;\n'
+                            '  "run --rm")\n'
+                            '    case "$*" in\n'
+                            '      *" ghcr.io/"*) [ "$BRUTAL_TEST_RELEASE_USER" = 1 ] || exit 1;;\n'
+                            '      *) [ "$BRUTAL_TEST_LOCAL_USER" = 1 ] || exit 1;;\n'
+                            '    esac\n'
+                            '    printf "%s\\n" op25; exit 0;;\n'
                             'esac\n'
                             'exit 0\n')
             mock.chmod(0o755)
@@ -76,6 +83,8 @@ class LinuxPullTests(unittest.TestCase):
                        BRUTAL_TEST_LOG=str(log),
                        BRUTAL_TEST_LOCAL='0' if local_present else '1',
                        BRUTAL_TEST_PULL='0' if pull_succeeds else '1',
+                       BRUTAL_TEST_LOCAL_USER='1' if local_user_valid else '0',
+                       BRUTAL_TEST_RELEASE_USER='1' if release_user_valid else '0',
                        BRUTAL_TEST_LOCAL_ID=local_id,
                        BRUTAL_TEST_TAGS='\n'.join(owned_tags))
             release_root = ROOT
@@ -97,16 +106,41 @@ class LinuxPullTests(unittest.TestCase):
 
     def test_existing_local_image_does_not_pull_or_build(self):
         self.assertEqual(self.run_bootstrap(local_present=True),
-                         [f'image inspect {LOCAL}'])
+                         [f'image inspect {LOCAL}', self.user_check(LOCAL)])
+
+    @staticmethod
+    def user_check(image):
+        return ('run --rm --network none --read-only --cap-drop ALL '
+                '--security-opt no-new-privileges:true --entrypoint /usr/bin/id '
+                f'{image} -un')
+
+    def test_broken_local_account_is_repaired_from_verified_release(self):
+        self.assertEqual(self.run_bootstrap(local_present=True, local_user_valid=False),
+                         [f'image inspect {LOCAL}', self.user_check(LOCAL),
+                          f'pull {RELEASE}', self.user_check(RELEASE),
+                          f'tag {RELEASE} {LOCAL}'])
+
+    def test_unusable_release_is_not_activated(self):
+        self.assertEqual(self.run_bootstrap(release_user_valid=False, expected_success=False),
+                         [f'image inspect {LOCAL}', f'pull {RELEASE}',
+                          self.user_check(RELEASE)])
+
+    def test_broken_local_image_stays_untouched_if_download_fails(self):
+        self.assertEqual(self.run_bootstrap(local_present=True, local_user_valid=False,
+                                            pull_succeeds=False, expected_success=False),
+                         [f'image inspect {LOCAL}', self.user_check(LOCAL),
+                          f'pull {RELEASE}'])
 
     def test_pull_success_is_tagged_locally_without_build(self):
         calls = self.run_bootstrap()
         self.assertEqual(calls, [f'image inspect {LOCAL}', f'pull {RELEASE}',
+                                 self.user_check(RELEASE),
                                  f'tag {RELEASE} {LOCAL}'])
 
     def test_windows_checkout_line_endings_are_accepted(self):
         calls = self.run_bootstrap(crlf_release=True)
         self.assertEqual(calls, [f'image inspect {LOCAL}', f'pull {RELEASE}',
+                                 self.user_check(RELEASE),
                                  f'tag {RELEASE} {LOCAL}'])
 
     def test_failed_image_download_does_not_start_a_long_unusable_build(self):
@@ -120,6 +154,7 @@ class LinuxPullTests(unittest.TestCase):
     def test_explicit_update_keeps_last_image_for_rollback(self):
         calls = self.run_bootstrap(local_present=True, operation='update')
         self.assertEqual(calls, [f'pull {RELEASE}',
+                                 self.user_check(RELEASE),
                                  f'image inspect {LOCAL} --format {{{{.Id}}}}',
                                  f'image inspect {RELEASE} --format {{{{.Id}}}}',
                                  f'tag {LOCAL} {LOCAL}-previous',
@@ -129,6 +164,11 @@ class LinuxPullTests(unittest.TestCase):
         calls = self.run_bootstrap(local_present=True, pull_succeeds=False,
                                    operation='update', expected_success=False)
         self.assertEqual(calls, [f'pull {RELEASE}'])
+
+    def test_unusable_update_does_not_retag_current_image(self):
+        calls = self.run_bootstrap(local_present=True, release_user_valid=False,
+                                   operation='update', expected_success=False)
+        self.assertEqual(calls, [f'pull {RELEASE}', self.user_check(RELEASE)])
 
     def test_update_after_prepare_keeps_older_image_and_removes_only_old_tags(self):
         old = 'brutal-op25:0.3.0-dev.16'

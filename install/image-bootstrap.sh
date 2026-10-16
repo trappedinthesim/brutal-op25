@@ -12,6 +12,15 @@ brutal_release_reference() {
     printf '%s\n' "$task_release_image"
 }
 
+brutal_image_user_ready() {
+    # A tag can exist even when its image cannot start as the expected user.
+    # Probe without network, data volumes, or elevated privileges.
+    local task_user
+    task_user=$(docker run --rm --network none --read-only --cap-drop ALL \
+        --security-opt no-new-privileges:true --entrypoint /usr/bin/id "$1" -un 2>/dev/null) || return 1
+    [[ $task_user == op25 ]]
+}
+
 brutal_update_base_image() {
     local task_root=$1 task_release_image task_old_id task_new_id task_previous_tag task_previous_id
     task_release_image=$(brutal_release_reference "$task_root") || return 1
@@ -19,6 +28,10 @@ brutal_update_base_image() {
     # A failed pull must never replace the user's known-working local image.
     docker pull "$task_release_image" || {
         printf '%s\n' 'Release image could not be fetched. The current image was left unchanged.' >&2
+        return 1
+    }
+    brutal_image_user_ready "$task_release_image" || {
+        printf '%s\n' 'Downloaded receiver image failed its startup-user check. No image was activated; check Docker storage and retry.' >&2
         return 1
     }
     task_old_id=$(docker image inspect "$BRUTAL_LOCAL_IMAGE" --format '{{.Id}}' 2>/dev/null || true)
@@ -105,7 +118,8 @@ brutal_ensure_base_image() {
     local task_force_build=${2:-false}
     local task_release_image
     if [[ "$task_force_build" != true ]] && docker image inspect "$BRUTAL_LOCAL_IMAGE" >/dev/null 2>&1; then
-        return 0
+        if brutal_image_user_ready "$BRUTAL_LOCAL_IMAGE"; then return 0; fi
+        printf '%s\n' 'The local receiver image cannot start as op25. Refreshing it from the official release; saved systems are untouched.' >&2
     fi
     if [[ "$task_force_build" != true ]]; then
         task_release_image=$(brutal_release_reference "$task_root") || return 1
@@ -114,6 +128,10 @@ brutal_ensure_base_image() {
             printf '%s\n' 'Could not download the prebuilt receiver image. Check your connection and retry; no local build was started.' >&2
             return 1
         fi
+        brutal_image_user_ready "$task_release_image" || {
+            printf '%s\n' 'Downloaded receiver image failed its startup-user check. No image was activated; check Docker storage and retry.' >&2
+            return 1
+        }
         docker tag "$task_release_image" "$BRUTAL_LOCAL_IMAGE" || {
             printf '%s\n' 'Downloaded the receiver image but could not activate it locally. Check Docker storage and retry.' >&2
             return 1
