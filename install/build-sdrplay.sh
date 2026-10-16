@@ -25,7 +25,7 @@ docker build --file "$task_root/build/Dockerfile.sdrplay" \
     --build-context "sdrplay-api=$task_context" --build-arg "BASE_IMAGE=$task_base" \
     --build-arg "BRUTAL_BASE_IMAGE_ID=$task_base_id" \
     --build-arg SDRPLAY_LICENSE_ACCEPTED=yes --tag "$task_addon" "$task_root"
-docker run --rm --network none --read-only --cap-drop ALL \
+docker run --rm --network none --read-only --cap-drop ALL --user 1000:1000 \
     --tmpfs /tmp --tmpfs /home/op25:uid=1000,gid=1000 \
     --entrypoint python "$task_addon" -c \
     'from hardware_check import check_profile; r=check_profile("rspdxr2"); assert r["software_dependencies_present"], r["missing"]' || {

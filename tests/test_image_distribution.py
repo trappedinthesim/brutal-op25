@@ -46,7 +46,7 @@ class LinuxPullTests(unittest.TestCase):
     def run_bootstrap(self, *, local_present=False, pull_succeeds=True, crlf_release=False,
                       operation='ensure', expected_success=True, owned_tags=(),
                       local_id='old-id', include_lists=False, local_user_valid=True,
-                      release_user_valid=True):
+                      release_user_valid=True, expected_error=None):
         with tempfile.TemporaryDirectory() as directory:
             mock = Path(directory) / 'docker'
             log = Path(directory) / 'calls'
@@ -72,9 +72,10 @@ class LinuxPullTests(unittest.TestCase):
                             '  "pull "*) exit "$BRUTAL_TEST_PULL";;\n'
                             '  "run --rm")\n'
                             '    case "$*" in\n'
-                            '      *" ghcr.io/"*) [ "$BRUTAL_TEST_RELEASE_USER" = 1 ] || exit 1;;\n'
-                            '      *) [ "$BRUTAL_TEST_LOCAL_USER" = 1 ] || exit 1;;\n'
+                            '      *" ghcr.io/"*) task_valid=$BRUTAL_TEST_RELEASE_USER;;\n'
+                            '      *) task_valid=$BRUTAL_TEST_LOCAL_USER;;\n'
                             '    esac\n'
+                            '    [ "$task_valid" = 1 ] || { echo "runtime error: test image unavailable" >&2; exit 1; }\n'
                             '    printf "%s\\n" op25; exit 0;;\n'
                             'esac\n'
                             'exit 0\n')
@@ -102,16 +103,52 @@ class LinuxPullTests(unittest.TestCase):
                                     capture_output=True, text=True, timeout=10)
             calls = log.read_text().splitlines() if log.exists() else []
         self.assertEqual(result.returncode == 0, expected_success, result.stderr)
+        if expected_error:
+            self.assertIn(expected_error, result.stderr)
         return calls if include_lists else [call for call in calls if not call.startswith('image ls')]
 
     def test_existing_local_image_does_not_pull_or_build(self):
         self.assertEqual(self.run_bootstrap(local_present=True),
                          [f'image inspect {LOCAL}', self.user_check(LOCAL)])
 
+    def test_launcher_starts_when_daemon_username_lookup_is_unavailable(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'install').mkdir()
+            shutil.copy(ROOT / 'brutal-op25.sh', root)
+            shutil.copy(ROOT / 'install/image-bootstrap.sh', root / 'install')
+            mock = root / 'docker'
+            mock.write_text(
+                '#!/bin/sh\n'
+                'case "$1" in\n'
+                '  info) echo linux;;\n'
+                '  image) exit 0;;\n'
+                '  run)\n'
+                '    case " $* " in\n'
+                '      *" --user 1000:1000 "*) ;;\n'
+                '      *) echo "unable to find user op25" >&2; exit 125;;\n'
+                '    esac\n'
+                '    case "$*" in\n'
+                '      *"/usr/bin/id"*) echo op25;;\n'
+                '      *"python brutal_cli.py"*)\n'
+                '        case " $* " in *" --env HOME=/home/op25 "*) echo receiver-started;; *) exit 2;; esac;;\n'
+                '      *) exit 2;;\n'
+                '    esac;;\n'
+                '  *) exit 2;;\n'
+                'esac\n')
+            mock.chmod(0o755)
+            env = dict(os.environ, PATH=directory + os.pathsep + os.environ['PATH'],
+                       BRUTAL_OP25_IMAGE=LOCAL, BRUTAL_WSL_NATIVE='1',
+                       DOCKER_HOST='unix:///var/run/docker.sock')
+            result = subprocess.run(['bash', str(root / 'brutal-op25.sh'), '--no-usb'],
+                                    cwd=root, env=env, capture_output=True, text=True, timeout=10)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('receiver-started', result.stdout)
+
     @staticmethod
     def user_check(image):
         return ('run --rm --network none --read-only --cap-drop ALL '
-                '--security-opt no-new-privileges:true --entrypoint /usr/bin/id '
+                '--security-opt no-new-privileges:true --user 1000:1000 --entrypoint /usr/bin/id '
                 f'{image} -un')
 
     def test_broken_local_account_is_repaired_from_verified_release(self):
@@ -121,7 +158,8 @@ class LinuxPullTests(unittest.TestCase):
                           f'tag {RELEASE} {LOCAL}'])
 
     def test_unusable_release_is_not_activated(self):
-        self.assertEqual(self.run_bootstrap(release_user_valid=False, expected_success=False),
+        self.assertEqual(self.run_bootstrap(release_user_valid=False, expected_success=False,
+                                            expected_error='runtime error: test image unavailable'),
                          [f'image inspect {LOCAL}', f'pull {RELEASE}',
                           self.user_check(RELEASE)])
 

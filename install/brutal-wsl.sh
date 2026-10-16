@@ -94,7 +94,12 @@ if ((task_status != 88)); then
 fi
 
 # Read and consume the one-time request from the private Docker volume.
+task_request_user_args=()
+if [[ ${BRUTAL_OP25_IMAGE:-$BRUTAL_LOCAL_IMAGE} == "$BRUTAL_LOCAL_IMAGE" ]]; then
+    task_request_user_args=(--user 1000:1000)
+fi
 task_request=$(docker run --rm --network none --read-only --cap-drop ALL \
+    "${task_request_user_args[@]}" \
     --volume brutal-op25-data:/data --entrypoint python "${BRUTAL_OP25_IMAGE:-$BRUTAL_LOCAL_IMAGE}" \
     -c 'from pathlib import Path; p=Path("/data/host-handoff.json"); print(p.read_text()); p.unlink()')
 task_fields=$(python3 -c '

@@ -30,7 +30,9 @@ command -v docker >/dev/null || { printf 'Docker is missing. Run bash "%s/instal
 # USB nodes belong to this host only; do not pass them to an unrelated remote engine.
 task_endpoint=${DOCKER_HOST:-$(docker context inspect --format '{{.Endpoints.docker.Host}}')}
 [[ "$task_endpoint" == unix://* ]] || { printf '%s\n' 'Use a local Linux Docker socket. Remote Docker contexts need their own device configuration.' >&2; exit 1; }
+task_user_args=()
 if [[ "$task_image" == "$BRUTAL_LOCAL_IMAGE" ]]; then
+    task_user_args=(--user 1000:1000 --env HOME=/home/op25)
     brutal_ensure_base_image "$task_root" "$task_build"
 elif "$task_build" || ! docker image inspect "$task_image" >/dev/null 2>&1; then
     printf 'Custom image %s is unavailable. Build or pull it before launching.\n' "$task_image" >&2; exit 1
@@ -87,7 +89,7 @@ if ! "$task_no_usb"; then
                 if [[ "$task_image" == "$BRUTAL_LOCAL_IMAGE" ]]; then
                     task_addon=brutal-op25-sdrplay:0.3.0-dev.24-local
                     if "$task_build" || ! brutal_sdrplay_addon_current "$task_addon" || \
-                        ! docker run --rm --network none --read-only --cap-drop ALL \
+                        ! docker run --rm --network none --read-only --cap-drop ALL --user 1000:1000 \
                             --tmpfs /tmp --tmpfs /home/op25:uid=1000,gid=1000 \
                             --entrypoint python "$task_addon" -c \
                             'from hardware_check import check_profile; r=check_profile("rspdxr2"); assert r["software_dependencies_present"], r["missing"]'; then
@@ -155,6 +157,7 @@ if [[ -f "$task_key_file" ]]; then
     task_secret_args=(--mount "type=bind,source=$task_key_file,target=/run/secrets/radioreference_app_key,readonly")
 fi
 exec docker run --rm -it --read-only --cap-drop ALL \
+    "${task_user_args[@]}" \
     --security-opt no-new-privileges:true --tmpfs /tmp:size=128m,mode=1777 \
     --tmpfs /home/op25:size=16m,uid=1000,gid=1000,mode=0700 \
     --volume brutal-op25-data:/data --env BRUTAL_RR_APP_KEY "${task_secret_args[@]}" "${task_usb_args[@]}" "${task_mode_args[@]}" \
